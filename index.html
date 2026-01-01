@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Porject</title>
     <link rel="stylesheet" href="/assets/materialize/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <style></style>
 <body>
-<nav>
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo">Logo</a>
+<nav class="red accent-3">
+    <div class="nav-wrapper"  class="indigo lighten-2" >
+      <a href="#!"  class="brand-logo">Home </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="sass.html">Sass</a></li>
@@ -23,14 +24,26 @@
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li><a href="sass.html">Sass</a></li>
-    <li><a href="badges.html">Components</a></li>
-    <li><a href="collapsible.html">Javascript</a></li>
-    <li><a href="mobile.html">Mobile</a></li>
+   <li><div class="user-view">
+      <div class="background">
+        <img src="assets/images/Background.jpeg" class="w_100">
+      </div>
+      <a href="#user"><img class="circle" src="assets/images/Avatar.jpg"></a>
+      <a href="#name"><span class="white-text name">mohammad</span></a>
+      <a href="#email"><span class="white-text email">mohammad@gmail.com</span></a>
+    </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!"><i class="material-icons">link</i>open</a></li>
+    <li><a href="#!"><i class="material-icons">add</i> fill</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">setting</a></li>
+    <li><a class="waves-effect" href="#!">images</a></li>
+    <li><a class="waves-effect" href="#!">video</a></li>
+    <li><a class="waves-effect" href="#!">font</a></li>
   </ul>
           
 
     <script src="/assets/materialize/js/materialize.min.js"></script>
     <script src="/assets/js/main.js"></script>
 </body>
-</html>
+</html> 
