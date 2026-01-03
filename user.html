@@ -12,15 +12,15 @@
 <style></style>
 <body>
   <!-- navbar sevtion ____start____ -->
-<nav class=" z-depth-0 top_navbar red darken-1">
-    <div class="nav-wrapper"  class="indigo lighten-2" >
-      <a href="#!"  class=" hide-on-med-and-up">Home </a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<nav class="white  z-depth-0">
+    <div class="nav-wrapper"   >
+      <a href="#!"  class="red-text hide-on-med-and-up ">User </a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger red-text"><i class="material-icons">menu</i></a>
       <ul class=" hide-on-med-and-down">
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/user.html">User Management</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
+        <li><a href="/index.html" class="red-text" >Home</a></li>
+        <li><a href="/user.html" class="red-text">User Management</a></li>
+        <li><a href="collapsible.html" class="red-text">Javascript</a></li>
+        <li><a href="mobile.html" class="red-text">Mobile</a></li>
       </ul>
     </div>
   </nav>
@@ -47,16 +47,28 @@
   </ul>
     <!-- navbar sevtion ____end____   -->
 
-     <!-- home sevtion ____start____ -->
+     <!-- content sevtion ____start____ -->
 
-      <section class="flex-c-m flex-col sizefull p-r-20 p-l-20">
-       <img src="/assets/images/logo1.png" alt="logo" class="w-full max-w-200 p-t-100 filter_shadow">
-       <a href="https://t.me/Tommy_miikel" class="waves-effect waves-light btn red darken-3 w-full max-w-250 m-t-10 rounded_pill">button</a>
-       <a href="https://t.me/Tommy_miikel" class="waves-effect waves-light btn red darken-3 w-full max-w-250 m-t-10 rounded_pill">button</a>
-       <a href="https://t.me/Tommy_miikel" class="waves-effect waves-light btn red darken-3 w-full max-w-250 m-t-10 rounded_pill">button</a>
-      </section>
+     <section id="top_actions_section">
+        <!-- add button --> 
+     <div class="p-t-10 p-r-10 p-b-10 p-l-10">
+        <button class="waves-effect waves-light btn red darken-3 p-l-30 p-r-30 w-full rounded_pill  flex-c"> 
+            <i class="material-icons m-r-5">add</i>add user 
+        </button>
+     </div>
+        <!-- search section --> 
+     <div class="row">
+        <div class="input-field col s12">
+          <input id="disabled" type="text" class="validate">
+          <label for="search">
+            <i class="material-icons pos-relative top-7">search</i>  
+             search
+          </label>
+        </div>
+      </div>
+     </section>
 
-     <!-- home sevtion ____end____   -->
+     <!-- content sevtion ____end____   -->
 
     <script src="/assets/materialize/js/materialize.min.js"></script>
     <script src="/assets/js/main.js"></script>
