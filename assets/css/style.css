@@ -1,9 +1,11 @@
 @media(min-width:600px){
 
 .top_navbar{
-   
     box-shadow: 0 0 50px rgb(71, 71, 71) !important;
-  
 }
 
+   #top_actions_section{
+    display: flex !important;
+    align-items: center;
+   }
 }
