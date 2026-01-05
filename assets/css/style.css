@@ -8,4 +8,22 @@
     display: flex !important;
     align-items: center;
    }
+} 
+
+/* .user_list_item .user_list_arrow_icon{
+
+     transition: all 250ms ease;
+
+} */
+.user_list_item.active .user_list_arrow_icon{
+
+    transform: rotate(180deg);
+
+}
+
+.user_list_item.active .collapsible-header , .user_list_item.active{
+
+background-color: rgba(121, 121, 121, 0.226);
+
+
 }
