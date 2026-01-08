@@ -27,3 +27,10 @@ background-color: rgba(121, 121, 121, 0.226);
 
 
 }
+table.striped > tbody > tr:nth-child(odd) {
+  background-color: #ffcdd2;
+}
+
+table.highlight > tbody > tr:hover {
+  background-color: #c5cae9 ;
+}
