@@ -34,3 +34,16 @@ table.striped > tbody > tr:nth-child(odd) {
 table.highlight > tbody > tr:hover {
   background-color: #c5cae9 ;
 }
+.container {
+  margin: 0 auto;
+  max-width: 1480px;
+  width: 90%;
+}
+
+.fixadd{
+  display: flex;
+  align-items: baseline;
+}
+/* .container{
+  width: 100% !important;
+} */

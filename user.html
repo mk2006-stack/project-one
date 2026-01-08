@@ -49,16 +49,16 @@
 
      <!-- content sevtion ____start____ -->
 
-     <section id="top_actions_section" class="row m-b-0">
-    <div class=" col m1 l1 hide-on-med-and-down"></div>
+     <section id="top_actions_section" class="row m-b-0 container">
+    <div class=" col m0.5 l0,5 hide-on-med-and-down"></div>
         <!-- add button --> 
-     <div class="p-t-10 p-r-10 p-b-10 p-l-10 col s12 m4 l4 ">
+     <div class="p-t-10 p-r-10 p-b-10 p-l-10 col s12 m4.5 l4.5 ">
         <button class="waves-effect waves-light btn red darken-3 p-l-30 p-r-30 w-full rounded_pill  flex-c"> 
             <i class="material-icons m-r-5">add</i>add user 
         </button>
      </div>
         <!-- search section --> 
-     <div class="row col s12 m6 l6 m-b-5 ">
+     <div class="row col s12 m6.5 l6.5 m-b-5 ">
         <div class="input-field col s12">
           <input id="disabled" type="text" class="validate">
           <label for="search">
@@ -67,7 +67,7 @@
           </label>
         </div>
       </div>
-       <div class=" col m1 l1   hide-on-med-and-down"></div>
+       <div class=" col m0.5 l0.5   hide-on-med-and-down"></div>
      </section> 
      
       <section class="user_list_section ">
@@ -282,6 +282,21 @@
           </tbody>
 
         </table>
+       </div>
+      
+       <div class=" pigination-container  p-l-9 p-r-9 p-t-15 p-b-10 flex-sb-m pos-fixed left-0 right-0 bottom-0 z-depth-5 rounded_top_30">
+        <div class="pigination-item-counts flex-l p-l-10 fixadd">
+          showing
+           <span class="m-l-5 m-l-5 max-w-50">
+            <input type="number" class="red-text darken-3 no-border center-align m-b-0 " value="10">
+           </span>
+           of
+           <span class="red-text darken-3 m-l-5 m-r-5">100</span>
+        </div>
+        <div>
+          <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill">keyboard_arrow_left</i>
+          <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill">keyboard_arrow_right</i>
+        </div>
        </div>
       </section>
      <!-- content sevtion   end    -->
