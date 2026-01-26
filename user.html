@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Porject</title>
     <link rel="stylesheet" href="/assets/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/assets/materialize/css/materialize-rtl.css">
     <link rel="stylesheet" href="/assets/css/util.css"> 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <title>My Porject</title>
 </head>
 <style></style>
-<body>
+<body dir="rtl">
   <!-- navbar sevtion ____start____ -->
 <nav class="white  z-depth-0">
     <div class="nav-wrapper"   >
       <a href="#!"  class="red-text hide-on-med-and-up ">User </a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger red-text"><i class="material-icons     ">menu</i></a>
-      <ul class=" hide-on-small-only">
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger red-text right"><i class="material-icons">menu</i></a>
+      <ul class=" hide-on-small-only dis-flex">
         <li><a href="/index.html" class="red-text" >Home</a></li>
         <li><a href="/user.html" class="red-text">User Management</a></li>
         <li><a href="collapsible.html" class="red-text">Javascript</a></li>
@@ -34,16 +35,16 @@
       <a ><span class="white-text name">mohammad</span></a>
       <a ><span class="white-text email">mohammad@gmail.com</span></a>
     </div></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-    <li><a href="#!"><i class="material-icons">link</i>open</a></li>
-    <li><a href="#!"><i class="material-icons">add</i> fill</a></li>
+    <li><a href="#!"><i class="material-icons right sidenav_link_icon">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!"><i class="material-icons right sidenav_link_icon">link</i>open</a></li>
+    <li><a href="#!"><i class="material-icons right sidenav_link_icon">add</i> fill</a></li>
     <li><div class="divider"></div></li>
     <li><a class="subheader">peges</a></li>
-    <li><a class="waves-effect" href="/">home</a></li>
-    <li><a class="waves-effect" href="/user.html">user</a></li>
-    <li><a class="waves-effect" >images</a></li>
-    <li><a class="waves-effect" >video</a></li>
-    <li><a class="waves-effect"     >font</a></li>
+    <li><a class="waves-effect" href="/">Home</a></li>
+    <li><a class="waves-effect" href="/user.html">User</a></li>
+    <li><a class="waves-effect" >Images</a></li>
+    <li><a class="waves-effect" >Video</a></li>
+    <li><a class="waves-effect"     >Font</a></li>
   </ul>
     <!-- navbar sevtion ____end____   -->
 
@@ -284,7 +285,7 @@
         </table>
        </div>
         <!-- menu section -->
-       <div class=" pigination-container  p-l-9 p-r-9 p-t-15 p-b-10 flex-sb-m pos-fixed left-0 right-0 bottom-0 z-depth-5 rounded_top_30">
+       <div class=" pigination-container  p-l-9 p-r-9 p-t-15 p-b-10 flex-sb-m pos-fixed left-0 right-0 bottom-0 z-depth-5 rounded_top_30 center-by-center">
         <div class="pigination-item-counts flex-l p-l-10 fixadd">
           showing
            <span class="m-l-5 m-l-5 max-w-50">
@@ -293,9 +294,9 @@
            of
            <span class="red-text darken-3 m-l-5 m-r-5">100</span>
         </div>
-        <div>
-          <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill">keyboard_arrow_left</i>
+        <div class="pgination-buttons">
           <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill">keyboard_arrow_right</i>
+          <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill">keyboard_arrow_left</i>
         </div>
        </div>
       </section>
@@ -303,10 +304,10 @@
       <!-- user_modal -->
 
       <div class="add_user_modal_back dis-none"></div>
-      <div class="add_user_modal container rounded_top_30 ">
+      <div class="add_user_modal container rounded_top_30 trans-0-3 ">
         <div class="rowp-t-10 p-b-10 p-r-40 p-l-40 center-on-small-only">
           <h5>
-            <i class="material-icons m-r-10 m-l-10 pos-relative top-4">person-add</i>Add User
+            <i class="material-icons m-r-10 m-l-10 pos-relative top-4 red-text darken-3">person-add</i>Add User
           </h5>
 
           <form>
