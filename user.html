@@ -50,7 +50,7 @@
 
      <!-- content sevtion ____start____ -->
 
-     <section id="top_actions_section" class="row m-b-0 container">
+     <section id="top_actions_section" class="row m-b-0   container">
     <div class=" col m0.5 l0,5 hide-on-med-and-down"></div>
         <!-- add button --> 
      <div class="p-t-10 p-r-10 p-b-10 p-l-10 col s12 m4.5 l4.5 ">
@@ -301,6 +301,12 @@
        </div>
       </section>
 
+    <section id="test_section"  x-data="mainData">
+     <!-- <span x-text="message" class="red"></span> -->
+      <button   class="btn waves-effect waves-light red darken-3 p-l-30 p-r-30  rounded_pill button_JS " x-on:click="testFunc()">click</button>
+    </section>
+
+
       <!-- user_modal -->
 
       <div class="add_user_modal_back dis-none"></div>
@@ -338,9 +344,11 @@
       </div>
     
      <!-- content sevtion   end    -->
-
-    <script src="/assets/materialize/js/materialize.min.js"></script>
-    <script src="/assets/js/main.js"></script>
-    <script src="/assets/js/user.js"></script>
+  
+    <script defer src="/assets/js/alpine.js" ></script>
+    <script src="/assets/js/alpinejsContorllers/mainContorllers.js" ></script>
+    <script src="/assets/materialize/js/materialize.min.js" ></script>
+    <script src="/assets/js/main.js"> </script>
+    <script src="/assets/js/user.js"  ></script>
 </body> 
 </html> 
