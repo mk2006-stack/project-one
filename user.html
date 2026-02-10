@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/materialize/css/materialize.min.css">
-    <link rel="stylesheet" href="/assets/materialize/css/materialize-rtl.css">
     <link rel="stylesheet" href="/assets/css/util.css"> 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>My Porject</title>
 </head>
 <style></style>
-<body dir="rtl">
+<body x-data="usersData()">
   <!-- navbar sevtion ____start____ -->
 <nav class="white  z-depth-0">
     <div class="nav-wrapper"   >
       <a href="#!"  class="red-text hide-on-med-and-up ">User </a>
-      <a href="#" data-target="mobile-demo" class="sidenav-trigger red-text right"><i class="material-icons">menu</i></a>
-      <ul class=" hide-on-small-only dis-flex">    
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger red-text"><i class="material-icons">menu</i></a>
+      <ul class=" hide-on-small-only">    
         <li><a href="/index.html" class="red-text" >Home</a></li>
         <li><a href="/user.html" class="red-text">User Management</a></li>
         <li><a href="collapsible.html" class="red-text">Javascript</a></li>
@@ -71,7 +70,7 @@
        <div class=" col m0.5 l0.5   hide-on-med-and-down"></div>
      </section> 
      
-      <section class="user_list_section ">
+      <section class="user_list_section" x-init="getUsers()" >
         <!-- list section  mobail -->
          <ul class="collapsible hide-on-med-and-up">
            <li class="user_list_item">
@@ -229,7 +228,7 @@
           <thead>
                <tr>
                 <th>#</th>
-                <th>name</th>
+                <th>Name</th>
                 <th>Username</th>
                 <th>Number</th>
                 <th>Gmail</th>
@@ -240,46 +239,18 @@
           </thead>
 
           <tbody class="desktop_table_body">
-               <tr>
-                   <td>1</td>
-                   <td>  Mohammad </td>
-                   <td>Mohammad Alizade</td>
-                   <td>09120000000</td>
-                   <td>mohammadkhazaie.2006@gmail.com</td>
-                   <td>Tehran</td>
-                   <td><i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7">delete_forever</i>
-                   <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i></td>
-               </tr>
-               <tr>
-                  <td>2</td>
-                   <td>Ali</td>
-                   <td>Ali Moslempor</td>
-                   <td>09100000000</td>
-                   <td>alimoslempor@Gmail.com</td>
-                   <td>Shiraz</td>
-                   <td><i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7">delete_forever</i>
-                   <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i></td>
-                </tr>
-                <tr>
-                   <td>3</td>
-                   <td>Mobin</td>
-                   <td>Mobin Darabi</td>
-                   <td>09190000000</td>
-                   <td>mobinkhan@gmail.com</td>
-                   <td>Qazvin</td>
-                   <td><i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7">delete_forever</i>
-                   <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i></td>
-                </tr>
-                 <tr>
-                   <td>4</td>
-                   <td>Reza</td>
-                   <td>Reza Mohahammadi</td>
-                   <td>09900000000</td>
-                   <td>rez1990@Gmail.com</td>
-                   <td>karaj</td>
-                   <td><i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7">delete_forever</i>
-                   <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i></td>
-                </tr>
+            <template x-for="user in users">
+              <tr>
+                  <td x-text="user.id">1</td>
+                  <td x-text="user.name">  Mohammad </td>
+                  <td x-text="user.username">Mohammad Alizade</td>
+                  <td x-text="user.number">09120000000</td>
+                  <td x-text="user.email">mohammadkhazaie.2006@gmail.com</td>
+                  <td x-text="user.address.city+' -  '+user.address.street"></td>
+                  <td><i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7">delete_forever</i>
+                  <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i></td>
+              </tr>
+            </template>
           </tbody>
 
         </table>
@@ -295,16 +266,11 @@
            <span class="red-text darken-3 m-l-5 m-r-5">100</span>
         </div>
         <div class="pgination-buttons">
-          <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill">keyboard_arrow_right</i>
           <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill">keyboard_arrow_left</i>
+          <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill">keyboard_arrow_right</i>
         </div>
        </div>
       </section>
-
-    <section id="test_section"  x-data="mainData">
-     <!-- <span x-text="message" class="red"></span> -->
-      <button   class="btn waves-effect waves-light red darken-3 p-l-30 p-r-30  rounded_pill button_JS " x-on:click="testFunc()">click</button>
-    </section>
 
 
       <!-- user_modal -->
@@ -344,9 +310,9 @@
       </div>
     
      <!-- content sevtion   end    -->
-  
+    <script  src="/assets/js/axios.js"></script>
     <script defer src="/assets/js/alpine.js" ></script>
-    <script src="/assets/js/alpinejsContorllers/mainContorllers.js" ></script>
+    <script src="/assets/js/alpinejsContorllers/UsersContorllers.js" ></script>
     <script src="/assets/materialize/js/materialize.min.js" ></script>
     <script src="/assets/js/main.js"> </script>
     <script src="/assets/js/user.js"  ></script>
