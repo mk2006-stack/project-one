@@ -88,3 +88,12 @@ table.highlight > tbody > tr:hover {
    height: calc(100vh - 258px);
   overflow: auto;
 }
+.page_namber{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+}
