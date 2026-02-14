@@ -92,7 +92,7 @@
       <section class="user_list_section" x-init="getUsers()" >
         <!-- list section  mobail -->
          <ul class="collapsible hide-on-med-and-up">
-          <template x-for="user in users">
+          <template x-for="user in pageUsers">
            <li class="user_list_item">
              <div class="collapsible-header">
                 <i class="material-icons red-text darken-3 user_list_arrow_icon trans-0-2">arrow_drop_down_circle</i>
@@ -185,7 +185,7 @@
 
       <!-- user_modal -->
 
-      <div class="add_user_modal_back" x-bind:class="{'dis-none': !showAddModal }" x-on:click="showAddModal = false "></div>
+      <div class="add_user_modal_back" x-show="showAddModal" x-transition.opacity.duration.1500ms x-on:click="showAddModal = false "></div>
       <div class="add_user_modal container rounded_top_30 trans-0-3" x-bind:class="{'show': showAddModal }">
         <div class="rowp-t-10 p-b-10 p-r-40 p-l-40 center-on-small-only">
           <h5>
