@@ -33,6 +33,9 @@ document.addEventListener('alpine:init', () => {
             this.currentPage--
              if (this.currentPage < 1 ) this.currentPage = 1
             this.pagination() 
+        },
+        handleChangeItemsCount(e){
+
         }
      }))
 

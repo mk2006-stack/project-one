@@ -165,15 +165,15 @@
 
         </table>
        </div>
-        <!-- menu section -->
+        <!-- menu model section -->
        <div class=" pigination-container  p-l-9 p-r-9 p-t-15 p-b-10 flex-sb-m pos-fixed left-0 right-0 bottom-0 z-depth-5 rounded_top_30 center-by-center">
         <div class="pigination-item-counts flex-l p-l-10 fixadd">
           showing
            <span class="m-l-5 m-l-5 max-w-50">
-            <input type="number" class="red-text darken-3 no-border center-align m-b-0 " value="10">
+            <input type="number" class="red-text darken-3 no-border center-align m-b-0 " x-on:chenge="handleChangeItemsCount($el)">
            </span>
            of
-           <span class="red-text darken-3 m-l-5 m-r-5">100</span>
+           <span class="red-text darken-3 m-l-5 m-r-5">10</span>
         </div>
 
         <strong x-text="currentPage" class="red-text darken-3 page_namber"></strong>
