@@ -53,14 +53,15 @@
     <div class=" col m0.5 l0,5 hide-on-med-and-down"></div>
         <!-- add button --> 
      <div class="p-t-10 p-r-10 p-b-10 p-l-10 col s12 m4.5 l4.5 ">
-        <button  id="add_user_button" class="waves-effect waves-light btn red darken-3 p-l-30 p-r-30 w-full rounded_pill  flex-c" x-on:click=" showAddModal = true"> 
+        <button  id="add_user_button" class="waves-effect waves-light btn red darken-3 p-l-30 p-r-30 w-full rounded_pill  flex-c" x-on:click="showAddModal = true"> 
             <i class="material-icons m-r-5">add</i>add user 
         </button>
      </div>
         <!-- search section --> 
      <div class="row col s12 m6.5 l6.5 m-b-5 ">
-        <div class="input-field col s12">
-          <input id="disabled" type="text" class="validate">
+        <div class="input-field col s12"
+        x-init="$watch('searchChar' , (value)=>handleSearch(value))">
+          <input id="disabled" type="text"  x-modal="searchChar">
           <label for="search">
             <i class="material-icons pos-relative top-7">search</i>  
              search
@@ -169,11 +170,11 @@
        <div class=" pigination-container  p-l-9 p-r-9 p-t-15 p-b-10 flex-sb-m pos-fixed left-0 right-0 bottom-0 z-depth-5 rounded_top_30 center-by-center">
         <div class="pigination-item-counts flex-l p-l-10 fixadd">
           showing
-           <span class="m-l-5 m-l-5 max-w-50">
-            <input type="number" class="red-text darken-3 no-border center-align m-b-0 " x-on:chenge="handleChangeItemsCount($el)">
+           <span class="m-l-5 m-l-5 max-w-50" x-init="$watch('itemsCount' , (value)=>handleChangeItemsCount(value))">
+            <input type="number" class="red-text darken-3 no-border center-align m-b-0 " x-model="itemsCount" x-on:chenge=" pagination()">
            </span>
            of
-           <span class="red-text darken-3 m-l-5 m-r-5">10</span>
+           <span class="red-text darken-3 m-l-5 m-r-5" x-text="users.length">10</span>
         </div>
 
         <strong x-text="currentPage" class="red-text darken-3 page_namber"></strong>
@@ -197,22 +198,28 @@
 
           <form>
              <div class="input-field col s12">
-              <input  id="Name" type="text" class="validate">
+              <input  id="Name" type="text" class="validate" x-modal="newUserInfo.name">
               <label for="Name">Name</label>
              </div>
 
              <div class="input-field col s12">
-              <input  id="Username" type="text" class="validate">
+              <input  id="Username" type="text" class="validate" x-modal="newUserInfo.username">
               <label for="Username">Username</label>
              </div>
 
+              <div class="input-field col s12">
+              <input  id="email" type="text" class="validate" x-modal="newUserInfo.namber">
+              <label for="email">Number</label>
+             </div>
+
              <div class="input-field col s12">
-              <input  id="email" type="text" class="validate">
-              <label for="email">email</label>
+              <input  id="email" type="text" class="validate" x-modal="newUserInfo.email">
+              <label for="email">Email</label>
              </div>
 
             <button
-            type="button" class="waves-effect waves-light btn red darken-3 m-t-20 m-b-10 w-full max-w-250 rounded_pill">
+            type="button" class="waves-effect waves-light btn red darken-3 m-t-20 m-b-10 w-full max-w-250 rounded_pill"
+            x-on:click="handleSubmitaddUserForm()">
  
             submit
 
