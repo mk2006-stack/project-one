@@ -15,6 +15,11 @@ document.addEventListener('alpine:init', () => {
             username:"",
             number:"",
             email:"",
+            address: {
+             street: "",
+             city:""
+            },
+           description:""
          },
          getUsers(){
              this.isLoading = true
@@ -50,23 +55,70 @@ document.addEventListener('alpine:init', () => {
          this.pageUsers()
         },
         handleSearch(value){
-               this.users = this.mainUsers.filter(user=>(user.neme.includes(value) || user.userneme.includes(value)  || user.email.includes(value)))  
+               const search = value.toLowerCase().trim()
+               this.users = this.mainUsers.filter(user=>(user.neme?.toLowerCase().includes(search) || user.userneme?.toLowerCase().includes(search)  ||user.email?.toLowerCase().includes(search)))  
                this.currentPage = 1 
                this.pagination()
         },
-        handleSubmitaddUserForm(){
-             console.log(this.newUserInfo);
-              axios.post("https://jsonplaceholder.typicode.com/users" , this.newUserInfo , ).then
-              ((res)=>{
-                if (res.status == 201 )
-               this.mainUsers.push(res.data)
-               this.showAddModal= false
-               this.pagination() 
-               
-             }).finally(()=>{
-                 this.isLoading = false 
-             }) 
+       handleSubmitAddUserForm() {
+
+    const newUser = {
+        id: this.users.length + 1,
+
+        name: this.newUserInfo.name,
+        username: this.newUserInfo.username,
+
+        // برای جدول
+        number: this.newUserInfo.number,
+
+        email: this.newUserInfo.email,
+
+        address: {
+            street: "",
+            city: ""
         }
-     }))
+    };
+
+    console.log("USER TO ADD:", newUser);
+
+    // اضافه کردن به users
+    this.users = [...this.users, newUser];
+
+    // تعداد صفحات
+    this.pageCount = Math.ceil(
+        this.users.length / this.itemsCount
+    );
+
+    // رفتن به آخرین صفحه
+    this.currentPage = this.pageCount;
+
+    // ساخت دوباره pageUsers
+    let start =
+        (this.currentPage - 1) * this.itemsCount;
+
+    let end =
+        this.currentPage * this.itemsCount;
+
+    this.pageUsers = this.users.slice(start, end);
+
+    // بستن Modal
+    this.showAddModal = false;
+
+    // خالی کردن فرم
+    this.newUserInfo = {
+        name: "",
+        username: "",
+        number: "",
+        email: "",
+        address: {
+            street: "",
+            city: ""
+        },
+        description: ""
+    };
+
+    console.log("ALL USERS:", this.users);
+    console.log("PAGE USERS:", this.pageUsers);
+}}))
 
 })

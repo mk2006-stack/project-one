@@ -59,9 +59,8 @@
      </div>
         <!-- search section --> 
      <div class="row col s12 m6.5 l6.5 m-b-5 ">
-        <div class="input-field col s12"
-        x-init="$watch('searchChar' , (value)=>handleSearch(value))">
-          <input id="disabled" type="text"  x-modal="searchChar">
+        <div class="input-field col s12">
+          <input id="search" type="text"  x-modal="searchChar" @input="handleSearch($event.target.value)">
           <label for="search">
             <i class="material-icons pos-relative top-7">search</i>  
              search
@@ -126,7 +125,7 @@
                 <div class="collapsible-body">
                  <div class="p-all-5">
                 <span class="f-bold">Description</span>
-                <span x-text="user.">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex nostrum id nam quos eius voluptate pariatur maxime, nemo, veniam fugit, eligendi quo atque? A, deserunt provident sit architecto quisquam fugit.</span>
+                <span x-text="user.description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex nostrum id nam quos eius voluptate pariatur maxime, nemo, veniam fugit, eligendi quo atque? A, deserunt provident sit architecto quisquam fugit.</span>
               </div>
              </div>
            </li>
@@ -197,29 +196,30 @@
           </h5>
 
           <form>
+
              <div class="input-field col s12">
-              <input  id="Name" type="text" class="validate" x-modal="newUserInfo.name">
+              <input  id="Name" type="text" class="validate" x-model="newUserInfo.name">
               <label for="Name">Name</label>
              </div>
 
              <div class="input-field col s12">
-              <input  id="Username" type="text" class="validate" x-modal="newUserInfo.username">
+              <input  id="Username" type="text" class="validate" x-model="newUserInfo.username">
               <label for="Username">Username</label>
              </div>
 
               <div class="input-field col s12">
-              <input  id="email" type="text" class="validate" x-modal="newUserInfo.namber">
+              <input  id="Number" type="text" class="validate" x-model="newUserInfo.namber">
               <label for="email">Number</label>
              </div>
 
              <div class="input-field col s12">
-              <input  id="email" type="text" class="validate" x-modal="newUserInfo.email">
+              <input  id="email" type="text" class="validate" x-model="newUserInfo.email">
               <label for="email">Email</label>
              </div>
 
             <button
             type="button" class="waves-effect waves-light btn red darken-3 m-t-20 m-b-10 w-full max-w-250 rounded_pill"
-            x-on:click="handleSubmitaddUserForm()">
+            x-on:click="handleSubmitAddUserForm()">
  
             submit
 
