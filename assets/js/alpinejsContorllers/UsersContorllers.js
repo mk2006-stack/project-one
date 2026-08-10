@@ -7,7 +7,7 @@ document.addEventListener('alpine:init', () => {
          isLoading: false,
          showAddModal : false,
          pageCount: 1,
-         itemsCount: 4,
+         itemsCount: 5,
          currentPage: 1,
          searchChar:"",
          newUserInfo:{
@@ -19,7 +19,6 @@ document.addEventListener('alpine:init', () => {
              street: "",
              city:""
             },
-           description:""
          },
          getUsers(){
              this.isLoading = true
@@ -55,8 +54,8 @@ document.addEventListener('alpine:init', () => {
          this.pageUsers()
         },
         handleSearch(value){
-               const search = value.toLowerCase().trim()
-               this.users = this.mainUsers.filter(user=>(user.neme?.toLowerCase().includes(search) || user.userneme?.toLowerCase().includes(search)  ||user.email?.toLowerCase().includes(search)))  
+               const search = value.toLowerCase().trim()   
+               this.users = this.mainUsers.filter(user=> (user.name?.toLowerCase().includes(search) || user.username?.toLowerCase().includes(search)  ||user.email?.toLowerCase().includes(search)))  
                this.currentPage = 1 
                this.pagination()
         },

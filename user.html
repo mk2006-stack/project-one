@@ -60,7 +60,7 @@
         <!-- search section --> 
      <div class="row col s12 m6.5 l6.5 m-b-5 ">
         <div class="input-field col s12">
-          <input id="search" type="text"  x-modal="searchChar" @input="handleSearch($event.target.value)">
+          <input id="search" type="text"  x-model="searchChar" @input="handleSearch($event.target.value)">
           <label for="search">
             <i class="material-icons pos-relative top-7">search</i>  
              search
@@ -121,12 +121,6 @@
                 <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i>
               </div>
              </div>
-              
-                <div class="collapsible-body">
-                 <div class="p-all-5">
-                <span class="f-bold">Description</span>
-                <span x-text="user.description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex nostrum id nam quos eius voluptate pariatur maxime, nemo, veniam fugit, eligendi quo atque? A, deserunt provident sit architecto quisquam fugit.</span>
-              </div>
              </div>
            </li>
            </template>
@@ -208,13 +202,18 @@
              </div>
 
               <div class="input-field col s12">
-              <input  id="Number" type="text" class="validate" x-model="newUserInfo.namber">
+              <input  id="Number" type="text" class="namber" x-model="newUserInfo.namber">
               <label for="email">Number</label>
              </div>
 
              <div class="input-field col s12">
               <input  id="email" type="text" class="validate" x-model="newUserInfo.email">
               <label for="email">Email</label>
+             </div>
+
+             <div class="input-field col s12">
+              <input  id="Address" type="text" class="validate" x-model="newUserInfo.Address">
+              <label for="Address">Address</label>
              </div>
 
             <button
