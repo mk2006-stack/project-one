@@ -113,7 +113,7 @@
               </div>
                <div class="p-all-5">
                 <span class="f-bold">Address:</span>
-                <span x-text="user.address.city+  -  +user.address.street"></span>
+                <span x-text="(user.address?.city  || '')+  '-'  +(user.address?.street  || '')"></span>
               </div>
                <div class="p-all-5">
                 <span class="f-bold">Active:</span>
@@ -150,7 +150,7 @@
                   <td x-text="user.username"></td>
                   <td x-text="user.number"></td>
                   <td x-text="user.email"></td>
-                  <td x-text="user.address.city+' -  '+user.address.street"></td>
+                  <td x-text="(user.address?.city  || '')+ '-' +(user.address?.street  || '')"></td>
                   <td><i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7">delete_forever</i>
                   <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i></td>
               </tr>
@@ -201,27 +201,20 @@
               <label for="Username">Username</label>
              </div>
 
-              <div class="input-field col s12">
-              <input  id="Number" type="text" class="namber" x-model="newUserInfo.namber">
-              <label for="email">Number</label>
-             </div>
 
              <div class="input-field col s12">
               <input  id="email" type="text" class="validate" x-model="newUserInfo.email">
               <label for="email">Email</label>
              </div>
 
-             <div class="input-field col s12">
-              <input  id="Address" type="text" class="validate" x-model="newUserInfo.Address">
-              <label for="Address">Address</label>
-             </div>
 
             <button
-            type="button" class="waves-effect waves-light btn red darken-3 m-t-20 m-b-10 w-full max-w-250 rounded_pill"
-            x-on:click="handleSubmitAddUserForm()">
- 
-            submit
-
+            type="button" class="waves-effect waves-light btn red darken-3 m-t-20 m-b-10 w-full max-w-250 rounded_pill pulse"
+            x-on:click="handleSubmitAddUserForm()"
+            x-bind:class="{'pulse' : isLoading}"
+            x-bind:disabled="isLoading">
+          
+            submit 
 
             </button>
           </form>

@@ -13,12 +13,7 @@ document.addEventListener('alpine:init', () => {
          newUserInfo:{
             name:"",
             username:"",
-            number:"",
             email:"",
-            address: {
-             street: "",
-             city:""
-            },
          },
          getUsers(){
              this.isLoading = true
@@ -100,6 +95,9 @@ document.addEventListener('alpine:init', () => {
 
     this.pageUsers = this.users.slice(start, end);
 
+
+    M.toast({html: 'عملیات با موفقیت انجام شد', classes: 'rounded green'});
+
     // بستن Modal
     this.showAddModal = false;
 
@@ -107,17 +105,12 @@ document.addEventListener('alpine:init', () => {
     this.newUserInfo = {
         name: "",
         username: "",
-        number: "",
         email: "",
-        address: {
-            street: "",
-            city: ""
-        },
-        description: ""
     };
 
     console.log("ALL USERS:", this.users);
     console.log("PAGE USERS:", this.pageUsers);
-}}))
+       }
+}))
 
 })
