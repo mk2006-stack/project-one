@@ -53,7 +53,7 @@
     <div class=" col m0.5 l0,5 hide-on-med-and-down"></div>
         <!-- add button --> 
      <div class="p-t-10 p-r-10 p-b-10 p-l-10 col s12 m4.5 l4.5 ">
-        <button  id="add_user_button" class="waves-effect waves-light btn red darken-3 p-l-30 p-r-30 w-full rounded_pill  flex-c" x-on:click="showAddModal = true"> 
+        <button  id="add_user_button" class="waves-effect waves-light btn red darken-3 p-l-30 p-r-30 w-full rounded_pill  flex-c" x-on:click="showAddModal = true; userIdToEdit = null; handleResetForm() "> 
             <i class="material-icons m-r-5">add</i>add user 
         </button>
      </div>
@@ -118,7 +118,7 @@
                <div class="p-all-5">
                 <span class="f-bold">Active:</span>
                 <i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7" x-on:click="handleDeleteUser(user.id)">delete_forever</i>
-                <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i>
+                <i class="material-icons orange-text darken-3  m-l-5 m-r-5 pos-relative top-7 " x-on:click="handleUpdateUser(user)" >edit</i>
               </div>
              </div>
              </div>
@@ -152,7 +152,7 @@
                   <td x-text="user.email"></td>
                   <td x-text="(user.address?.city  || '')+ '-' +(user.address?.street  || '')"></td>
                   <td><i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7" x-on:click="handleDeleteUser(user.id)">delete_forever</i>
-                  <i class="material-icons green-text darken-3  m-l-5 m-r-5 pos-relative top-7 " >edit</i></td>
+                  <i class="material-icons orange-text darken-3  m-l-5 m-r-5 pos-relative top-7 " x-on:click="handleUpdateUser(user)" >edit</i></td>
               </tr>
             </template>
           </tbody>
@@ -186,7 +186,8 @@
       <div class="add_user_modal container rounded_top_30 trans-0-3" x-bind:class="{'show': showAddModal }">
         <div class="rowp-t-10 p-b-10 p-r-40 p-l-40 center-on-small-only">
           <h5>
-            <i class="material-icons m-r-10 m-l-10 pos-relative top-4 red-text darken-3">person-add</i>Add User
+            <i class="material-icons m-r-10 m-l-10 pos-relative top-4 red-text darken-3">person-add</i>
+            <span x-text="userIdToEdit ? 'Edit User' : 'Add User' "> </span>
           </h5>
 
           <form>
@@ -210,8 +211,8 @@
 
             <button
             type="button" class="waves-effect waves-light btn red darken-3 m-t-20 m-b-10 w-full max-w-250 rounded_pill pulse"
-            x-on:click="handleSubmitAddUserForm()"
-            x-bind:class="{'pulse' : isLoading}"
+            x-on:click="userIdToEdit ?  handleConfirmEditUser() : handleSubmitAddUserForm()"
+            x-bind:class="{'pulse' : isLoading, 'orange' : userIdToEdit }"
             x-bind:disabled="isLoading">
           
             submit 
