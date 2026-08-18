@@ -305,9 +305,15 @@ table.highlight > tbody > tr:hover {
 }
 
 
-.fonts-icon {
-    background: #f3e5f5;
-    color: #8e24aa;
+.files-icon {
+    background: #fff3e0;
+    color: #fb8c88;
+}
+
+
+.settings-icon {
+    background: #e8eaf6 ;
+    color: #3949ab;
 }
 
 
@@ -492,4 +498,36 @@ table.highlight > tbody > tr:hover {
         padding: 20px;
     }
 
+}
+.status-card {
+    display: grid;
+    grid-template-columns: repeat(3 , 1fr);
+    gap: 20px;
+}
+.status-item {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+}
+.status-item i {
+    font-size: 35px;
+    color: #e53935;
+}
+.status-item h3 {
+    margin: 0;
+    font-size: 18px;
+}
+.status-item p { 
+    margin:  5px 0 0;
+    color: #757575;
+    font-size: 13px;
+}
+@media(max-width:900px){
+    .status-card{
+        grid-template-columns: 1fr;
+    }
 }

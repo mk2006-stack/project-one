@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="assets/css/util.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>My Porject</title>
+    <title>Devora</title>
 </head>
 <style></style>
-<body>
+<body x-data="homeData()" x-init="getUsers()">
   <!-- navbar sevtion ____start____ -->
 <nav class=" z-depth-0 top_navbar red darken-1">
     <div class="nav-wrapper"  class="indigo lighten-2" >
@@ -21,6 +21,8 @@
         <li><a href="/user.html">User Management</a></li>
         <li><a href="/images.html">Images</a></li>
         <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/files.html">Files</a></li>
+        <li><a href="/settings.html">Settings</a></li>
       </ul>
     </div>
   </nav>
@@ -41,9 +43,10 @@
     <li><a class="subheader">peges</a></li>
     <li><a class="waves-effect" href="/">Home</a></li>
     <li><a class="waves-effect" href="/user.html">User Management</a></li>
-    <li><a class="waves-effect" >Images</a></li>
-    <li><a class="waves-effect" >Articles</a></li>
-    
+    <li><a class="waves-effect" href="/images.html">Images</a></li>
+    <li><a class="waves-effect" href="/articles.html">Articles</a></li>
+    <li><a class="waves-effect" href="/files.html">Files</a></li>
+    <li><a class="waves-effect" href="/settings.html">Settings</a></li>
   </ul>
     <!-- navbar sevtion ____end____   -->
 
@@ -57,7 +60,7 @@
          <div class="hero-content">
           <span class="hero-badge">
             <i class="material-icons">dashboard</i>
-                 My Project
+                 Devora
           </span>
           <h1> Welcome back mohammad</h1>
           <p> Manage Your Users , Images Articles From One Place </p>
@@ -79,29 +82,92 @@
             <!--Images-->
 
             <a href="images.html" class="resource-card">
-              <div class="resource-iconimages-icon">
+              <div class="resource-icon images-icon">
                 <i class="material-icons">image</i>
               </div>
               <div class="resource-content">
                 <h3>Images</h3>
                 <P>Browse And Manage Your Images.</P>
               </div>
-              <i class="material-icons">arrow_forward</i>
+              <i class="material-icons arrow-icon">arrow_forward</i>
             </a>
 
             <!--Articles-->
             <a href="articles.html" class="resource-card">
-              <div class="resource-iconarticles-icon">
+              <div class="resource-icon articles-icon">
                 <i class="material-icons">article</i>
               </div>
               <div class="resource-content">
                 <h3>Article</h3>
                 <p> Read And Manage Your Article</p>
               </div>
-              <i class="material-icons">arrow_forward</i>
+              <i class="material-icons arrow-icon">arrow_forward</i>
+            </a>
+
+            <!--Files-->
+            <a href="files.html" class="resource-card">
+              <div class="resource-icon files-icon">
+                <i class="material-icons">folder</i>
+              </div>
+              <div class="resource-content">
+                <h3>Files</h3>
+                <p>Mango And Organize Your Files</p>
+              </div>
+              <i class="material-icons arrow-icon">arrow_forward</i>
+            </a>
+
+            <!--Settings-->
+            <a href="settings.html" class="resource-card">
+              <div class="resource-icon settings-icon">
+                <i class="material-icons">settings</i>
+              </div>
+              <div class="resource-content">
+                <h3>Settings</h3>
+                <p>Customize Your Application Settings</p>
+              </div>
+              <i class="material-icons arrow-icon">arrow_forward</i>
             </a>
           </div> 
         </section>
+
+       <!--Status-->
+
+      <section class="home-section">
+        <div class="section-title">
+          <span>STATUS</span>
+          <h2>System Overview</h2>
+        </div>
+        <div class="status-card">
+          <!--people-->
+          <div class="status-item">
+            <i class="material-icons">people</i>
+            <div>
+              <h3>
+                <span x-show="!isLoading" x-text="users.length"></span>
+                <span x-show="isLoading">...</span>
+                User
+              </h3>
+              <p>Total Registered Users</p>
+            </div>
+          </div>
+          <!--Image-->
+          <div class="status-item">
+            <i class="material-icons">image</i>
+            <div>
+              <h3>Images</h3>
+              <p>Stored image</p>
+            </div>
+          </div>
+          <!--Article-->
+          <div class="status-item">
+            <i class="material-icons">article</i>
+            <div>
+              <h3>Article</h3>
+              <p>Published Articles</p>
+            </div>
+          </div>
+        </div>
+      </section> 
 
         <!--User Management-->
 
@@ -121,16 +187,17 @@
               <h3>User Management</h3>
               <p> Mango And Control Your Application.</p>
             </div>
-            <div class="management-arrow">
-              <i class="material-icons">arrow_forward</i>
-            </div>
+          
           </a>
         </section>
      </main>
 
      <!-- home sevtion ____end____   -->
 
-    <script src="assets/materialize/js/materialize.min.js"></script>
+    <script src="assets/materialize/js/materialize.min.js"></script>    
+    <script src="assets/js/axios.js"></script>
+    <script src="assets/js/home.js"></script>    
+    <script src="assets/js/alpine.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html> 

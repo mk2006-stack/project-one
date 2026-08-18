@@ -148,7 +148,7 @@ document.addEventListener('alpine:init', () => {
          this.isLoading = true
         axios.put("https://jsonplaceholder.typicode.com/users/"+this.userIdToEdit, this.newUserInfo).then((res)=>{
             if (res.status === 200) {
-                const userIndex = this.mainUsers.findIndex(user=>user.id = this.userIdToEdit)
+                const userIndex = this.mainUsers.findIndex(user=>user.id === this.userIdToEdit)
                 this.mainUsers[userIndex] = res.data
                 this.showAddModal= false
                 this.userIdToEdit = null
