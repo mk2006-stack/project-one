@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="assets/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/util.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/articles.css">
+
+    <title>Articles - Devora</title>
+</head>
+
+<body x-data="articlesData()" x-init="init()">
+
+<!-- ================= NAVBAR ================= -->
+<nav class="z-depth-0 top_navbar red darken-1">
+    <div class="nav-wrapper">
+        <a href="#!" class="hide-on-med-and-up brand-logo-small">Articles</a>
+        <a href="#"data-target="mobile-demo"class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="hide-on-med-and-down">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/user.html">User Management</a></li>
+            <li><a href="/images.html">Images</a></li>
+            <li class="active"><a href="/articles.html">Articles</a></li>
+            <li><a href="/files.html">Files</a></li>
+            <li><a href="/settings.html">Settings</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ================= MOBILE MENU ================= -->
+
+<ul class="sidenav" id="mobile-demo">
+
+    <li>
+        <div class="user-view"> 
+
+            <div class="background"><img src="assets/images/Background.jpeg"class="w-full"></div>
+            
+            <a><img class="circle"src="assets/images/Avatar.jpg"></a>
+
+            <a><span class="white-text name">mohammad</span></a>
+
+            <a><span class="white-text email">mohammad@gmail.com</span></a>
+
+        </div>
+    </li>
+
+
+    <li><a href="/index.html"><i class="material-icons right sidenav_link_icon">home</i>Home</a></li>
+
+    <li><a href="/user.html"><i class="material-icons right sidenav_link_icon">people</i>User Management</a></li>
+
+    <li><a href="/images.html"><i class="material-icons right sidenav_link_icon">image</i>Images</a></li>
+
+    <li><a href="/articles.html"><i class="material-icons right sidenav_link_icon">article</i>Articles </a></li>
+
+    <li><a href="/files.html"><i class="material-icons right sidenav_link_icon">folder</i>Files</a></li>
+
+    <li><a href="/settings.html"><i class="material-icons right sidenav_link_icon">settings</i>Settings</a></li>
+
+</ul>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="articles-container">
+
+    <!-- HEADER -->
+
+    <section class="articles-hero">
+
+        <div>
+
+            <span class="articles-badge"><i class="material-icons">article</i>CONTENT MANAGEMENT</span>
+
+            <h1>Articles</h1>
+
+            <p>Create, manage and organize your articlesfrom one place.</p>
+
+        </div>
+
+        <div class="articles-hero-icon"><i class="material-icons">auto_stories</i></div>
+
+    </section>
+
+
+    <!-- ================= TOOLBAR ================= -->
+
+    <section class="articles-toolbar">
+
+        <div class="search-box">
+
+            <i class="material-icons">search</i>
+
+            <input type="text"placeholder="Search articles..."x-model="search">
+
+        </div>
+
+
+        <div class="filter-buttons">
+
+            <button class="filter-btn":class="{ 'active': filter === 'all' }"@click="filter = 'all'">All</button>
+
+            <button class="filter-btn":class="{ 'active': filter === 'published' }"@click="filter = 'published'">Published </button>
+
+            <button class="filter-btn":class="{ 'active': filter === 'draft' }"@click="filter = 'draft'">Draft</button>
+
+        </div>
+
+
+        <button class="new-article-btn"@click="openCreateModal()"><i class="material-icons"> add</i> New Article</button>
+
+    </section>
+
+
+    <!-- ================= STATS ================= -->
+
+    <section class="article-stats">
+
+        <div class="article-stat-card">
+
+            <div class="stat-icon blue"><i class="material-icons">article</i></div>
+
+            <div>
+
+                <span>Total Articles</span>
+
+                <strong x-text="articles.length">0</strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="article-stat-card">
+
+            <div class="stat-icon green"><i class="material-icons">check_circle</i></div>
+
+            <div>
+
+                <span>Published</span>
+
+                <strong x-text="publishedCount"> 0 </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="article-stat-card">
+
+            <div class="stat-icon orange"><i class="material-icons"> edit_note</i></div>
+
+            <div>
+
+                <span>Drafts</span>
+
+                <strong x-text="draftCount">0</strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ARTICLE LIST ================= -->
+
+    <section class="articles-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span>YOUR CONTENT</span>
+
+                <h2>All Articles</h2>
+
+            </div>
+
+            <span class="result-count"x-text="filteredArticles.length + ' articles'"></span>
+
+        </div>
+
+
+        <!-- EMPTY STATE -->
+
+        <div class="empty-state"x-show="filteredArticles.length === 0">
+
+            <i class="material-icons">article</i>
+
+            <h3>No articles found</h3>
+
+            <p>Try another search or create your first article.</p>
+
+            <button class="new-article-btn"@click="openCreateModal()"> <i class="material-icons">add</i>Create Article</button>
+
+        </div>
+
+
+        <!-- ARTICLE GRID -->
+
+        <div class="articles-grid">
+
+            <template x-for="article in filteredArticles":key="article.id">
+
+                <article class="article-card">
+
+                    <!-- COVER -->
+
+                    <div class="article-cover">
+
+                        <img :src="article.image":alt="article.title">
+
+                        <span class="article-status" :class="article.status" x-text="article.status"> </span>
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+
+                    <div class="article-card-content">
+
+                        <div class="article-meta">
+
+                            <span> <i class="material-icons"> folder </i><span x-text="article.category"></span></span>
+
+                            <span><i class="material-icons"> schedule</i><span x-text="article.readTime + ' min'"></span> </span>
+
+                        </div>
+
+
+                        <h3 x-text="article.title"></h3>
+
+
+                        <p  x-text="article.excerpt"> </p>
+
+
+                        <div class="article-footer">
+
+                            <div class="article-author">
+
+                                <div class="author-avatar"> M </div>
+
+                                <div>
+
+                                    <strong x-text="article.author"></strong>
+
+                                    <small x-text="article.date"></small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="article-actions">
+
+                                <button title="Read" @click="readArticle(article)"><i class="material-icons"> visibility </i></button>
+
+                                <button title="Edit" @click="openEditModal(article)"><i class="material-icons"> edit</i></button>
+
+                                <button title="Delete" class="delete-action"@click="deleteArticle(article.id)"> <i class="material-icons"> delete </i></button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </template>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= CREATE / EDIT MODAL ================= -->
+
+<div class="article-modal-overlay"x-show="showModal" x-transition.opacity @click.self="closeModal()">
+
+    <div class="article-modal">
+
+        <!-- MODAL HEADER -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <span> ARTICLE MANAGEMENT</span>
+
+                <h2 x-text="editingArticle ? 'Edit Article' : 'Create Article'"> </h2>
+
+            </div>
+
+            <button @click="closeModal()">
+
+                <i class="material-icons"> close</i>
+
+            </button>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form @submit.prevent="saveArticle()">
+
+            <div class="form-row">
+
+                <div class="input-field">
+
+                    <label>Article Title</label>
+
+                    <input type="text"x-model="form.title"required>
+
+                </div>
+
+                <div class="input-field">
+
+                    <label> Category</label>
+
+                    <select x-model="form.category">
+
+                        <option value="AI & Technology">AI & Technology</option>
+
+                        <option value="Health & wellness"> Health & wellness </option>
+
+                        <option value="Education & Learning ">Education & Learning</option>
+
+                        <option value="Travel & Tourism">Travel & Tourism</option>
+
+                        <option value="Relationships & Psychology">Relationships & Psychology</option>
+
+                        <option value="Lifestyle">Lifestyle</option>
+
+                        <option value="Design">Design</option>
+
+                        <option value="Development">Development</option>
+
+                        <option value="Business"> Business </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-field">
+
+                <label>Cover Image URL</label>
+
+                <input type="url" x-model="form.image" placeholder="https://...">
+
+            </div>
+
+
+            <div class="input-field">
+
+                <label>Short Description </label>
+
+                <textarea rows="3"x-model="form.excerpt"required></textarea>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="input-field">
+
+                    <label>Read Time</label>
+
+                    <input type="number"min="1" x-model="form.readTime">
+
+                </div>
+
+                <div class="input-field">
+
+                    <label> Status </label>
+
+                    <select x-model="form.status">
+
+                        <option value="draft">Draft</option>
+
+                        <option value="published">Published</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-field">
+
+                <label>Article Content</label>
+
+                <textarea class="article-content-input"rows="8"x-model="form.content"placeholder="Write your article here..."required></textarea>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button type="button" class="cancel-btn" @click="closeModal()"> Cancel</button>
+
+                <button type="submit" class="save-btn">
+
+                    <i class="material-icons">save</i>
+
+                    <span x-text="editingArticle ? 'Update Article' : 'Create Article'"></span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= READ ARTICLE MODAL ================= -->
+
+<div class="article-modal-overlay" x-show="showReadModal" x-transition.opacity @click.self="showReadModal = false">
+
+    <div class="read-article-modal">
+
+        <button class="read-close" @click="showReadModal = false">
+
+            <i class="material-icons">close</i>
+
+        </button>
+
+
+        <img class="read-cover" :src="selectedArticle?.image" :alt="selectedArticle?.title">
+
+
+        <div class="read-content">
+
+            <span class="read-category" x-text="selectedArticle?.category"></span>
+
+            <h1 x-text="selectedArticle?.title"></h1>
+
+            <div class="read-meta">
+
+                <span> By<strong x-text="selectedArticle?.author"></strong></span>
+
+                <span x-text="selectedArticle?.date"></span>
+
+            </div>
+
+            <p class="read-excerpt"x-text="selectedArticle?.excerpt">
+            </p>
+
+            <div class="read-body"x-text="selectedArticle?.content"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= SCRIPTS ================= -->
+
+<script src="assets/materialize/js/materialize.min.js"></script>
+
+<script src="assets/js/axios.js"></script>
+
+<script defer src="assets/js/alpine.js"></script>
+
+<script src="assets/js/main.js"></script>
+
+<script src="assets/js/articles.js"></script>
+
+</body>
+</html>
