@@ -32,7 +32,7 @@ document.addEventListener("alpine:init", () => {
 
             category: "Technology",
 
-            image: "assets/images/Background.jpeg",
+            image: "",
 
             excerpt: "",
 
@@ -92,7 +92,7 @@ document.addEventListener("alpine:init", () => {
                         "Development",
 
                     image:
-                        "assets/images/Background.jpeg",
+                        "assets/images/dev_e.peg",
 
                     excerpt:
                         "Learn the essential principles behind creating fast, clean and user-friendly web applications.",
@@ -123,7 +123,7 @@ document.addEventListener("alpine:init", () => {
                         "Design",
 
                     image:
-                        "assets/images/logo1.png",
+                        "assets/images/des_e.png",
 
                     excerpt:
                         "Good design is not only about making an interface beautiful. It is about making products easier to understand.",
@@ -154,7 +154,7 @@ document.addEventListener("alpine:init", () => {
                         "Business",
 
                     image:
-                        "assets/images/Picsart_26-01-26_17-47-50-037.png",
+                        "assets/images/bus_e.png",
 
                     excerpt:
                         "Before writing code, spend some time planning the structure, goals and features of your application.",
@@ -292,7 +292,7 @@ document.addEventListener("alpine:init", () => {
                 category: "Technology",
 
                 image:
-                    "assets/images/Background.jpeg",
+                    "/assets/images/",
 
                 excerpt: "",
 
@@ -411,7 +411,7 @@ document.addEventListener("alpine:init", () => {
 
 
                 M.toast({
-                    html: "Article updated successfully"
+                    html: "Article updated successfully", classes: "orange"
                 });
 
             }
@@ -442,7 +442,7 @@ document.addEventListener("alpine:init", () => {
 
 
                 M.toast({
-                    html: "Article created successfully"
+                    html: "Article created successfully" , classes: "green"
                 });
 
             }
@@ -489,7 +489,7 @@ document.addEventListener("alpine:init", () => {
 
 
             M.toast({
-                html: "Article deleted"
+                html: "Article deleted" , classes: "red"
             });
 
         },

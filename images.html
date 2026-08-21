@@ -3,9 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devora</title>
+     <link rel="stylesheet" href="assets/materialize/css/materialize.min.css">
+     <link rel="stylesheet" href="assets/css/util.css">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link rel="stylesheet" href="assets/css/style.css">
+     <link rel="stylesheet" href="assets/css/images.css">
+    <title> Images - Devora</title>
 </head>
-<body>
-    
+<body x-data="imagesData" x-init="init()">
+    <!--============== NAVBAR ===============-->
+    <nav class="z-depth-0 top_navbar red darken-1">
+    <div class="nav-wrapper">
+        <a href="#!" class="hide-on-med-and-up brand-logo-small">Images</a>
+        <a href="#"data-target="mobile-demo"class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="hide-on-med-and-down">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/user.html">User Management</a></li>
+            <li><a href="/images.html">Images</a></li>
+            <li class="active"><a href="/articles.html">Articles</a></li>
+            <li><a href="/files.html">Files</a></li>
+            <li><a href="/settings.html">Settings</a></li>
+        </ul>
+    </div>
+    </nav>
+    <!--============= MOBILE MENU =============-->
+
+     <ul class="sidenav" id="mobile-demo">
+
+    <li>
+        <div class="user-view"> 
+
+            <div class="background"><img src="assets/images/Background.jpeg"class="w-full"></div>
+            
+            <a><img class="circle"src="assets/images/Avatar.jpg"></a>
+
+            <a><span class="white-text name">mohammad</span></a>
+
+            <a><span class="white-text email">mohammad@gmail.com</span></a>
+
+        </div>
+    </li>
+
+
+    <li><a href="/index.html"><i class="material-icons right sidenav_link_icon">home</i>Home</a></li>
+
+    <li><a href="/user.html"><i class="material-icons right sidenav_link_icon">people</i>User Management</a></li>
+
+    <li><a href="/images.html"><i class="material-icons right sidenav_link_icon">image</i>Images</a></li>
+
+    <li><a href="/articles.html"><i class="material-icons right sidenav_link_icon">article</i>Articles </a></li>
+
+    <li><a href="/files.html"><i class="material-icons right sidenav_link_icon">folder</i>Files</a></li>
+
+    <li><a href="/settings.html"><i class="material-icons right sidenav_link_icon">settings</i>Settings</a></li>
+
+    </ul>
+
+    <!--================ MAIN ==================-->
+     <main class="images-container">
+        <!--============ HERO ==============-->
+        <section class="images-hero">
+            <div class="images-hero-content">
+                <span class="images-badge"><i class="material-icons">photo_library</i>MEDIA LIBRARY</span>
+                <h1> Image Library</h1>
+                <p> Browse , Organize And Mango Your Visual Assets From One Place. </p>
+            </div>
+            <div class="images-hero-visual">
+                <div class="hero-image-shape-one"></div>
+                <div class="hero-image-shape-two"></div>
+                <div class="herp-image-icon">
+                    <i class="material-icons">collections</i>
+                </div>
+            </div>
+        </section>
+
+    <!--============== TOOLBAR ================-->
+    <section class="images-toolbar">
+
+          <!-- SEARCH -->
+           <div class="images-search">
+            <i class="material-icons">search</i>
+            <input type="text" placeholder="Search images..." x-model="search">
+           </div>
+
+           <!-- FILTER -->
+            <div class="images-filter">
+                <button class="image-filter-btn" :class="{'active': filter === 'all'}" @click="filter">All</button>
+                <button class="image-filter-btn" :class="{'active': filter === 'Technology'}" @click="filter">Technology</button>
+                <button class="image-filter-btn" :class="{'active': filter === 'Nature'}" @click="filter">Nature</button>
+                <button class="image-filter-btn" :class="{'active': filter === 'Abstract'}" @click="filter">Abstract</button>
+            </div>
+
+            <!-- SORT -->
+             <button class="images-sort-btn">
+                <i class="material-icons">sort</i>
+                Newest
+             </button>
+
+            <!-- UPload -->
+             <label class="images-upload-btn" for="imageUpload">
+                <i class="material-icons">cloud_upload</i>Upload Image</label>
+
+                 <input
+                        id="imageUpload"
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        @change="uploadImage($event)">
+    </section>  
+
+    <!--========= SECTION HEADER ============-->
+  <section class="images-section">
+
+    <div class="images-section-heading">
+
+        <div class="gallery-heading-left">
+
+            <div class="gallery-eyebrow">
+                <i class="material-icons">photo_library</i>
+                <span>YOUR MEDIA</span>
+            </div>
+
+            <h2>Image Gallery</h2>
+
+            <div class="gallery-meta">
+                <span class="image-result-count" x-text="imageCount + 'image'">
+                    <i class="material-icons">collections</i>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="gallery-view-options">
+            <button class="gallery-view-btn active">
+                <i class="material-icons">grid_view</i>
+            </button>
+
+            <button class="gallery-view-btn">
+                <i class="material-icons">view_list</i>
+            </button>
+        </div>
+
+    </div>
+         
+    <!--============ IMAGE GRID =============-->
+    <div class="images-grid">
+
+    <template x-for="image in filteredImages" :key="image.id">
+
+        <article class="image-card">
+
+            <!-- IMAGE -->
+            <div class="image-preview">
+
+                <img
+                    :src="image.url"
+                    :alt="image.name"
+                >
+
+                <div class="image-overlay">
+
+                    <!-- PREVIEW -->
+                    <button
+                        type="button"
+                        @click="previewImage(image)"
+                        title="Preview"
+                    >
+                        <i class="material-icons">visibility</i>
+                    </button>
+
+                    <!-- DELETE -->
+                    <button
+                        type="button"
+                        @click="deleteImage(image.id)"
+                        title="Delete"
+                    >
+                        <i class="material-icons">delete</i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- INFO -->
+            <div class="image-info">
+
+                <div>
+                    <strong x-text="image.name"></strong>
+                    <span x-text="image.category"></span>
+                </div>
+
+                <i
+                    class="material-icons"
+                    @click="previewImage(image)"
+                >
+                    more_vert
+                </i>
+
+            </div>
+
+        </article>
+
+    </template>
+
+</div>
+
+<!-- ================= IMAGE PREVIEW ================= -->
+
+<div
+    class="image-preview-modal"
+    x-show="showPreview"
+    x-cloak
+    @click.self="closePreview()"
+>
+
+    <div class="image-preview-modal-content">
+
+        <!-- CLOSE BUTTON -->
+        <button
+            type="button"
+            class="image-preview-close"
+            @click="closePreview()"
+        >
+            <i class="material-icons">close</i>
+        </button>
+
+        <!-- SELECTED IMAGE -->
+        <template x-if="selectedImage">
+
+            <div>
+
+                <img
+                    :src="selectedImage.url"
+                    :alt="selectedImage.name"
+                >
+
+                <!-- IMAGE INFO -->
+                <div class="image-preview-modal-info">
+
+                    <strong x-text="selectedImage.name"></strong>
+
+                    <span x-text="selectedImage.category"></span>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </div>
+
+</div>
+  </main>
+  <!--================ JS ==================-->
+  <script src="assets/materialize/js/materialize.min.js"></script>
+  <script src="assets/js/alpine.js"></script>
+  <script src="assets/js/images.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

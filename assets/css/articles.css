@@ -1282,15 +1282,5 @@
     }
 
 
-    .section-heading {
-
-        align-items: start;
-
-        gap: 10px;
-
-        flex-direction: column;
-
-    }
-
 }
 
