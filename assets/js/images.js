@@ -2,24 +2,117 @@ document.addEventListener("alpine:init", () => {
 
     Alpine.data("imagesData", () => ({
 
-        // =========================
-        // STATE
-        // =========================
-
         images: [],
         search: "",
         filter: "all",
+        sortOrder: "newest",
 
         selectedImage: null,
         showPreview: false,
+
+        editingImage: null,
+
+        showUploadModal: false,
+        selectedFile: null,
+        newImageName: "",
+        newImageCategory: "Technology",
+
+        db: null,
 
 
         // =========================
         // INIT
         // =========================
 
-        init() {
-            this.loadImages();
+async init() {
+
+    try {
+
+        await this.initDatabase();
+
+        await this.loadImages();
+
+        this.$nextTick(() => {
+            this.initSelects();
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Images initialization error:",
+            error
+        );
+
+        this.images = [];
+
+    }
+
+},
+
+
+        // =========================
+        // DATABASE
+        // =========================
+
+        initDatabase() {
+
+            return new Promise((resolve, reject) => {
+
+                if (!window.indexedDB) {
+
+                    reject(
+                        new Error("IndexedDB is not supported.")
+                    );
+
+                    return;
+
+                }
+
+
+                const request =
+                    indexedDB.open("DevoraImagesDB", 1);
+
+
+                request.onupgradeneeded = (event) => {
+
+                    const database =
+                        event.target.result;
+
+
+                    if (
+                        !database.objectStoreNames
+                            .contains("images")
+                    ) {
+
+                        database.createObjectStore(
+                            "images",
+                            {
+                                keyPath: "id"
+                            }
+                        );
+
+                    }
+
+                };
+
+
+                request.onsuccess = () => {
+
+                    this.db = request.result;
+
+                    resolve();
+
+                };
+
+
+                request.onerror = () => {
+
+                    reject(request.error);
+
+                };
+
+            });
+
         },
 
 
@@ -27,150 +120,329 @@ document.addEventListener("alpine:init", () => {
         // LOAD IMAGES
         // =========================
 
-        loadImages() {
+        async loadImages() {
 
-            const savedImages = localStorage.getItem("devora_images");
+            const storedImages =
+                await this.getStoredImages();
 
-            if (savedImages) {
 
-                try {
-                    this.images = JSON.parse(savedImages);
-                    return;
-                } catch (error) {
-                    console.error(
-                        "Failed to load images:",
-                        error
-                    );
-                }
+            if (storedImages.length > 0) {
+
+                this.images = storedImages;
+
+
+                this.images.forEach(image => {
+
+                    if (image.file) {
+
+                        image.url =
+                            URL.createObjectURL(
+                                image.file
+                            );
+
+                    }
+
+                });
+
+
+                return;
 
             }
 
 
-            // =========================
-            // DEMO IMAGES
-            // =========================
+            this.loadDemoImages();
+
+        },
+
+
+        // =========================
+        // DEMO IMAGES
+        // =========================
+
+        loadDemoImages() {
 
             this.images = [
 
                 {
                     id: 1,
-                    name: "Technology.jpg",
+                    name: "Technology",
                     category: "Technology",
-                    url: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80",
-                    date: "Aug 21, 2026"
+                    url: "assets/images/ai.jpg",
+                    demo: true
                 },
 
                 {
                     id: 2,
-                    name: "Digital World.jpg",
+                    name: "Digital World",
                     category: "Technology",
-                    url: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80",
-                    date: "Aug 20, 2026"
+                    url: "assets/images/demo/digital-world.jpg",
+                    demo: true
                 },
 
                 {
                     id: 3,
-                    name: "Mountain.jpg",
+                    name: "Mountain",
                     category: "Nature",
-                    url: "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80",
-                    date: "Aug 19, 2026"
+                    url: "assets/images/demo/mountain.jpg",
+                    demo: true
                 },
 
                 {
                     id: 4,
-                    name: "Landscape.jpg",
+                    name: "Landscape",
                     category: "Nature",
-                    url: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80",
-                    date: "Aug 18, 2026"
+                    url: "assets/images/demo/landscape.jpg",
+                    demo: true
                 },
 
                 {
                     id: 5,
-                    name: "Abstract Flow.jpg",
+                    name: "Abstract Flow",
                     category: "Abstract",
-                    url: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=900&q=80",
-                    date: "Aug 17, 2026"
+                    url: "assets/images/demo/abstract-flow.jpg",
+                    demo: true
                 },
 
                 {
                     id: 6,
-                    name: "Gradient.jpg",
+                    name: "Gradient",
                     category: "Abstract",
-                    url: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=900&q=80",
-                    date: "Aug 16, 2026"
+                    url: "assets/images/demo/gradient.jpg",
+                    demo: true
                 }
 
             ];
 
+        },
 
-            this.saveToStorage();
+
+        // =========================
+        // GET DATABASE IMAGES
+        // =========================
+
+        getStoredImages() {
+
+            return new Promise((resolve, reject) => {
+
+                if (!this.db) {
+
+                    reject(
+                        new Error("Database is not ready.")
+                    );
+
+                    return;
+
+                }
+
+
+                const transaction =
+                    this.db.transaction(
+                        ["images"],
+                        "readonly"
+                    );
+
+
+                const store =
+                    transaction.objectStore(
+                        "images"
+                    );
+
+
+                const request =
+                    store.getAll();
+
+
+                request.onsuccess = () => {
+
+                    resolve(
+                        request.result || []
+                    );
+
+                };
+
+
+                request.onerror = () => {
+
+                    reject(request.error);
+
+                };
+
+            });
 
         },
 
 
         // =========================
-        // SAVE TO STORAGE
+        // SAVE IMAGE
         // =========================
 
-        saveToStorage() {
+        saveImage(image) {
 
-            localStorage.setItem(
-                "devora_images",
-                JSON.stringify(this.images)
-            );
+            return new Promise((resolve, reject) => {
+
+                if (!this.db) {
+
+                    reject(
+                        new Error("Database is not ready.")
+                    );
+
+                    return;
+
+                }
+
+
+                const transaction =
+                    this.db.transaction(
+                        ["images"],
+                        "readwrite"
+                    );
+
+
+                const store =
+                    transaction.objectStore(
+                        "images"
+                    );
+
+
+                const request =
+                    store.put(image);
+
+
+                request.onsuccess = () => {
+
+                    resolve();
+
+                };
+
+
+                request.onerror = () => {
+
+                    reject(request.error);
+
+                };
+
+            });
 
         },
 
 
         // =========================
-        // FILTERED IMAGES
+        // DELETE IMAGE
+        // =========================
+
+        deleteFromDatabase(id) {
+
+            return new Promise((resolve, reject) => {
+
+                if (!this.db) {
+
+                    reject(
+                        new Error("Database is not ready.")
+                    );
+
+                    return;
+
+                }
+
+
+                const transaction =
+                    this.db.transaction(
+                        ["images"],
+                        "readwrite"
+                    );
+
+
+                const store =
+                    transaction.objectStore(
+                        "images"
+                    );
+
+
+                const request =
+                    store.delete(id);
+
+
+                request.onsuccess = () => {
+
+                    resolve();
+
+                };
+
+
+                request.onerror = () => {
+
+                    reject(request.error);
+
+                };
+
+            });
+
+        },
+
+
+        // =========================
+        // FILTER
         // =========================
 
         get filteredImages() {
 
-            let result = this.images;
+            let result =
+                [...this.images];
 
 
-            // =========================
             // SEARCH
-            // =========================
 
             if (this.search.trim()) {
 
-                const query = this.search
-                    .toLowerCase()
-                    .trim();
-
-
-                result = result.filter(image =>
-
-                    image.name
+                const query =
+                    this.search
                         .toLowerCase()
-                        .includes(query)
+                        .trim();
 
-                    ||
 
-                    image.category
-                        .toLowerCase()
-                        .includes(query)
+                result =
+                    result.filter(image =>
 
-                );
+                        image.name
+                            .toLowerCase()
+                            .includes(query)
+
+                        ||
+
+                        image.category
+                            .toLowerCase()
+                            .includes(query)
+
+                    );
 
             }
 
 
-            // =========================
-            // CATEGORY FILTER
-            // =========================
+            // CATEGORY
 
             if (this.filter !== "all") {
 
-                result = result.filter(
-                    image =>
-                        image.category === this.filter
-                );
+                result =
+                    result.filter(
+                        image =>
+                            image.category ===
+                            this.filter
+                    );
 
             }
+
+
+            // SORT
+
+            result.sort((a, b) => {
+
+                return this.sortOrder === "newest"
+
+                    ? b.id - a.id
+
+                    : a.id - b.id;
+
+            });
 
 
             return result;
@@ -179,7 +451,7 @@ document.addEventListener("alpine:init", () => {
 
 
         // =========================
-        // IMAGE COUNT
+        // COUNT
         // =========================
 
         get imageCount() {
@@ -190,88 +462,128 @@ document.addEventListener("alpine:init", () => {
 
 
         // =========================
-        // PREVIEW IMAGE
+        // SORT
+        // =========================
+
+        toggleSort() {
+
+            this.sortOrder =
+                this.sortOrder === "newest"
+                    ? "oldest"
+                    : "newest";
+
+        },
+
+
+        // =========================
+        // PREVIEW
         // =========================
 
         previewImage(image) {
 
             this.selectedImage = image;
+
             this.showPreview = true;
 
         },
 
 
-        // =========================
-        // CLOSE PREVIEW
-        // =========================
-
         closePreview() {
 
             this.showPreview = false;
+
             this.selectedImage = null;
 
         },
 
 
-        // =========================
-        // DELETE IMAGE
-        // =========================
+       // =========================
+          // MATERIALIZE SELECT
+      //=========================
 
-        deleteImage(id) {
+initSelects() {
 
-            const confirmed = confirm(
-                "Are you sure you want to delete this image?"
-            );
+    const selects =
+        document.querySelectorAll(
+            ".image-upload-modal select"
+        );
 
+    if (selects.length) {
 
-            if (!confirmed) {
-                return;
-            }
+        M.FormSelect.init(selects);
 
+    }
 
-            this.images = this.images.filter(
-                image =>
-                    image.id !== id
-            );
-
-
-            this.saveToStorage();
-
-
-            // Close preview if deleted image
-            if (
-                this.selectedImage &&
-                this.selectedImage.id === id
-            ) {
-                this.closePreview();
-            }
-
-        },
+},
 
 
         // =========================
-        // UPLOAD IMAGE
+        // OPEN UPLOAD
         // =========================
 
-        uploadImage(event) {
+openUpload() {
+
+    this.editingImage = null;
+
+    this.showUploadModal = true;
+
+    this.selectedFile = null;
+
+    this.newImageName = "";
+
+    this.newImageCategory =
+        "Technology";
+
+    this.$nextTick(() => {
+        this.initSelects();
+    });
+
+},
+
+
+        // =========================
+        // CLOSE UPLOAD
+        // =========================
+
+       closeUpload() {
+
+    this.showUploadModal = false;
+
+    this.selectedFile = null;
+
+    this.newImageName = "";
+
+    this.newImageCategory =
+        "Technology";
+
+    this.editingImage = null;
+
+},
+
+
+        // =========================
+        // SELECT IMAGE
+        // =========================
+
+        selectFile(event) {
 
             const file =
                 event.target.files[0];
 
 
             if (!file) {
+
                 return;
+
             }
 
 
-            // =========================
-            // VALIDATE IMAGE
-            // =========================
+            // فقط Image
 
             if (!file.type.startsWith("image/")) {
 
                 alert(
-                    "Please select a valid image."
+                    "Please select an image file."
                 );
 
                 event.target.value = "";
@@ -281,64 +593,306 @@ document.addEventListener("alpine:init", () => {
             }
 
 
-            // =========================
-            // FILE READER
-            // =========================
+            // حداکثر 10MB
 
-            const reader = new FileReader();
-
-
-            reader.onload = () => {
-
-                const newImage = {
-
-                    id: Date.now(),
-
-                    name: file.name,
-
-                    category: "Technology",
-
-                    url: reader.result,
-
-                    date: new Date()
-                        .toLocaleDateString(
-                            "en-US",
-                            {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric"
-                            }
-                        )
-
-                };
-
-
-                // Add image to beginning
-                this.images.unshift(newImage);
-
-
-                // Save
-                this.saveToStorage();
-
-
-                // Reset file input
-                event.target.value = "";
-
-            };
-
-
-            reader.onerror = () => {
+            if (
+                file.size >
+                10 * 1024 * 1024
+            ) {
 
                 alert(
-                    "Failed to read the image."
+                    "Image must be smaller than 10MB."
                 );
 
                 event.target.value = "";
 
+                return;
+
+            }
+
+
+            this.selectedFile = file;
+
+
+            // اسم فایل به عنوان اسم اولیه
+
+            this.newImageName =
+                file.name
+                    .replace(/\.[^/.]+$/, "")
+                    .replace(/[-_]/g, " ");
+
+        },
+
+
+        // =========================
+        // UPLOAD
+        // =========================
+
+        async uploadImage() {
+
+            if (!this.selectedFile) {
+
+                alert(
+                    "Please choose an image first."
+                );
+
+                return;
+
+            }
+
+
+            if (!this.newImageName.trim()) {
+
+                alert(
+                    "Please enter an image name."
+                );
+
+                return;
+
+            }
+
+
+            const image = {
+
+                id: Date.now(),
+
+                name:
+                    this.newImageName.trim(),
+
+                category:
+                    this.newImageCategory,
+
+                file:
+                    this.selectedFile,
+
+                date:
+                    new Date().toLocaleDateString(
+                        "en-US"
+                    )
+
             };
 
 
-            reader.readAsDataURL(file);
+            try {
+
+                // ذخیره عکس واقعی
+
+                await this.saveImage(image);
+
+
+                // ساخت URL برای نمایش
+
+                image.url =
+                    URL.createObjectURL(
+                        this.selectedFile
+                    );
+
+
+                // اضافه کردن به اول Gallery
+
+                this.images.unshift(
+                    image
+                );
+
+
+                // بستن Modal
+
+                this.closeUpload();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Upload error:",
+                    error
+                );
+
+
+                alert(
+                    "The image could not be saved. Please run the project with Live Server."
+                );
+
+            }
+
+        },
+
+
+
+        // =========================
+        // EDIT IMAGE
+        // =========================
+
+             openEditImage(image) {
+             
+                 this.editingImage = image;
+             
+                 this.newImageName =
+                     image.name || "";
+             
+                 this.newImageCategory =
+                     image.category || "Technology";
+             
+                 this.selectedFile = null;
+             
+                 this.showUploadModal = true;
+             
+                 this.$nextTick(() => {
+             
+                     this.initSelects();
+             
+                 });
+
+        },
+
+async saveImageEdit() {
+
+    if (!this.editingImage) {
+        return;
+    }
+
+    if (!this.newImageName.trim()) {
+
+        alert(
+            "Please enter an image name."
+        );
+
+        return;
+
+    }
+
+    const updatedImage = {
+
+        ...this.editingImage,
+
+        name:
+            this.newImageName.trim(),
+
+        category:
+            this.newImageCategory
+
+    };
+
+    try {
+
+        await this.saveImage(
+            updatedImage
+        );
+
+        const index =
+            this.images.findIndex(
+                image =>
+                    image.id ===
+                    this.editingImage.id
+            );
+
+        if (index !== -1) {
+
+            this.images[index] =
+                updatedImage;
+
+        }
+
+        M.toast({
+            html: "Image updated successfully",
+            classes: "green"
+        });
+
+        this.closeUpload();
+
+    } catch (error) {
+
+        console.error(
+            "Image update error:",
+            error
+        );
+
+        alert(
+            "Could not update the image."
+        );
+
+    }
+
+},
+
+
+        // =========================
+        // DELETE
+        // =========================
+
+        async deleteImage(id) {
+
+            const confirmed =
+                confirm(
+                    "Delete this image?"
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const image =
+                    this.images.find(
+                        item =>
+                            item.id === id
+                    );
+
+
+                if (
+                    image &&
+                    image.url &&
+                    image.file
+                ) {
+
+                    URL.revokeObjectURL(
+                        image.url
+                    );
+
+                }
+
+
+                if (!image?.demo) {
+
+                    await this.deleteFromDatabase(
+                        id
+                    );
+
+                }
+
+
+                this.images =
+                    this.images.filter(
+                        item =>
+                            item.id !== id
+                    );
+
+
+                if (
+                    this.selectedImage &&
+                    this.selectedImage.id === id
+                ) {
+
+                    this.closePreview();
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Delete error:",
+                    error
+                );
+
+                alert(
+                    "Could not delete the image."
+                );
+
+            }
 
         }
 

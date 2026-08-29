@@ -18,7 +18,7 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger red-text"><i class="material-icons">menu</i></a>
       <ul class=" hide-on-small-only">    
         <li><a href="/index.html" class="red-text" >Home</a></li>
-        <li><a href="/user.html" class="red-text">User Management</a></li>
+        <li class="active"><a href="/user.html" class="red-text">User Management</a></li>
         <li><a href="/images.html" class="red-text">Images</a></li>
         <li><a href="/articles.html" class="red-text">Articles</a></li>
         <li><a href="/files.html" class="red-text">Files</a></li>
@@ -52,47 +52,151 @@
 
      <!-- content sevtion ____start____ -->
 
-     <section id="top_actions_section" class="row m-b-0   container">
-    <div class=" col m0.5 l0,5 hide-on-med-and-down"></div>
-        <!-- add button --> 
-     <div class="p-t-10 p-r-10 p-b-10 p-l-10 col s12 m4.5 l4.5 ">
-        <button  id="add_user_button" class="waves-effect waves-light btn red darken-3 p-l-30 p-r-30 w-full rounded_pill  flex-c" x-on:click="showAddModal = true; userIdToEdit = null; handleResetForm() "> 
-            <i class="material-icons m-r-5">add</i>add user 
-        </button>
-     </div>
-        <!-- search section --> 
-     <div class="row col s12 m6.5 l6.5 m-b-5 ">
-        <div class="input-field col s12">
-          <input id="search" type="text"  x-model="searchChar" @input="handleSearch($event.target.value)">
-          <label for="search">
-            <i class="material-icons pos-relative top-7">search</i>  
-             search
-          </label>
+<section class="users-toolbar container">
+
+    <div class="users-toolbar-header">
+
+        <div>
+
+            <span class="users-eyebrow">
+                USER MANAGEMENT
+            </span>
+
+            <h1>
+                Users
+            </h1>
+
+            <p>
+                Manage and organize your application users.
+            </p>
+
         </div>
-      </div>
-       <div class=" col m0.5 l0.5   hide-on-med-and-down"></div>
-     </section> 
+
+        <button
+            class="waves-effect waves-light btn red darken-3 rounded_pill add-user-btn"
+            x-on:click="
+                showAddModal = true;
+                handleResetForm()
+            "
+        >
+
+            <i class="material-icons">person_add</i>
+
+            <span>Add User</span>
+
+        </button>
+
+    </div>
+
+
+    <div class="users-toolbar-bottom">
+
+        <div class="users-search">
+
+            <i class="material-icons">
+                search
+            </i>
+
+            <input
+                id="search"
+                type="text"
+                placeholder="Search name, username or email..."
+                x-model="searchChar"
+                @input="handleSearch($event.target.value)"
+            >
+
+            <button
+                type="button"
+                x-show="searchChar"
+                x-on:click="clearSearch()"
+            >
+
+                <i class="material-icons">
+                    close
+                </i>
+
+            </button>
+
+        </div>
+
+
+        <div class="users-total">
+
+            <span>Total Users</span>
+
+            <strong x-text="users.length">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+</section> 
 
      <!-- loading section -->
-      <template x-if="isLoading">
+<template x-if="isLoading">
 
-        <div class="center-align"> 
-         <div class="preloader-wrapper small active">
-             <div class="spinner-layer spinner-red-only">
-               <div class="circle-clipper left">
-               <div class="circle"></div>
-               </div><div class="gap-patch"></div>
-               <div class="circle"></div>
-             </div><div class="circle-clipper right"></div>
-             <div class="circle"></div>
-           </div>
-          </div>
-         </div>
-        </div> 
+    <div class="users-loading">
 
-      </template>
+        <div class="preloader-wrapper small active">
 
-      <section class="user_list_section" x-init="getUsers()" >
+            <div class="spinner-layer spinner-red-only">
+
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <span>
+            Loading users...
+        </span>
+
+    </div>
+
+</template>
+
+
+<template x-if="apiError && !isLoading">
+
+    <div class="container">
+
+        <div class="api-warning">
+
+            <i class="material-icons">
+                cloud_off
+            </i>
+
+            <div>
+
+                <strong>
+                    JSONPlaceholder is unavailable
+                </strong>
+
+                <p>
+                    Showing your saved users instead.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>
+
+      <section class="user_list_section">
         <!-- list section  mobail -->
          <ul class="collapsible hide-on-med-and-up">
           <template x-for="user in pageUsers">
@@ -132,54 +236,298 @@
        <div class="hide-on-med-and-down show-on-medium-and-up container">
         <table class="striped centered highlight">
 
-          <thead>
-               <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Number</th>
-                <th>Gmail</th>
-                <th>Address</th>
-                <th>Active</th>
-                
-               </tr>
-          </thead>
+<thead>
+    <tr>
 
-          <tbody class="desktop_table_body">
-            <template x-for="user in pageUsers">
-              <tr>
-                  <td x-text="user.id">1</td>
-                  <td x-text="user.name"></td>
-                  <td x-text="user.username"></td>
-                  <td x-text="user.number"></td>
-                  <td x-text="user.email"></td>
-                  <td x-text="(user.address?.city  || '')+ '-' +(user.address?.street  || '')"></td>
-                  <td><i class="material-icons red-text darken-3  m-r-5 m-r-5 pos-relative top-7" x-on:click="handleDeleteUser(user.id)">delete_forever</i>
-                  <i class="material-icons orange-text darken-3  m-l-5 m-r-5 pos-relative top-7 " x-on:click="handleUpdateUser(user)" >edit</i></td>
-              </tr>
-            </template>
-          </tbody>
+        <th>#</th>
+
+        <th class="user-name-column">
+            User
+        </th>
+
+        <th>
+            Username
+        </th>
+
+        <th>
+            Number
+        </th>
+
+        <th>
+            Email
+        </th>
+
+        <th>
+            Location
+        </th>
+
+        <th>
+            Actions
+        </th>
+
+    </tr>
+</thead>
+
+<tbody class="desktop_table_body">
+
+    <template x-for="user in pageUsers" :key="user.id">
+
+        <tr>
+
+            <td>
+
+                <span class="user-id">
+                    <span x-text="user.id"></span>
+                </span>
+
+            </td>
+
+
+            <td class="user-name-cell">
+
+                <div class="user-avatar">
+
+                    <span
+                        x-text="
+                            (user.name || 'U')
+                                .charAt(0)
+                                .toUpperCase()
+                        "
+                    ></span>
+
+                </div>
+
+                <div>
+
+                    <strong
+                        x-text="user.name"
+                    ></strong>
+
+                    <small
+                        x-text="user.email"
+                    ></small>
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <span
+                    class="username-badge"
+                    x-text="'@' + (user.username || '')"
+                ></span>
+
+            </td>
+
+
+            <td>
+
+                <span
+                    x-text="user.number || '—'"
+                ></span>
+
+            </td>
+
+
+            <td>
+
+                <span
+                    x-text="user.email || '—'"
+                ></span>
+
+            </td>
+
+
+            <td>
+
+                <span
+                    x-text="
+                        (user.address?.city || 'Unknown') +
+                        (
+                            user.address?.street
+                                ? ' · ' + user.address.street
+                                : ''
+                        )
+                    "
+                ></span>
+
+            </td>
+
+
+            <td>
+
+                <div class="user-actions">
+
+                    <button
+                        type="button"
+                        class="user-action edit"
+                        title="Edit user"
+                        x-on:click="handleUpdateUser(user)"
+                    >
+
+                        <i class="material-icons">
+                            edit
+                        </i>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="user-action delete"
+                        title="Delete user"
+                        x-on:click="handleDeleteUser(user.id)"
+                    >
+
+                        <i class="material-icons">
+                            delete_outline
+                        </i>
+
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    </template>
+
+
+    <template x-if="pageUsers.length === 0 && !isLoading">
+
+        <tr>
+
+            <td
+                colspan="7"
+                class="empty-users"
+            >
+
+                <i class="material-icons">
+                    person_off
+                </i>
+
+                <strong>
+                    No users found
+                </strong>
+
+                <span>
+                    Try changing your search.
+                </span>
+
+            </td>
+
+        </tr>
+
+    </template>
+
+</tbody>
 
         </table>
        </div>
         <!-- menu model section -->
-       <div class=" pigination-container  p-l-9 p-r-9 p-t-15 p-b-10 flex-sb-m pos-fixed left-0 right-0 bottom-0 z-depth-5 rounded_top_30 center-by-center">
-        <div class="pigination-item-counts flex-l p-l-10 fixadd">
-          showing
-           <span class="m-l-5 m-l-5 max-w-50" x-init="$watch('itemsCount' , (value)=>handleChangeItemsCount(value))">
-            <input type="number" class="red-text darken-3 no-border center-align m-b-0 " x-model="itemsCount" x-on:chenge=" pagination()">
-           </span>
-           of
-           <span class="red-text darken-3 m-l-5 m-r-5" x-text="users.length">10</span>
-        </div>
+      <div class="pagination-container">
 
-        <strong x-text="currentPage" class="red-text darken-3 page_namber"></strong>
+    <div class="pagination-info">
 
-        <div class="pgination-buttons">
-          <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill" x-on:click="prevPage()">keyboard_arrow_left</i>
-          <i class="material-icons red darken-3 m-l-5 m-r-5 p-l-5 p-r-5 p-t-1 p-b-3 waves-effect waves-light white-text rounded_pill" x-on:click="nextPage()">keyboard_arrow_right</i>
-        </div>
-       </div>
+        Showing
+
+        <strong
+            x-text="
+                users.length === 0
+                    ? 0
+                    : ((currentPage - 1) * itemsCount + 1)
+            "
+        ></strong>
+
+        -
+
+        <strong
+            x-text="
+                Math.min(
+                    currentPage * itemsCount,
+                    users.length
+                )
+            "
+        ></strong>
+
+        of
+
+        <strong
+            x-text="users.length"
+        ></strong>
+
+    </div>
+
+
+    <div class="pagination-center">
+
+        <button
+            type="button"
+            class="pagination-button"
+            x-on:click="prevPage()"
+            x-bind:disabled="currentPage <= 1"
+        >
+
+            <i class="material-icons">
+                chevron_left
+            </i>
+
+        </button>
+
+
+        <span class="page-number">
+
+            <span x-text="currentPage">
+                1
+            </span>
+
+            /
+
+            <span x-text="pageCount">
+                1
+            </span>
+
+        </span>
+
+
+        <button
+            type="button"
+            class="pagination-button"
+            x-on:click="nextPage()"
+            x-bind:disabled="currentPage >= pageCount"
+        >
+
+            <i class="material-icons">
+                chevron_right
+            </i>
+
+        </button>
+
+    </div>
+
+
+    <div class="items-per-page">
+
+        <span>Rows</span>
+
+        <select
+            x-model.number="itemsCount"
+            x-on:change="handleChangeItemsCount(itemsCount)"
+        >
+
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+
+        </select>
+
+    </div>
+
+</div>
       </section>
 
 

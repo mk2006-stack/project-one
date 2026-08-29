@@ -10,14 +10,14 @@
     <title>Devora</title>
 </head>
 <style></style>
-<body x-data="homeData()" x-init="getUsers()">
+<body x-data="homeData()" x-init="init()"></body>
   <!-- navbar sevtion ____start____ -->
 <nav class=" z-depth-0 top_navbar red darken-1">
     <div class="nav-wrapper"  class="indigo lighten-2" >
       <a href="#!"  class=" hide-on-med-and-up">Home </a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons ">menu</i></a>
       <ul class=" hide-on-med-and-down ">
-        <li><a href="/index.html">Home</a></li>
+        <li class="active"><a href="/index.html">Home</a></li>
         <li><a href="/user.html">User Management</a></li>
         <li><a href="/images.html">Images</a></li>
         <li><a href="/articles.html">Articles</a></li>
@@ -62,7 +62,7 @@
             <i class="material-icons">dashboard</i>
                  Devora
           </span>
-          <h1> Welcome back mohammad</h1>
+          <h1>Welcome Back <span x-text="welcomeName"></span></h1>
           <p> Manage Your Users , Images Articles From One Place </p>
          </div>
          <div class="hero-logo"> <img src="/assets/images/logo1.png" alt="My Project Logo"></div>
@@ -150,23 +150,31 @@
               <p>Total Registered Users</p>
             </div>
           </div>
-          <!--Image-->
-          <div class="status-item">
-            <i class="material-icons">image</i>
-            <div>
-              <h3>Images</h3>
-              <p>Stored image</p>
+         <!--Image-->
+           <div class="status-item">
+              <i class="material-icons">image</i>
+              <div>
+                 <h3>
+                    <span x-show="!isLoadingImages" x-text="imageCount"></span>
+                    <span x-show="isLoadingImages">...</span>
+                   Images
+                 </h3>
+                   <p>Stored Images</p>
+                </div>
             </div>
-          </div>
           <!--Article-->
-          <div class="status-item">
-            <i class="material-icons">article</i>
-            <div>
-              <h3>Article</h3>
-              <p>Published Articles</p>
-            </div>
-          </div>
-        </div>
+           <div class="status-item">
+              <i class="material-icons">article</i>
+              <div>
+                  <h3>
+                      <span x-show="!isLoadingArticles" x-text="articleCount"></span>
+                      <span x-show="isLoadingArticles">...</span>
+                      Articles
+                  </h3>
+                  <p>Total Articles</p>
+               </div>
+             </div>
+         </div>
       </section> 
 
         <!--User Management-->

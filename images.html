@@ -19,8 +19,8 @@
         <ul class="hide-on-med-and-down">
             <li><a href="/index.html">Home</a></li>
             <li><a href="/user.html">User Management</a></li>
-            <li><a href="/images.html">Images</a></li>
-            <li class="active"><a href="/articles.html">Articles</a></li>
+            <li class="active"><a href="/images.html">Images</a></li>
+            <li><a href="/articles.html">Articles</a></li>
             <li><a href="/files.html">Files</a></li>
             <li><a href="/settings.html">Settings</a></li>
         </ul>
@@ -88,29 +88,53 @@
 
            <!-- FILTER -->
             <div class="images-filter">
-                <button class="image-filter-btn" :class="{'active': filter === 'all'}" @click="filter">All</button>
-                <button class="image-filter-btn" :class="{'active': filter === 'Technology'}" @click="filter">Technology</button>
-                <button class="image-filter-btn" :class="{'active': filter === 'Nature'}" @click="filter">Nature</button>
-                <button class="image-filter-btn" :class="{'active': filter === 'Abstract'}" @click="filter">Abstract</button>
+              <button
+                class="images-filter-btn"
+                :class="{ 'active': filter === 'all' }"
+                @click="filter = 'all'">
+                All
+            </button>
+
+            <button
+              class="images-filter-btn"
+              :class="{ 'active': filter === 'Technology' }"
+              @click="filter = 'Technology'">
+              Technology
+          </button>
+
+           <button
+            class="images-filter-btn"
+            :class="{ 'active': filter === 'Nature' }"
+             @click="filter = 'Nature'">
+         Nature
+         </button>
+
+            <button
+                class="images-filter-btn"
+                :class="{ 'active': filter === 'Abstract' }"
+                @click="filter = 'Abstract'">
+                Abstract
+            </button>
             </div>
 
             <!-- SORT -->
-             <button class="images-sort-btn">
-                <i class="material-icons">sort</i>
-                Newest
-             </button>
+             <button
+               class="images-sort-btn"
+                 @click="toggleSort()">
+            <i class="material-icons">sort</i>
+
+              <span x-text="sortOrder === 'newest' ? 'Newest' : 'Oldest'"></span>
+               </button>
 
             <!-- UPload -->
-             <label class="images-upload-btn" for="imageUpload">
-                <i class="material-icons">cloud_upload</i>Upload Image</label>
-
-                 <input
-                        id="imageUpload"
-                        type="file"
-                        accept="image/*"
-                        hidden
-                        @change="uploadImage($event)">
-    </section>  
+          <button
+             type="button"
+             class="images-upload-btn"
+              @click="openUpload()"
+          >
+              <i class="material-icons">cloud_upload</i>
+              Upload Image
+         </button>
 
     <!--========= SECTION HEADER ============-->
   <section class="images-section">
@@ -127,7 +151,7 @@
             <h2>Image Gallery</h2>
 
             <div class="gallery-meta">
-                <span class="image-result-count" x-text="imageCount + 'image'">
+                    <span class="image-result-count"  x-text="imageCount + (imageCount === 1 ? ' image' : ' images')">
                     <i class="material-icons">collections</i>
                 </span>
             </div>
@@ -171,6 +195,15 @@
                     >
                         <i class="material-icons">visibility</i>
                     </button>
+
+                     <!-- EDIT -->
+                     <button
+                         type="button"
+                         @click="openEditImage(image)"
+                         title="Edit"
+                     >
+                         <i class="material-icons">edit</i>
+                     </button>
 
                     <!-- DELETE -->
                     <button
@@ -251,14 +284,131 @@
 
         </template>
 
+      </div>
+
+   </div>
+<!-- ================= UPLOAD IMAGE MODAL ================= -->
+
+<div
+    class="image-upload-modal"
+    x-show="showUploadModal"
+    x-cloak
+    @click.self="closeUpload()"
+>
+
+    <div class="image-upload-modal-content">
+
+        <button
+            type="button"
+            class="image-upload-close"
+            @click="closeUpload()"
+        >
+            <i class="material-icons">close</i>
+        </button>
+
+
+        <div class="image-upload-header">
+
+            <div class="image-upload-icon">
+                <i class="material-icons">cloud_upload</i>
+            </div>
+
+            <div>
+               <h3 x-text="editingImage ? 'Edit Image' : 'Upload Image'"></h3>
+
+               <p x-text=" editingImage ? 'Update your image information.' : 'Add a new image to your media library.'"></p>
+            </div>
+
+        </div>
+
+
+        <!-- FILE -->
+
+        <div class="image-upload-field">
+
+            <label>Select Image</label>
+
+            <input
+                type="file"
+                accept="image/*"
+                @change="selectFile($event)"
+            >
+
+        </div>
+
+
+        <!-- NAME -->
+
+        <div class="image-upload-field">
+
+            <label>Image Name</label>
+
+            <input
+                type="text"
+                placeholder="Enter image name..."
+                x-model="newImageName"
+            >
+
+        </div>
+
+
+        <!-- CATEGORY -->
+
+        <div class="image-upload-field">
+
+            <label>Category</label>
+
+            <select x-model="newImageCategory">
+
+                <option value="Technology">
+                    Technology
+                </option>
+
+                <option value="Nature">
+                    Nature
+                </option>
+
+                <option value="Abstract">
+                    Abstract
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="image-upload-actions">
+
+            <button
+                type="button"
+                class="image-upload-cancel"
+                @click="closeUpload()"
+            >
+                Cancel
+            </button>
+
+            <button
+              type="button"
+              class="image-upload-submit"
+              @click="editingImage ? saveImageEdit() : uploadImage()">
+
+             <i class="material-icons" x-text="editingImage ? 'save' : 'cloud_upload'"></i>
+
+                <span x-text="editingImage ? 'Save Changes' : 'Upload Image'"></span>
+            </button>
+
+        </div>
+
     </div>
 
 </div>
-  </main>
+</main>
   <!--================ JS ==================-->
   <script src="assets/materialize/js/materialize.min.js"></script>
-  <script src="assets/js/alpine.js"></script>
   <script src="assets/js/images.js"></script>
+  <script src="assets/js/alpine.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
