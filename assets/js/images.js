@@ -5,6 +5,7 @@ document.addEventListener("alpine:init", () => {
         images: [],
         search: "",
         filter: "all",
+        showMoreCategories: false,
         sortOrder: "newest",
 
         selectedImage: null,
@@ -496,25 +497,60 @@ async init() {
 
         },
 
-
-       // =========================
-          // MATERIALIZE SELECT
-      //=========================
-
-initSelects() {
-
-    const selects =
-        document.querySelectorAll(
-            ".image-upload-modal select"
-        );
-
-    if (selects.length) {
-
-        M.FormSelect.init(selects);
-
-    }
-
-},
+        // =========================
+        // MATERIALIZE SELECT
+        // =========================
+        
+        initSelects() {
+        
+            const selects =
+                document.querySelectorAll(
+                    ".image-upload-modal select"
+                );
+        
+            if (!selects.length) {
+                return;
+            }
+        
+            M.FormSelect.init(selects, {
+        
+                dropdownOptions: {
+        
+                    // همیشه منو را زیر فیلد باز کن
+                    coverTrigger: false,
+        
+                    // عرض منو برابر فیلد Category باشد
+                    constrainWidth: true,
+        
+                    // قبل از باز شدن، ارتفاع منو را
+                    // بر اساس فضای باقی‌مانده پایین صفحه تعیین کن
+                    onOpenStart: function () {
+        
+                        const triggerRect =
+                            this.el.getBoundingClientRect();
+        
+                        const spaceBelow =
+                            window.innerHeight -
+                            triggerRect.bottom -
+                            20;
+        
+                        // منو فقط به اندازه فضای پایین صفحه
+                        // ارتفاع می‌گیرد و بقیه آیتم‌ها scroll می‌شوند
+                        this.dropdownEl.style.maxHeight =
+                            Math.max(0, spaceBelow) + "px";
+        
+                        this.dropdownEl.style.overflowY =
+                            "auto";
+        
+                        this.dropdownEl.style.overflowX =
+                            "hidden";
+                    }
+        
+                }
+        
+            });
+        
+        },
 
 
         // =========================

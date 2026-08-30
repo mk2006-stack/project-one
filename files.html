@@ -3,9 +3,1422 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devora</title>
+
+    <link rel="stylesheet" href="assets/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/util.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/files.css">
+
+    <title>Files - Devora</title>
 </head>
-<body>
-    
+
+<body x-data="filesData" x-init="init()">
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+    <nav class="z-depth-0 top_navbar red darken-1">
+        <div class="nav-wrapper">
+
+            <a href="#!" class="hide-on-med-and-up brand-logo-small">
+                Files
+            </a>
+
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+
+            <ul class="hide-on-med-and-down">
+                <li>
+                    <a href="/index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="/user.html">User Management</a>
+                </li>
+
+                <li>
+                    <a href="/images.html">Images</a>
+                </li>
+
+                <li>
+                    <a href="/articles.html">Articles</a>
+                </li>
+
+                <li class="active">
+                    <a href="/files.html">Files</a>
+                </li>
+
+                <li>
+                    <a href="/settings.html">Settings</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <!-- =========================
+         MOBILE MENU
+    ========================== -->
+    <ul class="sidenav" id="mobile-demo">
+
+        <li>
+            <div class="user-view">
+
+                <div class="background">
+                    <img
+                        src="assets/images/Background.jpeg"
+                        class="w-full"
+                    >
+                </div>
+
+                <a href="#!">
+                    <img
+                        class="circle"
+                        src="assets/images/Avatar.jpg"
+                    >
+                </a>
+
+                <a href="#!">
+                    <span class="white-text name">
+                        mohammad
+                    </span>
+                </a>
+
+                <a href="#!">
+                    <span class="white-text email">
+                        mohammad@gmail.com
+                    </span>
+                </a>
+
+            </div>
+        </li>
+
+        <li>
+            <a href="/index.html">
+                <i class="material-icons right sidenav_link_icon">
+                    home
+                </i>
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="/user.html">
+                <i class="material-icons right sidenav_link_icon">
+                    people
+                </i>
+                User Management
+            </a>
+        </li>
+
+        <li>
+            <a href="/images.html">
+                <i class="material-icons right sidenav_link_icon">
+                    image
+                </i>
+                Images
+            </a>
+        </li>
+
+        <li>
+            <a href="/articles.html">
+                <i class="material-icons right sidenav_link_icon">
+                    article
+                </i>
+                Articles
+            </a>
+        </li>
+
+        <li>
+            <a href="/files.html">
+                <i class="material-icons right sidenav_link_icon">
+                    folder
+                </i>
+                Files
+            </a>
+        </li>
+
+        <li>
+            <a href="/settings.html">
+                <i class="material-icons right sidenav_link_icon">
+                    settings
+                </i>
+                Settings
+            </a>
+        </li>
+
+    </ul>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+    <main class="files-container">
+
+
+        <!-- =========================
+             HERO
+        ========================== -->
+        <section class="files-hero">
+
+            <div class="files-hero-content">
+
+                <span class="files-badge">
+                    <i class="material-icons">
+                        folder_managed
+                    </i>
+
+                    FILE MANAGER
+                </span>
+
+                <h1>
+                    File Library
+                </h1>
+
+                <p>
+                    Store, organize, search and manage your project
+                    documents from one clean workspace.
+                </p>
+
+                <div class="files-hero-meta">
+
+                    <span>
+                        <i class="material-icons">
+                            lock
+                        </i>
+
+                        Stored locally
+                    </span>
+
+                    <span>
+                        <i class="material-icons">
+                            cloud_done
+                        </i>
+
+                        Ready to upload
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+            <div
+                class="files-hero-visual"
+                aria-hidden="true"
+            >
+
+                <div class="files-folder-back"></div>
+
+                <div class="files-folder-front">
+
+                    <i class="material-icons">
+                        folder
+                    </i>
+
+                </div>
+
+                <span class="files-floating-file file-a">
+                    PDF
+                </span>
+
+                <span class="files-floating-file file-b">
+                    DOC
+                </span>
+
+                <span class="files-floating-file file-c">
+                    ZIP
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+        <section class="files-stats">
+
+
+            <!-- TOTAL FILES -->
+            <div class="file-stat-card">
+
+                <div class="file-stat-icon">
+
+                    <i class="material-icons">
+                        insert_drive_file
+                    </i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Total files
+                    </span>
+
+                    <strong
+                        x-text="files.length"
+                    >
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- CATEGORIES -->
+            <div class="file-stat-card">
+
+                <div class="file-stat-icon">
+
+                    <i class="material-icons">
+                        folder
+                    </i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Categories
+                    </span>
+
+                    <strong
+                        x-text="categoryCount"
+                    >
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- STORAGE -->
+            <div class="file-stat-card">
+
+                <div class="file-stat-icon">
+
+                    <i class="material-icons">
+                        storage
+                    </i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Storage used
+                    </span>
+
+                    <strong
+                        x-text="formatBytes(totalSize)"
+                    >
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- LATEST -->
+            <div class="file-stat-card">
+
+                <div class="file-stat-icon">
+
+                    <i class="material-icons">
+                        schedule
+                    </i>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Latest upload
+                    </span>
+
+                    <strong
+                        x-text="latestLabel"
+                    >
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TOOLBAR
+        ========================== -->
+
+
+<section class="files-toolbar">
+
+    <!-- SEARCH -->
+    <div class="files-search">
+
+        <i class="material-icons">
+            search
+        </i>
+
+        <input
+            type="text"
+            placeholder="Search files by name..."
+            x-model="search"
+        >
+
+        <button
+            type="button"
+            class="clear-search"
+            x-show="search"
+            @click="search = ''"
+            title="Clear search"
+        >
+            <i class="material-icons">
+                close
+            </i>
+        </button>
+
+    </div>
+
+
+    <!-- ALL -->
+    <button
+        type="button"
+        class="files-filter-main"
+        :class="{ active: filter === 'all' }"
+        @click="filter = 'all'"
+    >
+        All
+    </button>
+
+
+    <!-- MORE -->
+    <div class="files-more-wrapper">
+
+        <button
+            type="button"
+            class="files-filter-main more-btn"
+            :class="{ active: filter !== 'all' }"
+            @click="showCategoryMenu = !showCategoryMenu"
+        >
+
+            More
+
+            <i
+                class="material-icons"
+                :class="{ rotated: showCategoryMenu }"
+            >
+                expand_more
+            </i>
+
+        </button>
+
+
+        <!-- CATEGORY MENU -->
+        <div
+            class="files-category-menu"
+            x-show="showCategoryMenu"
+            x-cloak
+            @click.outside="showCategoryMenu = false"
+        >
+
+            <div class="category-menu-header">
+
+                <span>
+                    Categories
+                </span>
+
+                <small>
+                    Filter by type
+                </small>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="category-option"
+                :class="{ active: filter === 'Document' }"
+                @click="filter = 'Document'; showCategoryMenu = false"
+            >
+
+                <span class="category-option-icon document">
+                    <i class="material-icons">
+                        description
+                    </i>
+                </span>
+
+                <span>
+                    Documents
+                </span>
+
+                <i
+                    class="material-icons check-icon"
+                    x-show="filter === 'Document'"
+                >
+                    check
+                </i>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-option"
+                :class="{ active: filter === 'PDF' }"
+                @click="filter = 'PDF'; showCategoryMenu = false"
+            >
+
+                <span class="category-option-icon pdf">
+                    <i class="material-icons">
+                        picture_as_pdf
+                    </i>
+                </span>
+
+                <span>
+                    PDF
+                </span>
+
+                <i
+                    class="material-icons check-icon"
+                    x-show="filter === 'PDF'"
+                >
+                    check
+                </i>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-option"
+                :class="{ active: filter === 'Spreadsheet' }"
+                @click="filter = 'Spreadsheet'; showCategoryMenu = false"
+            >
+
+                <span class="category-option-icon spreadsheet">
+                    <i class="material-icons">
+                        table_chart
+                    </i>
+                </span>
+
+                <span>
+                    Spreadsheets
+                </span>
+
+                <i
+                    class="material-icons check-icon"
+                    x-show="filter === 'Spreadsheet'"
+                >
+                    check
+                </i>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-option"
+                :class="{ active: filter === 'Presentation' }"
+                @click="filter = 'Presentation'; showCategoryMenu = false"
+            >
+
+                <span class="category-option-icon presentation">
+                    <i class="material-icons">
+                        slideshow
+                    </i>
+                </span>
+
+                <span>
+                    Presentations
+                </span>
+
+                <i
+                    class="material-icons check-icon"
+                    x-show="filter === 'Presentation'"
+                >
+                    check
+                </i>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-option"
+                :class="{ active: filter === 'Archive' }"
+                @click="filter = 'Archive'; showCategoryMenu = false"
+            >
+
+                <span class="category-option-icon archive">
+                    <i class="material-icons">
+                        folder_zip
+                    </i>
+                </span>
+
+                <span>
+                    Archives
+                </span>
+
+                <i
+                    class="material-icons check-icon"
+                    x-show="filter === 'Archive'"
+                >
+                    check
+                </i>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-option"
+                :class="{ active: filter === 'Other' }"
+                @click="filter = 'Other'; showCategoryMenu = false"
+            >
+
+                <span class="category-option-icon other">
+                    <i class="material-icons">
+                        insert_drive_file
+                    </i>
+                </span>
+
+                <span>
+                    Other
+                </span>
+
+                <i
+                    class="material-icons check-icon"
+                    x-show="filter === 'Other'"
+                >
+                    check
+                </i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SORT -->
+    <button
+        type="button"
+        class="files-sort-btn"
+        @click="toggleSort()"
+    >
+
+        <i class="material-icons">
+            sort
+        </i>
+
+        <span
+            x-text="sortOrder === 'newest'
+                ? 'Newest'
+                : 'Oldest'"
+        >
+        </span>
+
+    </button>
+
+
+    <!-- UPLOAD -->
+    <button
+        type="button"
+        class="files-upload-btn"
+        @click="openUpload()"
+    >
+
+        <i class="material-icons">
+            upload_file
+        </i>
+
+        Upload File
+
+    </button>
+
+</section>
+
+
+
+        <!-- =========================
+             FILE WORKSPACE
+        ========================== -->
+        <section class="files-section">
+
+
+            <!-- SECTION HEADER -->
+            <div class="files-section-heading">
+
+                <div>
+
+                    <div class="files-eyebrow">
+
+                        <i class="material-icons">
+                            folder_open
+                        </i>
+
+                        YOUR FILES
+
+                    </div>
+
+                    <h2>
+                        File Workspace
+                    </h2>
+
+                    <p>
+
+                        <span
+                            x-text="filteredFiles.length"
+                        >
+                        </span>
+
+                        <span
+                            x-text="filteredFiles.length === 1
+                                ? ' file'
+                                : ' files'"
+                        >
+                        </span>
+
+                        <span
+                            x-show="search || filter !== 'all'"
+                        >
+                            matching your current view
+                        </span>
+
+                    </p>
+
+                </div>
+
+
+                <!-- VIEW SWITCHER -->
+                <div class="files-view-options">
+
+                    <button
+                        type="button"
+                        class="files-view-btn"
+                        :class="{ active: viewMode === 'list' }"
+                        @click="viewMode = 'list'"
+                        title="List view"
+                    >
+
+                        <i class="material-icons">
+                            view_list
+                        </i>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="files-view-btn"
+                        :class="{ active: viewMode === 'grid' }"
+                        @click="viewMode = 'grid'"
+                        title="Grid view"
+                    >
+
+                        <i class="material-icons">
+                            grid_view
+                        </i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 LIST VIEW
+            ========================== -->
+            <div
+                class="files-list"
+                x-show="viewMode === 'list'"
+                x-cloak
+            >
+
+                <!-- TABLE HEADER -->
+                <div class="files-list-head">
+
+                    <span>
+                        Name
+                    </span>
+
+                    <span>
+                        Type
+                    </span>
+
+                    <span>
+                        Size
+                    </span>
+
+                    <span>
+                        Updated
+                    </span>
+
+                    <span>
+                        Actions
+                    </span>
+
+                </div>
+
+
+                <!-- FILE ROWS -->
+                <template
+                    x-for="file in filteredFiles"
+                    :key="file.id"
+                >
+
+                    <article class="file-row">
+
+
+                        <!-- NAME -->
+                        <div class="file-name-cell">
+
+                            <div
+                                class="file-type-icon"
+                                :class="'type-' + file.extension"
+                            >
+
+                                <i
+                                    class="material-icons"
+                                    x-text="fileIcon(file.extension)"
+                                >
+                                </i>
+
+                            </div>
+
+                            <div>
+
+                                <strong
+                                    x-text="file.name"
+                                >
+                                </strong>
+
+                                <small
+                                    x-text="file.category"
+                                >
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TYPE -->
+                        <span
+                            class="file-type-label"
+                            x-text="file.extension.toUpperCase()"
+                        >
+                        </span>
+
+
+                        <!-- SIZE -->
+                        <span
+                            class="file-size"
+                            x-text="formatBytes(file.size)"
+                        >
+                        </span>
+
+
+                        <!-- DATE -->
+                        <span
+                            class="file-date"
+                            x-text="formatDate(file.updatedAt)"
+                        >
+                        </span>
+
+
+                        <!-- ACTIONS -->
+                        <div class="file-actions">
+
+                            <button
+                                type="button"
+                                @click="previewFile(file)"
+                                title="Details"
+                            >
+
+                                <i class="material-icons">
+                                    visibility
+                                </i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                @click="downloadFile(file)"
+                                title="Download"
+                            >
+
+                                <i class="material-icons">
+                                    download
+                                </i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                @click="deleteFile(file.id)"
+                                title="Delete"
+                            >
+
+                                <i class="material-icons">
+                                    delete
+                                </i>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                </template>
+
+
+                <!-- EMPTY -->
+                <div
+                    class="files-empty"
+                    x-show="filteredFiles.length === 0"
+                    x-cloak
+                >
+
+                    <i class="material-icons">
+                        folder_off
+                    </i>
+
+                    <h3>
+                        No files found
+                    </h3>
+
+                    <p>
+                        Try another search or upload your first file.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="files-empty-btn"
+                        @click="openUpload()"
+                    >
+
+                        <i class="material-icons">
+                            upload_file
+                        </i>
+
+                        Upload File
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 GRID VIEW
+            ========================== -->
+            <div
+                class="files-grid"
+                x-show="viewMode === 'grid'"
+                x-cloak
+            >
+
+                <template
+                    x-for="file in filteredFiles"
+                    :key="file.id"
+                >
+
+                    <article class="file-card">
+
+
+                        <!-- CARD HEADER -->
+                        <div class="file-card-top">
+
+                            <div
+                                class="file-type-icon large"
+                                :class="'type-' + file.extension"
+                            >
+
+                                <i
+                                    class="material-icons"
+                                    x-text="fileIcon(file.extension)"
+                                >
+                                </i>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="file-more"
+                                @click="previewFile(file)"
+                            >
+
+                                <i class="material-icons">
+                                    more_horiz
+                                </i>
+
+                            </button>
+
+                        </div>
+
+
+                        <!-- NAME -->
+                        <strong
+                            class="file-card-name"
+                            x-text="file.name"
+                        >
+                        </strong>
+
+
+                        <!-- CATEGORY -->
+                        <span
+                            class="file-card-category"
+                            x-text="file.category"
+                        >
+                        </span>
+
+
+                        <!-- FOOTER -->
+                        <div class="file-card-footer">
+
+                            <span
+                                x-text="formatBytes(file.size)"
+                            >
+                            </span>
+
+                            <span
+                                x-text="formatDate(file.updatedAt)"
+                            >
+                            </span>
+
+                        </div>
+
+
+                        <!-- ACTIONS -->
+                        <div class="file-card-actions">
+
+                            <button
+                                type="button"
+                                @click="previewFile(file)"
+                            >
+
+                                <i class="material-icons">
+                                    visibility
+                                </i>
+
+                                Details
+
+                            </button>
+
+                            <button
+                                type="button"
+                                @click="downloadFile(file)"
+                            >
+
+                                <i class="material-icons">
+                                    download
+                                </i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                @click="deleteFile(file.id)"
+                            >
+
+                                <i class="material-icons">
+                                    delete
+                                </i>
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                </template>
+
+
+                <!-- EMPTY -->
+                <div
+                    class="files-empty"
+                    x-show="filteredFiles.length === 0"
+                    x-cloak
+                >
+
+                    <i class="material-icons">
+                        folder_off
+                    </i>
+
+                    <h3>
+                        No files found
+                    </h3>
+
+                    <p>
+                        Try another search or upload your first file.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         UPLOAD MODAL
+    ========================== -->
+    <div
+        class="files-modal-backdrop"
+        x-show="showUploadModal"
+        x-cloak
+        @click.self="closeUpload()"
+    >
+
+        <div class="files-modal">
+
+
+            <!-- MODAL HEADER -->
+            <div class="files-modal-head">
+
+                <div>
+
+                    <span class="modal-kicker">
+                        NEW ASSET
+                    </span>
+
+                    <h3>
+                        Upload a file
+                    </h3>
+
+                </div>
+
+                <button
+                    type="button"
+                    @click="closeUpload()"
+                >
+
+                    <i class="material-icons">
+                        close
+                    </i>
+
+                </button>
+
+            </div>
+
+
+            <!-- DROP ZONE -->
+            <label
+                class="drop-zone"
+                :class="{ selected: selectedFile }"
+            >
+
+                <input
+                    type="file"
+                    @change="handleFileSelect($event)"
+                >
+
+                <i
+                    class="material-icons"
+                    x-text="selectedFile
+                        ? 'task'
+                        : 'cloud_upload'"
+                >
+                </i>
+
+                <strong
+                    x-text="selectedFile
+                        ? selectedFile.name
+                        : 'Choose a file'"
+                >
+                </strong>
+
+                <span
+                    x-text="selectedFile
+                        ? formatBytes(selectedFile.size)
+                        : 'PDF, DOC, XLS, ZIP and other files'"
+                >
+                </span>
+
+            </label>
+
+
+            <!-- CATEGORY -->
+            <div
+                class="upload-fields"
+                x-show="selectedFile"
+            >
+
+                <div class="upload-field">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select x-model="newCategory">
+
+                        <option value="Document">
+                            Document
+                        </option>
+
+                        <option value="PDF">
+                            PDF
+                        </option>
+
+                        <option value="Spreadsheet">
+                            Spreadsheet
+                        </option>
+
+                        <option value="Presentation">
+                            Presentation
+                        </option>
+
+                        <option value="Archive">
+                            Archive
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODAL ACTIONS -->
+            <div class="files-modal-actions">
+
+                <button
+                    type="button"
+                    class="modal-cancel"
+                    @click="closeUpload()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="modal-submit"
+                    :disabled="!selectedFile"
+                    @click="saveUpload()"
+                >
+
+                    <i class="material-icons">
+                        save
+                    </i>
+
+                    Save File
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         DETAILS MODAL
+    ========================== -->
+    <div
+        class="files-modal-backdrop"
+        x-show="selectedFileDetails"
+        x-cloak
+        @click.self="selectedFileDetails = null"
+    >
+
+        <div class="files-modal details-modal">
+
+
+            <!-- HEADER -->
+            <div class="files-modal-head">
+
+                <div>
+
+                    <span class="modal-kicker">
+                        FILE DETAILS
+                    </span>
+
+                    <h3
+                        x-text="selectedFileDetails?.name"
+                    >
+                    </h3>
+
+                </div>
+
+                <button
+                    type="button"
+                    @click="selectedFileDetails = null"
+                >
+
+                    <i class="material-icons">
+                        close
+                    </i>
+
+                </button>
+
+            </div>
+
+
+            <!-- FILE PREVIEW -->
+            <div class="details-preview">
+
+                <div
+                    class="file-type-icon xl"
+                    :class="'type-' +
+                        (selectedFileDetails?.extension || 'file')"
+                >
+
+                    <i
+                        class="material-icons"
+                        x-text="fileIcon(
+                            selectedFileDetails?.extension || ''
+                        )"
+                    >
+                    </i>
+
+                </div>
+
+                <div>
+
+                    <strong
+                        x-text="selectedFileDetails?.extension?.toUpperCase()
+                            + ' file'"
+                    >
+                    </strong>
+
+                    <span
+                        x-text="selectedFileDetails?.category"
+                    >
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- DETAILS -->
+            <div
+                class="details-grid"
+                x-show="selectedFileDetails"
+            >
+
+                <div>
+
+                    <span>
+                        File name
+                    </span>
+
+                    <strong
+                        x-text="selectedFileDetails?.name"
+                    >
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Type
+                    </span>
+
+                    <strong
+                        x-text="selectedFileDetails?.extension?.toUpperCase()"
+                    >
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Size
+                    </span>
+
+                    <strong
+                        x-text="formatBytes(
+                            selectedFileDetails?.size || 0
+                        )"
+                    >
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Updated
+                    </span>
+
+                    <strong
+                        x-text="formatDate(
+                            selectedFileDetails?.updatedAt
+                        )"
+                    >
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+            <div class="files-modal-actions">
+
+                <button
+                    type="button"
+                    class="modal-cancel"
+                    @click="selectedFileDetails = null"
+                >
+                    Close
+                </button>
+
+                <button
+                    type="button"
+                    class="modal-submit"
+                    @click="downloadFile(selectedFileDetails)"
+                >
+
+                    <i class="material-icons">
+                        download
+                    </i>
+
+                    Download
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SCRIPTS
+    ========================== -->
+
+    <script src="assets/materialize/js/materialize.min.js"></script>
+
+    <script src="assets/js/files.js"></script>
+
+    <script src="assets/js/alpine.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
 </body>
 </html>
+```

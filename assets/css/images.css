@@ -163,6 +163,172 @@ padding: 45px 25px 100px;
     font-size: 12px;
     transition: .2s;
 }
+
+
+/* =========================================
+   MORE CATEGORIES
+========================================= */
+
+.images-filter-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+
+/* FILTER BUTTONS */
+
+.images-filter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    background: #eeeeee;
+    border-radius: 12px;
+}
+
+
+/* MORE BUTTON */
+
+.images-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.images-more-btn i {
+    font-size: 17px;
+    line-height: 1;
+    transition: transform .2s ease;
+}
+
+.images-more-btn.active i {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================
+   MORE PANEL
+========================================= */
+
+.images-more-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+
+    /*
+       مرکز پنل دقیقاً زیر More قرار می‌گیرد.
+       چون More آخرین دکمه است، پنل با translateX
+       به سمت چپ کشیده می‌شود.
+    */
+    right: 0;
+
+    width: 520px;
+
+    padding: 14px;
+
+    background: white;
+
+    border: 1px solid rgba(0, 0, 0, .06);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, .12);
+
+    z-index: 1000;
+}
+
+
+/* =========================================
+   6 × 3 GRID
+========================================= */
+
+.images-more-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    grid-template-rows:
+        repeat(3, 1fr);
+
+    gap: 7px;
+}
+
+
+/* CATEGORY ITEMS */
+
+.images-more-category {
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 6px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #f7f7f7;
+
+    color: #616161;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+
+.images-more-category:hover {
+    background: #eeeeee;
+
+    color: #c62828;
+
+    transform: translateY(-1px);
+}
+
+
+/* ACTIVE CATEGORY */
+
+.images-more-category.active {
+    background: white;
+
+    color: #c62828;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, .08);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .images-more-panel {
+        width: min(520px, calc(100vw - 40px));
+
+        right: 0;
+    }
+
+    .images-more-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        grid-template-rows: auto;
+    }
+
+}
+
+
 .images-filter-btn.active {
     background: white;
     color: #c62828;
@@ -942,3 +1108,38 @@ padding: 45px 25px 100px;
     }
 
 }
+
+/* =========================================
+   IMAGE UPLOAD - CATEGORY DROPDOWN
+   Always opens downward + scroll
+========================================= */
+
+.image-upload-modal .select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.image-upload-modal .select-dropdown.dropdown-content {
+    max-height: 350px;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    /* شروع منو دقیقاً زیر Category */
+    margin-top: 0 !important;
+
+    z-index: 10000;
+}
+
+/* ظاهر Scrollbar */
+.image-upload-modal .select-dropdown.dropdown-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+.image-upload-modal .select-dropdown.dropdown-content::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
+
+.image-upload-modal .select-dropdown.dropdown-content::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
