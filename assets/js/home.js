@@ -3,31 +3,48 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('homeData', () => ({
 
         users: [],
+        allComments: [],
+
+        currentCommentIndex: 0,
+
+        commentTimer: null,
 
         imageCount: 0,
         articleCount: 0,
 
+        comments: [],
+        commentCount: 0,
+
         isLoading: false,
         isLoadingImages: false,
         isLoadingArticles: false,
+        isLoadingComments: false,
 
         apiError: false,
+        commentsError: false,
 
         welcomeName: "Mohammad",
 
 
-        async init() {
+        // =========================
+        // INIT
+        // =========================
+
+        init() {
 
             this.loadWelcomeName();
 
-            await Promise.all([
-                this.getUsers(),
-                this.getImageCount(),
-                this.getArticleCount()
-            ]);
+            this.getUsers();
+            this.getImageCount();
+            this.getArticleCount();
+            this.getComments();
 
         },
 
+
+        // =========================
+        // WELCOME
+        // =========================
 
         loadWelcomeName() {
 
@@ -48,6 +65,10 @@ document.addEventListener('alpine:init', () => {
 
         },
 
+
+        // =========================
+        // USERS
+        // =========================
 
         async getUsers() {
 
@@ -132,7 +153,6 @@ document.addEventListener('alpine:init', () => {
                         ? cachedUsers
                         : [];
 
-
             } finally {
 
                 this.isLoading = false;
@@ -142,7 +162,11 @@ document.addEventListener('alpine:init', () => {
         },
 
 
-        async getImageCount() {
+        // =========================
+        // IMAGE COUNT
+        // =========================
+
+        getImageCount() {
 
             this.isLoadingImages = true;
 
@@ -172,6 +196,9 @@ document.addEventListener('alpine:init', () => {
 
                             db.close();
 
+                            this.isLoadingImages =
+                                false;
+
                             return;
 
                         }
@@ -200,6 +227,9 @@ document.addEventListener('alpine:init', () => {
                                 this.imageCount =
                                     countRequest.result || 0;
 
+                                this.isLoadingImages =
+                                    false;
+
                                 db.close();
 
                             };
@@ -209,6 +239,9 @@ document.addEventListener('alpine:init', () => {
                             () => {
 
                                 this.imageCount = 0;
+
+                                this.isLoadingImages =
+                                    false;
 
                                 db.close();
 
@@ -222,6 +255,9 @@ document.addEventListener('alpine:init', () => {
 
                         this.imageCount = 0;
 
+                        this.isLoadingImages =
+                            false;
+
                     };
 
 
@@ -234,21 +270,19 @@ document.addEventListener('alpine:init', () => {
 
                 this.imageCount = 0;
 
-            } finally {
-
-                setTimeout(() => {
-
-                    this.isLoadingImages =
-                        false;
-
-                }, 150);
+                this.isLoadingImages =
+                    false;
 
             }
 
         },
 
 
-        async getArticleCount() {
+        // =========================
+        // ARTICLE COUNT
+        // =========================
+
+        getArticleCount() {
 
             this.isLoadingArticles = true;
 
@@ -292,7 +326,129 @@ document.addEventListener('alpine:init', () => {
 
             } finally {
 
-                this.isLoadingArticles = false;
+                this.isLoadingArticles =
+                    false;
+
+            }
+
+        },
+
+
+        updateVisibleComments() {
+
+    if (!this.allComments.length) {
+
+        this.comments = [];
+
+        return;
+
+    }
+
+    const total =
+        this.allComments.length;
+
+    this.comments = [
+
+        this.allComments[
+            this.currentCommentIndex % total
+        ],
+
+        this.allComments[
+            (this.currentCommentIndex + 1) % total
+        ],
+
+        this.allComments[
+            (this.currentCommentIndex + 2) % total
+        ]
+
+    ];
+
+},
+
+
+startCommentSlider() {
+
+    if (this.commentTimer) {
+
+        clearInterval(this.commentTimer);
+
+    }
+
+    this.commentTimer =
+        setInterval(() => {
+
+            this.currentCommentIndex =
+                (this.currentCommentIndex + 1)
+                % this.allComments.length;
+
+            this.updateVisibleComments();
+
+        }, 5000);
+
+},
+
+
+        // =========================
+        // COMMENTS
+        // =========================
+
+        async getComments() {
+
+            this.isLoadingComments = true;
+            this.commentsError = false;
+
+            try {
+
+                const response =
+                    await axios.get(
+                        "https://jsonplaceholder.typicode.com/comments",
+                        {
+                            timeout: 8000
+                        }
+                    );
+
+
+                const allComments =
+                    response.data || [];
+
+
+                this.allComments = allComments;
+
+                this.commentCount = allComments.length;
+                
+                this.currentCommentIndex = 0;
+                
+                this.updateVisibleComments();
+                
+                if (this.allComments.length > 0) {
+
+    this.startCommentSlider();
+
+}
+
+                console.log(
+                    "COMMENTS:",
+                    this.comments
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "COMMENTS ERROR:",
+                    error
+                );
+
+                this.comments = [];
+
+                this.commentCount = 0;
+
+                this.commentsError = true;
+
+            } finally {
+
+                this.isLoadingComments =
+                    false;
 
             }
 

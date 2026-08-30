@@ -271,17 +271,54 @@ table.striped > tbody > tr:nth-child(odd) {
     background-color: #fff !important;
 }
 
+.user-name-column {
+    text-align: left !important;
+}
+
 .user-name-cell {
+    text-align: left !important;
+    vertical-align: middle;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+.user-info {
     display: flex;
     align-items: center;
     gap: 12px;
+    width: 100%;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    flex: 0 0 40px;
+    border-radius: 12px;
+    background: #ffebee;
+    color: #c62828;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 800;
+}
+
+.user-details {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: left;
 }
 
 .user-name-cell strong {
     display: block;
     font-size: 14px;
+    line-height: 18px;
     color: #212121;
+    white-space: nowrap;
 }
 
 .user-name-cell small {
@@ -289,19 +326,8 @@ table.striped > tbody > tr:nth-child(odd) {
     margin-top: 3px;
     color: #9e9e9e;
     font-size: 11px;
-}
-
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    border-radius: 12px;
-    background: #ffebee;
-    color: #c62828;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 800;
+    line-height: 15px;
+    white-space: nowrap;
 }
 
 .user-id {
@@ -952,9 +978,866 @@ table.striped > tbody > tr:nth-child(odd) {
     color: #757575;
     font-size: 13px;
 }
-@media(max-width:900px){
-    .status-card{
+
+/* =========================================
+   HOME - NEW RESOURCE CARDS
+========================================= */
+
+.resource-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.resource-card {
+    min-height: 175px;
+    padding: 24px;
+    overflow: hidden;
+}
+
+.resource-content {
+    min-width: 0;
+}
+
+.resource-label {
+    display: block;
+    margin-bottom: 5px;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+
+    color: #9e9e9e;
+}
+
+.resource-content h3 {
+    margin: 0 0 7px;
+}
+
+.resource-content p {
+    line-height: 1.5;
+}
+
+.resource-meta {
+    position: absolute;
+
+    right: 22px;
+    bottom: 18px;
+
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+
+    color: #bdbdbd;
+}
+
+.resource-meta strong {
+    font-size: 23px;
+    font-weight: 800;
+
+    color: #424242;
+}
+
+.resource-meta span {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.resource-meta-arrow {
+    right: 52px;
+}
+
+.resource-card .arrow-icon {
+    position: absolute;
+
+    right: 20px;
+    top: 22px;
+}
+
+
+/* =========================================
+   SYSTEM MANAGEMENT
+========================================= */
+
+.system-management-section {
+    margin-top: 55px;
+}
+
+.management-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.25fr)
+        minmax(0, .75fr);
+
+    gap: 20px;
+}
+
+
+/* =========================================
+   USER MANAGEMENT CARD
+========================================= */
+
+.management-user-card {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+
+    min-height: 150px;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    text-decoration: none;
+
+    color: inherit;
+
+    border: 1px solid #f1f1f1;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .06);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.management-user-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, .10);
+}
+
+.management-icon {
+    flex-shrink: 0;
+}
+
+.management-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    color: #e53935;
+}
+
+.management-content h3 {
+    margin: 0 0 6px;
+
+    font-size: 20px;
+}
+
+.management-content p {
+    margin: 0;
+
+    max-width: 450px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   SETTINGS CARD
+========================================= */
+
+.settings-management-card {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    min-height: 150px;
+
+    padding: 25px;
+
+    border-radius: 20px;
+
+    text-decoration: none;
+
+    color: #ffffff;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #263238,
+            #37474f
+        );
+
+    box-shadow:
+        0 12px 30px rgba(38, 50, 56, .20);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.settings-management-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    right: -55px;
+    bottom: -70px;
+
+    border-radius: 50%;
+
+    border: 25px solid rgba(255,255,255,.04);
+}
+
+.settings-management-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 18px 40px rgba(38, 50, 56, .28);
+}
+
+.settings-gear {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.10);
+
+    border: 1px solid rgba(255,255,255,.12);
+}
+
+.settings-gear i {
+    font-size: 30px;
+
+    transition:
+        transform .5s ease;
+}
+
+.settings-management-card:hover
+.settings-gear i {
+    transform: rotate(90deg);
+}
+
+.settings-management-content {
+    flex: 1;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.settings-management-content span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    opacity: .55;
+}
+
+.settings-management-content h3 {
+    margin: 0 0 6px;
+
+    font-size: 20px;
+
+    color: #ffffff;
+}
+
+.settings-management-content p {
+    margin: 0;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: rgba(255,255,255,.68);
+}
+
+.settings-open {
+    position: relative;
+
+    z-index: 2;
+
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.08);
+}
+
+.settings-open i {
+    font-size: 20px;
+}
+
+
+/* =========================================
+   STATUS
+   DESKTOP ONLY
+========================================= */
+
+/*
+   Status is hidden by default.
+   It becomes visible only on desktop.
+*/
+
+.home-status-section {
+    display: none;
+}
+
+@media (min-width: 993px) {
+
+    .home-status-section {
+        display: block;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .resource-grid {
         grid-template-columns: 1fr;
     }
+
+    .management-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .resource-card {
+        min-height: 140px;
+
+        padding: 20px;
+    }
+
+    .resource-meta {
+        right: 20px;
+        bottom: 15px;
+    }
+
+    .management-user-card,
+    .settings-management-card {
+        min-height: 130px;
+
+        padding: 20px;
+    }
+
+}
+
+/* =========================================
+   USER FEEDBACK
+========================================= */
+
+.user-feedback-section {
+
+    margin-top: 22px;
+
+    padding: 26px;
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    border: 1px solid #f1f1f1;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, .06);
+
+}
+
+
+.feedback-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+}
+
+
+.feedback-header > div:first-child span {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.7px;
+
+    color: #e53935;
+
+}
+
+
+.feedback-header h3 {
+
+    margin: 0;
+
+    font-size: 22px;
+
+    font-weight: 800;
+
+    color: #212121;
+
+}
+
+
+.feedback-count {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 8px 12px;
+
+    border-radius: 12px;
+
+    background: #fafafa;
+
+    color: #9e9e9e;
+
+    font-size: 11px;
+
+}
+
+
+.feedback-count i {
+
+    font-size: 18px;
+
+    color: #e53935;
+
+}
+
+
+.feedback-count strong {
+
+    font-size: 15px;
+
+    color: #424242;
+
+}
+
+
+.feedback-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+}
+
+
+.feedback-item {
+
+    position: relative;
+
+    min-height: 145px;
+
+    padding: 18px;
+
+    display: flex;
+
+    gap: 12px;
+
+    background: #fafafa;
+
+    border-radius: 16px;
+
+    border: 1px solid #f1f1f1;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+
+.feedback-item:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .06);
+
+}
+
+
+.feedback-avatar {
+
+    width: 38px;
+
+    height: 38px;
+
+    min-width: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: #ffebee;
+
+    color: #e53935;
+
+    font-weight: 800;
+
+    font-size: 14px;
+
+}
+
+
+.feedback-content {
+
+    min-width: 0;
+
+    padding-right: 10px;
+
+}
+
+
+.feedback-user strong {
+
+    display: block;
+
+    color: #424242;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.feedback-user span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #9e9e9e;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.feedback-content p {
+
+    margin: 10px 0 0;
+
+    color: #616161;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+}
+
+
+.feedback-quote {
+
+    position: absolute;
+
+    right: 13px;
+
+    bottom: 11px;
+
+    color: #eeeeee;
+
+    font-size: 24px;
+
+}
+
+
+.feedback-loading {
+
+    min-height: 120px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #9e9e9e;
+
+    font-size: 12px;
+
+}
+
+
+.feedback-empty {
+
+    min-height: 120px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    color: #9e9e9e;
+
+    font-size: 12px;
+
+}
+
+
+.feedback-empty i {
+
+    font-size: 22px;
+
+}
+
+
+/* =========================================
+   MANAGEMENT + FEEDBACK RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .feedback-list {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .user-feedback-section {
+
+        padding: 18px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .feedback-header {
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+    }
+
+
+    .feedback-count {
+
+        padding: 7px 9px;
+
+    }
+
+
+    .feedback-item {
+
+        min-height: auto;
+
+    }
+
+}
+
+/* =========================================
+   FEEDBACK ACTIONS
+========================================= */
+
+.feedback-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.feedback-controls {
+
+    display: flex;
+
+    gap: 5px;
+
+}
+
+
+.feedback-controls button {
+
+    width: 34px;
+
+    height: 34px;
+
+    padding: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #616161;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+
+}
+
+
+.feedback-controls button:hover:not(:disabled) {
+
+    background: #f5f5f5;
+
+    color: #e53935;
+
+    transform: translateY(-2px);
+
+}
+
+
+.feedback-controls button:disabled {
+
+    opacity: .35;
+
+    cursor: default;
+
+}
+
+
+.feedback-controls i {
+
+    font-size: 19px;
+
+}
+
+
+@media (max-width: 600px) {
+
+    .feedback-actions {
+
+        width: 100%;
+
+        justify-content: space-between;
+
+    }
+
+}
+
+/* =========================================
+   FEEDBACK OVERFLOW FIX
+========================================= */
+
+.user-feedback-section {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.feedback-list {
+    width: 100%;
+    min-width: 0;
+}
+
+.feedback-item {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.feedback-content {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.feedback-content p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.feedback-user {
+    min-width: 0;
+    max-width: 100%;
 }
 

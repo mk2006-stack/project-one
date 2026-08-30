@@ -81,58 +81,121 @@
 
             <!--Images-->
 
-            <a href="images.html" class="resource-card">
-              <div class="resource-icon images-icon">
-                <i class="material-icons">image</i>
-              </div>
-              <div class="resource-content">
-                <h3>Images</h3>
-                <P>Browse And Manage Your Images.</P>
-              </div>
-              <i class="material-icons arrow-icon">arrow_forward</i>
-            </a>
+           <a href="images.html" class="resource-card resource-card-images">
+
+    <div class="resource-icon images-icon">
+        <i class="material-icons">image</i>
+    </div>
+
+    <div class="resource-content">
+
+        <span class="resource-label">
+            MEDIA LIBRARY
+        </span>
+
+        <h3>Images</h3>
+
+        <p>
+            Browse and manage your image collection.
+        </p>
+
+    </div>
+
+    <div class="resource-meta">
+
+        <strong
+            x-text="imageCount"
+        >
+            0
+        </strong>
+
+        <span>Images</span>
+
+    </div>
+
+    <i class="material-icons arrow-icon">
+        arrow_forward
+    </i>
+
+</a>
 
             <!--Articles-->
-            <a href="articles.html" class="resource-card">
-              <div class="resource-icon articles-icon">
-                <i class="material-icons">article</i>
-              </div>
-              <div class="resource-content">
-                <h3>Article</h3>
-                <p> Read And Manage Your Article</p>
-              </div>
-              <i class="material-icons arrow-icon">arrow_forward</i>
-            </a>
+            <a href="articles.html" class="resource-card resource-card-articles">
+
+    <div class="resource-icon articles-icon">
+        <i class="material-icons">article</i>
+    </div>
+
+    <div class="resource-content">
+
+        <span class="resource-label">
+            CONTENT
+        </span>
+
+        <h3>Articles</h3>
+
+        <p>
+            Read and manage your published articles.
+        </p>
+
+    </div>
+
+    <div class="resource-meta">
+
+        <strong
+            x-text="articleCount"
+        >
+            0
+        </strong>
+
+        <span>Articles</span>
+
+    </div>
+
+    <i class="material-icons arrow-icon">
+        arrow_forward
+    </i>
+
+</a>
 
             <!--Files-->
-            <a href="files.html" class="resource-card">
-              <div class="resource-icon files-icon">
-                <i class="material-icons">folder</i>
-              </div>
-              <div class="resource-content">
-                <h3>Files</h3>
-                <p>Mango And Organize Your Files</p>
-              </div>
-              <i class="material-icons arrow-icon">arrow_forward</i>
-            </a>
+           <a href="files.html" class="resource-card resource-card-files">
 
-            <!--Settings-->
-            <a href="settings.html" class="resource-card">
-              <div class="resource-icon settings-icon">
-                <i class="material-icons">settings</i>
-              </div>
-              <div class="resource-content">
-                <h3>Settings</h3>
-                <p>Customize Your Application Settings</p>
-              </div>
-              <i class="material-icons arrow-icon">arrow_forward</i>
-            </a>
+    <div class="resource-icon files-icon">
+        <i class="material-icons">folder</i>
+    </div>
+
+    <div class="resource-content">
+
+        <span class="resource-label">
+            STORAGE
+        </span>
+
+        <h3>Files</h3>
+
+        <p>
+            Browse and organize your files.
+        </p>
+
+    </div>
+
+    <div class="resource-meta resource-meta-arrow">
+
+        <span>Open Library</span>
+
+    </div>
+
+    <i class="material-icons arrow-icon">
+        arrow_forward
+    </i>
+
+</a>
           </div> 
         </section>
 
        <!--Status-->
 
-      <section class="home-section">
+      <section class="home-section home-status-section">
         <div class="section-title">
           <span>STATUS</span>
           <h2>System Overview</h2>
@@ -177,27 +240,307 @@
          </div>
       </section> 
 
-        <!--User Management-->
+<!-- System Management -->
 
-        <section class="home-section">
-          <div class="section-title">
-            <div>
-              <span>MANAGEMENT</span>
-              <h2>System Management</h2>
-            </div> 
-          </div> 
-           
-          <a href="user.html" class="Management-card">
-            <div class="management-icon">
-              <i class="material-icons">people</i>
+<section class="home-section system-management-section">
+
+    <div class="section-title">
+
+        <div>
+
+            <span>MANAGEMENT</span>
+
+            <h2>System Management</h2>
+
+        </div>
+
+    </div>
+
+
+   <div class="management-grid">
+
+
+    <!-- USER MANAGEMENT -->
+
+    <a
+        href="user.html"
+        class="management-user-card"
+    >
+
+        <div class="management-icon">
+
+            <i class="material-icons">
+                people
+            </i>
+
+        </div>
+
+
+        <div class="management-content">
+
+            <span class="management-label">
+                USERS
+            </span>
+
+            <h3>
+                User Management
+            </h3>
+
+            <p>
+                Manage and control your application users.
+            </p>
+
+        </div>
+
+
+        <i class="material-icons management-arrow">
+            arrow_forward
+        </i>
+
+    </a>
+
+
+
+    <!-- SETTINGS -->
+
+    <a
+        href="settings.html"
+        class="settings-management-card"
+    >
+
+        <div class="settings-gear">
+
+            <i class="material-icons">
+                settings
+            </i>
+
+        </div>
+
+
+        <div class="settings-management-content">
+
+            <span>
+                SYSTEM
+            </span>
+
+            <h3>
+                Settings
+            </h3>
+
+            <p>
+                Configure and personalize your application.
+            </p>
+
+        </div>
+
+
+        <div class="settings-open">
+
+            <i class="material-icons">
+                arrow_forward
+            </i>
+
+        </div>
+
+    </a>
+
+</div>
+
+<!-- USER FEEDBACK -->
+
+<div class="user-feedback-section">
+
+<div class="feedback-header">
+
+    <div>
+
+        <span>
+            COMMUNITY
+        </span>
+
+        <h3>
+            User Feedback
+        </h3>
+
+    </div>
+
+
+    <div class="feedback-actions">
+
+        <div class="feedback-count">
+
+            <i class="material-icons">
+                forum
+            </i>
+
+            <strong x-text="commentCount">
+                0
+            </strong>
+
+            <span>
+                Comments
+            </span>
+
+        </div>
+
+
+        <div class="feedback-controls">
+
+            <button
+                type="button"
+                @click="
+                    currentCommentIndex =
+                    (currentCommentIndex - 1 + allComments.length)
+                    % allComments.length;
+
+                    updateVisibleComments();
+                "
+                :disabled="!allComments.length"
+            >
+                <i class="material-icons">
+                    chevron_left
+                </i>
+            </button>
+
+
+            <button
+                type="button"
+                @click="
+                    currentCommentIndex =
+                    (currentCommentIndex + 1)
+                    % allComments.length;
+
+                    updateVisibleComments();
+                "
+                :disabled="!allComments.length"
+            >
+                <i class="material-icons">
+                    chevron_right
+                </i>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+    <!-- Loading -->
+
+    <div
+        class="feedback-loading"
+        x-show="isLoadingComments"
+    >
+
+        <div class="preloader-wrapper small active">
+
+            <div class="spinner-layer spinner-red-only">
+
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+
             </div>
-            <div class="management-content">
-              <h3>User Management</h3>
-              <p> Mango And Control Your Application.</p>
+
+        </div>
+
+        <span>
+            Loading feedback...
+        </span>
+
+    </div>
+
+
+
+    <!-- Comments -->
+
+    <div
+        class="feedback-list"
+        x-show="!isLoadingComments"
+    >
+
+        <template
+            x-for="comment in comments"
+            :key="comment.id"
+        >
+
+            <div class="feedback-item">
+
+
+                <div class="feedback-avatar">
+
+                    <span
+                        x-text="
+                            comment.name
+                                .charAt(0)
+                                .toUpperCase()
+                        "
+                    ></span>
+
+                </div>
+
+
+                <div class="feedback-content">
+
+                    <div class="feedback-user">
+
+                        <strong
+                            x-text="comment.name"
+                        ></strong>
+
+                        <span
+                            x-text="comment.email"
+                        ></span>
+
+                    </div>
+
+
+                    <p
+                        x-text="comment.body"
+                    ></p>
+
+                </div>
+
+
+                <i class="material-icons feedback-quote">
+                    format_quote
+                </i>
+
             </div>
-          
-          </a>
-        </section>
+
+        </template>
+
+
+        <!-- Error -->
+
+        <div
+            class="feedback-empty"
+            x-show="commentsError"
+        >
+
+            <i class="material-icons">
+                cloud_off
+            </i>
+
+            <span>
+                Unable to load user feedback.
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
      </main>
 
      <!-- home sevtion ____end____   -->

@@ -219,8 +219,8 @@
                 <span x-text="user.email"></span>
               </div>
                <div class="p-all-5">
-                <span class="f-bold">Address:</span>
-                <span x-text="(user.address?.city  || '')+  '-'  +(user.address?.street  || '')"></span>
+               <span class="f-bold">Location:</span>
+               <span x-text="user.location || user.address?.city || '-'"></span>
               </div>
                <div class="p-all-5">
                 <span class="f-bold">Active:</span>
@@ -283,33 +283,37 @@
             </td>
 
 
-            <td class="user-name-cell">
+           <td class="user-name-cell">
 
-                <div class="user-avatar">
+    <div class="user-info">
 
-                    <span
-                        x-text="
-                            (user.name || 'U')
-                                .charAt(0)
-                                .toUpperCase()
-                        "
-                    ></span>
+        <div class="user-avatar">
 
-                </div>
+            <span
+                x-text="
+                    (user.name || 'U')
+                        .charAt(0)
+                        .toUpperCase()
+                "
+            ></span>
 
-                <div>
+        </div>
 
-                    <strong
-                        x-text="user.name"
-                    ></strong>
+        <div class="user-details">
 
-                    <small
-                        x-text="user.email"
-                    ></small>
+            <strong
+                x-text="user.name"
+            ></strong>
 
-                </div>
+            <small
+                x-text="user.email"
+            ></small>
 
-            </td>
+        </div>
+
+    </div>
+
+</td>>
 
 
             <td>
@@ -543,21 +547,101 @@
 
           <form>
 
-             <div class="input-field col s12">
-              <input  id="Name" type="text" class="validate" x-model="newUserInfo.name">
-              <label for="Name">Name</label>
-             </div>
+            <div class="input-field col s12">
 
-             <div class="input-field col s12">
-              <input  id="Username" type="text" class="validate" x-model="newUserInfo.username">
-              <label for="Username">Username</label>
-             </div>
+    <input
+        id="Name"
+        type="text"
+        class="validate"
+        x-model="newUserInfo.name"
+        required
+    >
+
+    <label for="Name">
+        Name
+    </label>
+
+</div>
 
 
-             <div class="input-field col s12">
-              <input  id="email" type="text" class="validate" x-model="newUserInfo.email">
-              <label for="email">Email</label>
-             </div>
+<div class="input-field col s12">
+
+    <input
+        id="Username"
+        type="text"
+        class="validate"
+        x-model="newUserInfo.username"
+        required
+    >
+
+    <label for="Username">
+        Username
+    </label>
+
+</div>
+
+
+<div class="input-field col s12">
+
+    <input
+        id="email"
+        type="email"
+        class="validate"
+        x-model="newUserInfo.email"
+        required
+    >
+
+    <label for="email">
+        Email
+    </label>
+
+</div>
+
+
+<!-- NUMBER -->
+
+<div class="input-field col s12">
+
+    <input
+        id="Number"
+        type="text"
+        class="validate"
+        inputmode="numeric"
+        pattern="[0-9]+"
+        maxlength="15"
+        x-model="newUserInfo.number"
+        @input="
+            newUserInfo.number =
+            newUserInfo.number
+                .replace(/[^0-9]/g, '')
+        "
+        required
+    >
+
+    <label for="Number">
+        Number
+    </label>
+
+</div>
+
+
+<!-- LOCATION -->
+
+<div class="input-field col s12">
+
+    <input
+        id="Location"
+        type="text"
+        class="validate"
+        x-model="newUserInfo.location"
+        required
+    >
+
+    <label for="Location">
+        Location
+    </label>
+
+</div>
 
 
             <button

@@ -26,9 +26,95 @@ document.addEventListener('alpine:init', () => {
         newUserInfo: {
             name: "",
             username: "",
-            number: "",
-            email: ""
+            email: "",
+            number:"",
+            location:"",
         },
+
+        saveUsersToStorage() {
+
+    localStorage.setItem(
+        "devora_custom_users",
+        JSON.stringify(
+            this.users.filter(user => user.isCustom === true)
+        )
+    );
+
+},
+
+loadCustomUsers() {
+
+    try {
+
+        const savedUsers =
+            JSON.parse(
+                localStorage.getItem(
+                    "devora_custom_users"
+                ) || "[]"
+            );
+
+        if (!Array.isArray(savedUsers)) {
+            return [];
+        }
+
+        const migrationKey =
+            "devora_custom_users_id_migrated";
+
+        const alreadyMigrated =
+            localStorage.getItem(
+                migrationKey
+            ) === "true";
+
+        if (!alreadyMigrated) {
+
+            const migratedUsers =
+                savedUsers.map(
+                    (user, index) => ({
+                        ...user,
+                        id: 11 + index,
+                        isCustom: true
+                    })
+                );
+
+            localStorage.setItem(
+                "devora_custom_users",
+                JSON.stringify(
+                    migratedUsers
+                )
+            );
+
+            localStorage.setItem(
+                migrationKey,
+                "true"
+            );
+
+            localStorage.setItem(
+                "devora_next_user_id",
+                String(
+                    11 + migratedUsers.length
+                )
+            );
+
+            return migratedUsers;
+        }
+
+        return savedUsers.map(user => ({
+            ...user,
+            isCustom: true
+        }));
+
+    } catch (error) {
+
+        console.error(
+            "Custom users storage error:",
+            error
+        );
+
+        return [];
+
+    }
+
+},
 
 
         // =========================
@@ -46,87 +132,71 @@ document.addEventListener('alpine:init', () => {
         // LOAD USERS
         // =========================
 
-        async getUsers() {
+      getUsers(){
 
-            this.isLoading = true;
-            this.apiError = false;
+    this.isLoading = true;
 
-            try {
+    axios.get(
+        "https://jsonplaceholder.typicode.com/users"
+    )
 
-                const response = await axios.get(
-                    "https://jsonplaceholder.typicode.com/users",
-                    {
-                        timeout: 8000
-                    }
-                );
+    .then((res) => {
 
-                const apiUsers = response.data || [];
+        const apiUsers = res.data.map(user => ({
 
-                const customUsers =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "devora_custom_users"
-                        ) || "[]"
-                    );
+    ...user,
 
-                const deletedUsers =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "devora_deleted_users"
-                        ) || "[]"
-                    );
+    number:
+        (user.phone || "")
+            .replace(/[^0-9]/g, ""),
 
-                const deletedIds =
-                    new Set(deletedUsers);
+    location:
+        user.address?.city || "",
 
-                const filteredApiUsers =
-                    apiUsers.filter(
-                        user =>
-                            !deletedIds.has(user.id)
-                    );
+    isCustom: false
 
-                this.mainUsers = [
-                    ...filteredApiUsers,
-                    ...customUsers
-                ];
+}));
 
-                this.users = [
-                    ...this.mainUsers
-                ];
 
-                this.pagination();
+const customUsers =
+    this.loadCustomUsers();
 
-                this.saveUsersCache();
 
-            } catch (error) {
+this.mainUsers = [
+    ...apiUsers,
+    ...customUsers
+];
 
-                console.error(
-                    "Users API Error:",
-                    error
-                );
 
-                this.apiError = true;
+this.users = [
+    ...this.mainUsers
+];
 
-                // اگر API قطع بود، اطلاعات قبلی خود سایت را بخوان
-                const cachedUsers =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "devora_users_cache"
-                        ) || "[]"
-                    );
+        this.pagination();
 
-                this.mainUsers = cachedUsers;
-                this.users = [...cachedUsers];
+    })
 
-                this.pagination();
+    .catch((error) => {
 
-            } finally {
+        console.error(
+            "Get Users Error:",
+            error
+        );
 
-                this.isLoading = false;
+        M.toast({
+            html: "Unable To Load Users",
+            classes: "red rounded"
+        });
 
-            }
+    })
 
-        },
+    .finally(() => {
+
+        this.isLoading = false;
+
+    });
+
+},
 
 
         // =========================
@@ -360,120 +430,167 @@ document.addEventListener('alpine:init', () => {
 
         },
 
+        // =========================
+        // CUSTOM USER ID
+        // =========================
+
+getNextCustomUserId() {
+
+    const savedNextId =
+        Number(
+            localStorage.getItem(
+                "devora_next_user_id"
+            )
+        ) || 11;
+
+    const existingIds =
+        this.mainUsers
+            .map(user => Number(user.id))
+            .filter(id => Number.isInteger(id));
+
+    const maxExistingId =
+        existingIds.length
+            ? Math.max(...existingIds)
+            : 10;
+
+    const nextId =
+        Math.max(
+            savedNextId,
+            maxExistingId + 1,
+            11
+        );
+
+    localStorage.setItem(
+        "devora_next_user_id",
+        String(nextId + 1)
+    );
+
+    return nextId;
+
+},
 
         // =========================
         // ADD USER
         // =========================
 
-        handleSubmitAddUserForm() {
+handleSubmitAddUserForm() {
 
-            if (
-                !this.newUserInfo.name.trim() ||
-                !this.newUserInfo.username.trim() ||
-                !this.newUserInfo.email.trim()
-            ) {
+const newUser = {
 
-                M.toast({
-                    html:
-                        "Please fill in Name, Username and Email.",
-                    classes:
-                        "red rounded"
-                });
+    id:
+        this.getNextCustomUserId(),
 
-                return;
+    isCustom:
+        true,
 
-            }
+    isCustom:
+        true,
 
+        name:
+            this.newUserInfo.name.trim(),
 
-            const ids =
-                this.mainUsers.map(
-                    user => Number(user.id)
-                );
+        username:
+            this.newUserInfo.username.trim(),
 
-            const newId =
-                ids.length
-                    ? Math.max(...ids) + 1
-                    : 1;
+        email:
+            this.newUserInfo.email.trim(),
 
+        number:
+            this.newUserInfo.number
+                .replace(/[^0-9]/g, ""),
 
-            const newUser = {
+        location:
+            this.newUserInfo.location.trim(),
 
-                id: newId,
+        address: {
 
-                name:
-                    this.newUserInfo.name.trim(),
+            street: "",
 
-                username:
-                    this.newUserInfo.username.trim(),
+            city:
+                this.newUserInfo.location.trim()
 
-                number:
-                    this.newUserInfo.number.trim(),
+        }
 
-                email:
-                    this.newUserInfo.email.trim(),
-
-                address: {
-
-                    street: "",
-                    city: ""
-
-                },
-
-                isCustom: true
-
-            };
+    };
 
 
-            this.mainUsers = [
-
-                ...this.mainUsers,
-                newUser
-
-            ];
-
-            this.users = [
-
-                ...this.mainUsers
-
-            ];
+    console.log(
+        "USER TO ADD:",
+        newUser
+    );
 
 
-            this.saveCustomUsers();
-            this.saveUsersCache();
+    this.users = [
+        ...this.users,
+        newUser
+    ];
 
 
-            this.itemsCount =
-                Number(this.itemsCount) || 5;
+    this.mainUsers = [
+        ...this.mainUsers,
+        newUser
+    ];
 
-            this.pageCount =
-                Math.ceil(
-                    this.users.length /
-                    this.itemsCount
-                );
+    this.saveUsersToStorage();
 
-            this.currentPage =
-                this.pageCount;
-
-
-            this.pagination();
+    this.pageCount =
+        Math.ceil(
+            this.users.length /
+            this.itemsCount
+        );
 
 
-            this.showAddModal = false;
+    this.currentPage =
+        this.pageCount;
 
-            this.handleResetForm();
+
+    const start =
+        (this.currentPage - 1) *
+        this.itemsCount;
 
 
-            M.toast({
+    const end =
+        this.currentPage *
+        this.itemsCount;
 
-                html:
-                    "User Created Successfully",
 
-                classes:
-                    "green rounded"
+    this.pageUsers =
+        this.users.slice(
+            start,
+            end
+        );
 
-            });
 
-        },
+    M.toast({
+
+        html:
+            "User Created Successfully",
+
+        classes:
+            "rounded green"
+
+    });
+
+
+    this.showAddModal =
+        false;
+
+
+    this.newUserInfo = {
+
+        name: "",
+
+        username: "",
+
+        email: "",
+
+        number: "",
+
+        location: ""
+
+    };
+
+},
 
 
         // =========================
@@ -583,124 +700,266 @@ document.addEventListener('alpine:init', () => {
         // EDIT USER
         // =========================
 
-        handleUpdateUser(user) {
+   handleUpdateUser(user) {
 
-            this.userIdToEdit =
-                user.id;
+    this.newUserInfo = {
+
+        name:
+            user.name || "",
+
+        username:
+            user.username || "",
+
+        email:
+            user.email || "",
+
+        number:
+            (
+                user.number ||
+                user.phone ||
+                ""
+            )
+            .replace(/[^0-9]/g, ""),
+
+        location:
+            user.location ||
+            user.address?.city ||
+            ""
+
+    };
 
 
-            this.newUserInfo = {
-
-                name:
-                    user.name || "",
-
-                username:
-                    user.username || "",
-
-                number:
-                    user.number || "",
-
-                email:
-                    user.email || ""
-
-            };
+    this.userIdToEdit =
+        user.id;
 
 
-            this.showAddModal = true;
+    this.showAddModal =
+        true;
 
-        },
+},
 
 
         // =========================
         // CONFIRM EDIT
         // =========================
 
-        handleConfirmEditUser() {
+handleConfirmEditUser() {
 
-            if (
-                !this.newUserInfo.name.trim() ||
-                !this.newUserInfo.username.trim() ||
-                !this.newUserInfo.email.trim()
-            ) {
+    this.isLoading = true;
 
-                M.toast({
+    const updatedUser = {
 
-                    html:
-                        "Please fill in Name, Username and Email.",
+        name:
+            this.newUserInfo.name.trim(),
 
-                    classes:
-                        "red rounded"
+        username:
+            this.newUserInfo.username.trim(),
 
-                });
+        email:
+            this.newUserInfo.email.trim(),
 
-                return;
+        number:
+            this.newUserInfo.number
+                .replace(/[^0-9]/g, ""),
 
-            }
+        location:
+            this.newUserInfo.location.trim(),
+
+        address: {
+
+            street: "",
+
+            city:
+                this.newUserInfo.location.trim()
+
+        }
+
+    };
 
 
-            const index =
-                this.mainUsers.findIndex(
+    const userIndex =
+        this.mainUsers.findIndex(
+            user =>
+                user.id ===
+                this.userIdToEdit
+        );
+
+
+    if (userIndex === -1) {
+
+        this.isLoading = false;
+
+        M.toast({
+            html:
+                "User Not Found",
+            classes:
+                "red rounded"
+        });
+
+        return;
+
+    }
+
+
+    const existingUser =
+        this.mainUsers[userIndex];
+
+
+    // =========================
+    // CUSTOM USER
+    // =========================
+
+    if (existingUser.isCustom === true) {
+
+        const finalUser = {
+
+            ...existingUser,
+
+            ...updatedUser,
+
+            id:
+                existingUser.id,
+
+            isCustom:
+                true
+
+        };
+
+
+        this.mainUsers[userIndex] =
+            finalUser;
+
+
+        const usersIndex =
+            this.users.findIndex(
+                user =>
+                    user.id ===
+                    this.userIdToEdit
+            );
+
+
+        if (usersIndex !== -1) {
+
+            this.users[usersIndex] =
+                finalUser;
+
+        }
+
+
+        this.saveCustomUsers();
+
+        this.saveUsersToStorage();
+
+        this.pagination();
+
+
+        this.showAddModal =
+            false;
+
+        this.userIdToEdit =
+            null;
+
+
+        this.newUserInfo = {
+
+            name: "",
+            username: "",
+            email: "",
+            number: "",
+            location: ""
+
+        };
+
+
+        M.toast({
+
+            html:
+                "User Updated Successfully",
+
+            classes:
+                "orange rounded"
+
+        });
+
+
+        this.isLoading = false;
+
+        return;
+
+    }
+
+
+    // =========================
+    // API USER
+    // =========================
+
+    axios.put(
+
+        "https://jsonplaceholder.typicode.com/users/" +
+        this.userIdToEdit,
+
+        updatedUser
+
+    )
+
+    .then((res) => {
+
+        if (res.status === 200) {
+
+            const finalUser = {
+
+                ...existingUser,
+
+                ...updatedUser,
+
+                id:
+                    this.userIdToEdit,
+
+                isCustom:
+                    false
+
+            };
+
+
+            this.mainUsers[userIndex] =
+                finalUser;
+
+
+            const usersIndex =
+                this.users.findIndex(
                     user =>
                         user.id ===
                         this.userIdToEdit
                 );
 
 
-            if (index === -1) return;
+            if (usersIndex !== -1) {
 
+                this.users[usersIndex] =
+                    finalUser;
 
-            const oldUser =
-                this.mainUsers[index];
-
-
-            const updatedUser = {
-
-                ...oldUser,
-
-                name:
-                    this.newUserInfo.name.trim(),
-
-                username:
-                    this.newUserInfo.username.trim(),
-
-                number:
-                    this.newUserInfo.number.trim(),
-
-                email:
-                    this.newUserInfo.email.trim(),
-
-                isCustom:
-                    oldUser.isCustom || true
-
-            };
-
-
-            this.mainUsers[index] =
-                updatedUser;
-
-
-            this.users =
-                this.users.map(
-                    user =>
-                        user.id ===
-                        updatedUser.id
-                            ? updatedUser
-                            : user
-                );
-
-
-            this.saveCustomUsers();
-            this.saveUsersCache();
+            }
 
 
             this.pagination();
 
 
-            this.showAddModal = false;
+            this.showAddModal =
+                false;
 
-            this.userIdToEdit = null;
+            this.userIdToEdit =
+                null;
 
-            this.handleResetForm();
+
+            this.newUserInfo = {
+
+                name: "",
+                username: "",
+                email: "",
+                number: "",
+                location: ""
+
+            };
 
 
             M.toast({
@@ -715,6 +974,34 @@ document.addEventListener('alpine:init', () => {
 
         }
 
+    })
+
+    .catch((error) => {
+
+        console.error(
+            "Update User Error:",
+            error
+        );
+
+        M.toast({
+
+            html:
+                "Unable To Update User",
+
+            classes:
+                "red rounded"
+
+        });
+
+    })
+
+    .finally(() => {
+
+        this.isLoading = false;
+
+    });
+
+},
     }));
 
 });
