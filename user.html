@@ -270,14 +270,14 @@
 
 <tbody class="desktop_table_body">
 
-    <template x-for="user in pageUsers" :key="user.id">
+    <template x-for="(user, index) in pageUsers" :key="user.id">
 
         <tr>
 
             <td>
 
                 <span class="user-id">
-                    <span x-text="user.id"></span>
+                 <span x-text="((currentPage - 1) * itemsCount) + index + 1"></span>
                 </span>
 
             </td>
@@ -627,19 +627,179 @@
 
 <!-- LOCATION -->
 
-<div class="input-field col s12">
+<div class="col s12 user-location-field">
 
-    <input
-        id="Location"
-        type="text"
-        class="validate"
-        x-model="newUserInfo.location"
-        required
+    <label class="user-select-label">
+        Country
+    </label>
+
+    <div
+        class="location-dropdown"
+        x-data="{ open: false }"
     >
 
-    <label for="Location">
-        Location
-    </label>
+        <button
+            type="button"
+            class="location-select-button"
+            x-on:click="open = !open"
+        >
+
+        <span
+            class="country-option-content"
+            x-show="selectedCountry"
+        >
+            <img
+                class="country-flag"
+                :src="
+                    'https://flagcdn.com/w40/' +
+                    selectedCountry.flag.toLowerCase() +
+                    '.png'
+                "
+                :alt="selectedCountry.name"
+            >
+        
+            <span
+                x-text="selectedCountry.name"
+            ></span>
+        </span>
+        
+        <span
+            x-show="!selectedCountry"
+        >
+            Select Country
+        </span>
+
+
+            <i class="material-icons">
+                expand_more
+            </i>
+
+        </button>
+
+
+        <div
+            class="location-dropdown-menu"
+            x-show="open"
+            x-transition
+            x-on:click.outside="open = false"
+        >
+
+            <template
+                x-for="country in countries"
+                :key="country.code"
+            >
+
+                <button
+                    type="button"
+                    class="location-option"
+                    x-on:click="
+                        selectCountry(country);
+                        open = false
+                    "
+                >
+
+                  <span class="country-option-content">
+                  
+                      <img
+                          class="country-flag"
+                          :src="
+                              'https://flagcdn.com/w40/' +
+                              country.flag.toLowerCase() +
+                              '.png'
+                          "
+                          :alt="country.name"
+                      >
+                  
+                      <span
+                          x-text="country.name"
+                      ></span>
+                  
+                  </span>
+
+                </button>
+
+            </template>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATE / PROVINCE -->
+
+    <div
+        class="m-t-15"
+        x-show="selectedCountry"
+        x-transition
+    >
+
+
+
+        <div
+            class="location-dropdown"
+            x-data="{ open: false }"
+        >
+
+            <button
+                type="button"
+                class="location-select-button"
+                x-on:click="open = !open"
+                x-bind:disabled="!selectedCountry"
+            >
+
+                <span
+                    x-show="selectedState"
+                    class="selected-state"
+                    x-text="selectedState"
+                ></span>
+                
+                <span
+                    x-show="!selectedState"
+                >
+                    Select State / Province
+                </span>
+
+                <i class="material-icons">
+                    expand_more
+                </i>
+
+            </button>
+
+
+            <div
+                class="location-dropdown-menu"
+                x-show="open"
+                x-transition
+                x-on:click.outside="open = false"
+            >
+
+                <template
+                    x-for="state in availableStates"
+                    :key="state"
+                >
+
+                    <button
+                        type="button"
+                        class="location-option"
+                        x-on:click="
+                            selectState(state);
+                            open = false
+                        "
+                    >
+
+                        <span
+                            x-text="state"
+                        ></span>
+
+                    </button>
+
+                </template>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 

@@ -21,6 +21,386 @@ document.addEventListener('alpine:init', () => {
 
         searchChar: "",
 
+        // =========================
+// LOCATION DATA
+// =========================
+
+countries: [
+
+    {
+        code: "IR",
+        name: "Iran",
+        flag: "ir",
+        states: [
+            "Tehran",
+            "Isfahan",
+            "Fars",
+            "Razavi Khorasan",
+            "East Azerbaijan",
+            "West Azerbaijan",
+            "Gilan",
+            "Mazandaran",
+            "Alborz",
+            "Kermanshah",
+            "Kurdistan",
+            "Khuzestan",
+            "Yazd",
+            "Qom",
+            "Kerman",
+            "Qazvin"
+        ]
+    },
+
+    {
+        code: "US",
+        name: "United States",
+        flag: "us",
+        states: [
+            "California",
+            "Texas",
+            "Florida",
+            "New York",
+            "Washington",
+            "Illinois",
+            "Arizona",
+            "Nevada",
+            "Colorado",
+            "Virginia",
+            "Ohio",
+            "Georgia",
+            "Michigan",
+            "New Jersey",
+            "Pennsylvania"
+        ]
+    },
+
+    {
+        code: "RU",
+        name: "Russia",
+        flag: "ru",
+        states: [
+            "Moscow",
+            "Saint Petersburg",
+            "Moscow Oblast",
+            "Leningrad Oblast",
+            "Krasnodar Krai",
+            "Sverdlovsk Oblast",
+            "Novosibirsk Oblast",
+            "Tatarstan",
+            "Bashkortostan",
+            "Rostov Oblast"
+        ]
+    },
+
+    {
+        code: "DE",
+        name: "Germany",
+        flag: "de",
+        states: [
+            "Bavaria",
+            "Berlin",
+            "Brandenburg",
+            "Hesse",
+            "Hamburg",
+            "Lower Saxony",
+            "North Rhine-Westphalia",
+            "Rhineland-Palatinate",
+            "Saxony",
+            "Baden-Württemberg"
+        ]
+    },
+
+    {
+        code: "GB",
+        name: "United Kingdom",
+        flag: "gb",
+        states: [
+            "England",
+            "Scotland",
+            "Wales",
+            "Northern Ireland"
+        ]
+    },
+
+    {
+        code: "CA",
+        name: "Canada",
+        flag: "ca",
+        states: [
+            "Ontario",
+            "Quebec",
+            "British Columbia",
+            "Alberta",
+            "Manitoba",
+            "Saskatchewan",
+            "Nova Scotia",
+            "New Brunswick",
+            "Newfoundland and Labrador",
+            "Prince Edward Island"
+        ]
+    },
+
+    {
+        code: "AU",
+        name: "Australia",
+        flag: "au",
+        states: [
+            "New South Wales",
+            "Victoria",
+            "Queensland",
+            "Western Australia",
+            "South Australia",
+            "Tasmania",
+            "Northern Territory",
+            "Australian Capital Territory"
+        ]
+    },
+
+    {
+        code: "FR",
+        name: "France",
+        flag: "fr",
+        states: [
+            "Île-de-France",
+            "Auvergne-Rhône-Alpes",
+            "Provence-Alpes-Côte d'Azur",
+            "Occitanie",
+            "Nouvelle-Aquitaine",
+            "Hauts-de-France",
+            "Grand Est",
+            "Brittany",
+            "Normandy",
+            "Pays de la Loire"
+        ]
+    },
+
+    {
+        code: "IT",
+        name: "Italy",
+        flag: "it",
+        states: [
+            "Lazio",
+            "Lombardy",
+            "Campania",
+            "Sicily",
+            "Veneto",
+            "Piedmont",
+            "Tuscany",
+            "Emilia-Romagna",
+            "Liguria",
+            "Sardinia"
+        ]
+    },
+
+    {
+        code: "ES",
+        name: "Spain",
+        flag: "es",
+        states: [
+            "Madrid",
+            "Catalonia",
+            "Andalusia",
+            "Valencia",
+            "Galicia",
+            "Basque Country",
+            "Castile and León",
+            "Canary Islands",
+            "Murcia",
+            "Aragon"
+        ]
+    },
+
+    {
+        code: "TR",
+        name: "Turkey",
+        flag: "tr",
+        states: [
+            "Istanbul",
+            "Ankara",
+            "Izmir",
+            "Antalya",
+            "Bursa",
+            "Adana",
+            "Konya",
+            "Gaziantep",
+            "Mersin",
+            "Kayseri"
+        ]
+    },
+
+    {
+        code: "AE",
+        name: "United Arab Emirates",
+        flag: "ae",
+        states: [
+            "Abu Dhabi",
+            "Dubai",
+            "Sharjah",
+            "Ajman",
+            "Umm Al Quwain",
+            "Ras Al Khaimah",
+            "Fujairah"
+        ]
+    },
+
+    {
+        code: "IN",
+        name: "India",
+        flag: "in",
+        states: [
+            "Maharashtra",
+            "Delhi",
+            "Karnataka",
+            "Tamil Nadu",
+            "Gujarat",
+            "Rajasthan",
+            "West Bengal",
+            "Kerala",
+            "Uttar Pradesh",
+            "Punjab"
+        ]
+    },
+
+    {
+        code: "CN",
+        name: "China",
+        flag: "cn",
+        states: [
+            "Beijing",
+            "Shanghai",
+            "Guangdong",
+            "Jiangsu",
+            "Zhejiang",
+            "Sichuan",
+            "Hubei",
+            "Fujian",
+            "Shandong",
+            "Shaanxi"
+        ]
+    },
+
+    {
+        code: "JP",
+        name: "Japan",
+        flag: "jp",
+        states: [
+            "Tokyo",
+            "Osaka",
+            "Hokkaido",
+            "Kyoto",
+            "Kanagawa",
+            "Aichi",
+            "Fukuoka",
+            "Hyogo",
+            "Saitama",
+            "Chiba"
+        ]
+    },
+
+    {
+        code: "BR",
+        name: "Brazil",
+        flag: "br",
+        states: [
+            "São Paulo",
+            "Rio de Janeiro",
+            "Minas Gerais",
+            "Bahia",
+            "Paraná",
+            "Rio Grande do Sul",
+            "Pernambuco",
+            "Ceará",
+            "Pará",
+            "Santa Catarina"
+        ]
+    },
+
+    {
+        code: "MX",
+        name: "Mexico",
+        flag: "mx",
+        states: [
+            "Mexico City",
+            "Jalisco",
+            "Nuevo León",
+            "Puebla",
+            "Guanajuato",
+            "Veracruz",
+            "Yucatán",
+            "Chihuahua",
+            "Sonora",
+            "Oaxaca"
+        ]
+    },
+
+    {
+        code: "NL",
+        name: "Netherlands",
+        flag: "nl",
+        states: [
+            "North Holland",
+            "South Holland",
+            "Utrecht",
+            "North Brabant",
+            "Gelderland",
+            "Limburg",
+            "Overijssel",
+            "Groningen",
+            "Friesland",
+            "Drenthe"
+        ]
+    },
+
+    {
+        code: "SE",
+        name: "Sweden",
+        flag: "se",
+        states: [
+            "Stockholm County",
+            "Västra Götaland",
+            "Skåne",
+            "Uppsala",
+            "Östergötland",
+            "Jönköping",
+            "Halland",
+            "Örebro",
+            "Dalarna",
+            "Värmland"
+        ]
+    },
+
+    {
+        code: "NO",
+        name: "Norway",
+        flag: "no",
+        states: [
+            "Oslo",
+            "Rogaland",
+            "Vestland",
+            "Trøndelag",
+            "Nordland",
+            "Innlandet",
+            "Agder",
+            "Møre og Romsdal",
+            "Vestfold",
+            "Telemark"
+        ]
+    }
+
+],
+
+selectedCountry: null,
+
+selectedState: "",
+
+get availableStates() {
+
+    return this.selectedCountry
+        ? this.selectedCountry.states
+        : [];
+
+},
+
         userIdToEdit: null,
 
         newUserInfo: {
@@ -412,20 +792,52 @@ this.users = [
 
 
         // =========================
+        // LOCATION SELECT
+        // =========================
+        
+        selectCountry(country) {
+        
+            this.selectedCountry =
+                country;
+        
+            this.selectedState =
+                "";
+        
+            this.newUserInfo.location =
+                "";
+        
+        },
+        
+        selectState(state) {
+        
+            this.selectedState =
+                state;
+        
+            this.newUserInfo.location =
+                this.selectedState;
+        
+        },
+
+        // =========================
         // RESET FORM
         // =========================
 
         handleResetForm() {
 
-            this.newUserInfo = {
+           this.newUserInfo = {
 
                 name: "",
                 username: "",
+                email: "",
                 number: "",
-                email: ""
-
+                location: ""
+            
             };
-
+            
+            this.selectedCountry = null;
+            
+            this.selectedState = "";
+            
             this.userIdToEdit = null;
 
         },
@@ -434,40 +846,40 @@ this.users = [
         // CUSTOM USER ID
         // =========================
 
-getNextCustomUserId() {
-
-    const savedNextId =
-        Number(
-            localStorage.getItem(
-                "devora_next_user_id"
-            )
-        ) || 11;
-
-    const existingIds =
-        this.mainUsers
-            .map(user => Number(user.id))
-            .filter(id => Number.isInteger(id));
-
-    const maxExistingId =
-        existingIds.length
-            ? Math.max(...existingIds)
-            : 10;
-
-    const nextId =
-        Math.max(
-            savedNextId,
-            maxExistingId + 1,
-            11
-        );
-
-    localStorage.setItem(
-        "devora_next_user_id",
-        String(nextId + 1)
-    );
-
-    return nextId;
-
-},
+            getNextCustomUserId() {
+            
+                const savedNextId =
+                    Number(
+                        localStorage.getItem(
+                            "devora_next_user_id"
+                        )
+                    ) || 11;
+            
+                const existingIds =
+                    this.mainUsers
+                        .map(user => Number(user.id))
+                        .filter(id => Number.isInteger(id));
+            
+                const maxExistingId =
+                    existingIds.length
+                        ? Math.max(...existingIds)
+                        : 10;
+            
+                const nextId =
+                    Math.max(
+                        savedNextId,
+                        maxExistingId + 1,
+                        11
+                    );
+            
+                localStorage.setItem(
+                    "devora_next_user_id",
+                    String(nextId + 1)
+                );
+            
+                return nextId;
+            
+            },
 
         // =========================
         // ADD USER
@@ -696,11 +1108,11 @@ const newUser = {
         },
 
 
-        // =========================
-        // EDIT USER
-        // =========================
+     // =========================
+// EDIT USER
+// =========================
 
-   handleUpdateUser(user) {
+handleUpdateUser(user) {
 
     this.newUserInfo = {
 
@@ -733,11 +1145,65 @@ const newUser = {
         user.id;
 
 
+    // =========================
+    // RESET LOCATION SELECT
+    // =========================
+
+    this.selectedCountry =
+        null;
+
+    this.selectedState =
+        "";
+
+
+    // =========================
+    // RESTORE COUNTRY + STATE
+    // =========================
+
+    if (user.location) {
+
+        const locationParts =
+            user.location
+                .split(",")
+                .map(
+                    item =>
+                        item.trim()
+                );
+
+
+        const stateName =
+            locationParts[0] || "";
+
+
+        const countryName =
+            locationParts[1] || "";
+
+
+        const country =
+            this.countries.find(
+                item =>
+                    item.name ===
+                    countryName
+            );
+
+
+        if (country) {
+
+            this.selectedCountry =
+                country;
+
+            this.selectedState =
+                stateName;
+
+        }
+
+    }
+
+
     this.showAddModal =
         true;
 
 },
-
 
         // =========================
         // CONFIRM EDIT

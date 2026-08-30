@@ -96,33 +96,12 @@ document.addEventListener('alpine:init', () => {
                         ) || "[]"
                     );
 
-
-                const deletedUsers =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "devora_deleted_users"
-                        ) || "[]"
-                    );
-
-
-                const deletedIds =
-                    new Set(deletedUsers);
-
-
-                const filteredApiUsers =
-                    apiUsers.filter(
-                        user =>
-                            !deletedIds.has(user.id)
-                    );
-
-
                 this.users = [
-
-                    ...filteredApiUsers,
+                
+                    ...apiUsers,
                     ...customUsers
-
+                
                 ];
-
 
                 localStorage.setItem(
                     "devora_users_cache",
