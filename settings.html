@@ -1,0 +1,3106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+     
+<!-- Materialize -->
+<link rel="stylesheet" href="assets/materialize/css/materialize.min.css">
+
+<!-- Project Utilities -->
+<link rel="stylesheet" href="assets/css/util.css">
+
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Main Project CSS -->
+<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- Settings CSS -->
+<link rel="stylesheet" href="assets/css/settings.css">
+
+<title>Settings - Devora</title>
+     
+
+</head>
+
+<body x-data="settingsData()" x-init="init()">
+
+     
+<!-- =========================================================
+     NAVBAR
+========================================================== -->
+
+<nav class="z-depth-0 top_navbar red darken-1">
+
+    <div class="nav-wrapper">
+
+        <!-- Mobile Page Title -->
+        <a href="#!" class="hide-on-med-and-up brand-logo-small">
+            Settings
+        </a>
+
+
+        <!-- Mobile Menu Button -->
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+        </a>
+
+
+        <!-- Desktop Navigation -->
+        <ul class="hide-on-med-and-down">
+
+            <li>
+                <a href="/index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="/user.html">
+                    User Management
+                </a>
+            </li>
+
+            <li>
+                <a href="/images.html">
+                    Images
+                </a>
+            </li>
+
+            <li>
+                <a href="/articles.html">
+                    Articles
+                </a>
+            </li>
+
+            <li>
+                <a href="/files.html">
+                    Files
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="/settings.html">
+                    Settings
+                </a>
+            </li>
+
+        </ul>
+
+
+        <!-- Desktop Profile -->
+        <div class="settings-desktop-profile hide-on-med-and-down">
+
+            <button
+                type="button"
+                class="settings-desktop-profile-button"
+                @click="toggleProfileMenu()"
+                aria-label="Open profile menu"
+            >
+
+                <img
+                    :src="profile.avatar"
+                    :alt="profile.name"
+                    class="settings-navbar-avatar"
+                >
+
+                <span
+                    class="settings-navbar-name"
+                    x-text="profile.name"
+                >
+                    mohammad
+                </span>
+
+                <i class="material-icons">
+                    expand_more
+                </i>
+
+            </button>
+
+
+            <!-- Desktop Profile Dropdown -->
+
+            <div
+                class="settings-profile-dropdown"
+                x-show="profileMenuOpen"
+                @click.outside="profileMenuOpen = false"
+                x-transition
+            >
+
+                <div class="settings-profile-dropdown-header">
+
+                    <img
+                        :src="profile.avatar"
+                        :alt="profile.name"
+                        class="settings-dropdown-avatar"
+                    >
+
+                    <div>
+
+                        <strong x-text="profile.name">
+                            mohammad
+                        </strong>
+
+                        <span x-text="profile.email">
+                            mohammad@gmail.com
+                        </span>
+
+                        <small x-text="profile.role">
+                            Administrator
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-profile-dropdown-divider"></div>
+
+
+                <a href="#profile" @click="scrollToSection('profile')">
+                    <i class="material-icons">
+                        person
+                    </i>
+                    Profile
+                </a>
+
+
+                <a href="#appearance" @click="scrollToSection('appearance')">
+                    <i class="material-icons">
+                        palette
+                    </i>
+                    Appearance
+                </a>
+
+
+                <a href="#security" @click="scrollToSection('security')">
+                    <i class="material-icons">
+                        security
+                    </i>
+                    Security
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     MOBILE SIDE NAVIGATION
+========================================================== -->
+
+<ul class="sidenav" id="mobile-demo">
+
+    <!-- Mobile Profile Header -->
+
+    <li>
+
+        <div class="user-view">
+
+            <div class="background">
+
+                <img
+                    src="assets/images/Background.jpeg"
+                    class="w-full"
+                    alt="Profile background"
+                >
+
+            </div>
+
+
+            <a href="#!">
+
+                <img
+                    :src="profile.avatar"
+                    :alt="profile.name"
+                    class="circle"
+                >
+
+            </a>
+
+
+            <a href="#!">
+
+                <span
+                    class="white-text name"
+                    x-text="profile.name"
+                >
+                    mohammad
+                </span>
+
+            </a>
+
+
+            <a href="#!">
+
+                <span
+                    class="white-text email"
+                    x-text="profile.email"
+                >
+                    mohammad@gmail.com
+                </span>
+
+            </a>
+
+        </div>
+
+    </li>
+
+
+    <!-- Home -->
+
+    <li>
+
+        <a href="/index.html">
+
+            <i class="material-icons right sidenav_link_icon">
+                home
+            </i>
+
+            Home
+
+        </a>
+
+    </li>
+
+
+    <!-- User Management -->
+
+    <li>
+
+        <a href="/user.html">
+
+            <i class="material-icons right sidenav_link_icon">
+                people
+            </i>
+
+            User Management
+
+        </a>
+
+    </li>
+
+
+    <!-- Images -->
+
+    <li>
+
+        <a href="/images.html">
+
+            <i class="material-icons right sidenav_link_icon">
+                image
+            </i>
+
+            Images
+
+        </a>
+
+    </li>
+
+
+    <!-- Articles -->
+
+    <li>
+
+        <a href="/articles.html">
+
+            <i class="material-icons right sidenav_link_icon">
+                article
+            </i>
+
+            Articles
+
+        </a>
+
+    </li>
+
+
+    <!-- Files -->
+
+    <li>
+
+        <a href="/files.html">
+
+            <i class="material-icons right sidenav_link_icon">
+                folder
+            </i>
+
+            Files
+
+        </a>
+
+    </li>
+
+
+    <!-- Settings -->
+
+    <li class="active">
+
+        <a href="/settings.html">
+
+            <i class="material-icons right sidenav_link_icon">
+                settings
+            </i>
+
+            Settings
+
+        </a>
+
+    </li>
+
+</ul>
+
+
+
+<!-- =========================================================
+     SETTINGS MAIN CONTAINER
+========================================================== -->
+
+<main class="settings-container">
+
+
+    <!-- =====================================================
+         SETTINGS HERO
+    ====================================================== -->
+
+    <section class="settings-hero">
+
+        <div class="settings-hero-content">
+
+            <span class="settings-badge">
+
+                <i class="material-icons">
+                    settings
+                </i>
+
+                DEVORA SETTINGS
+
+            </span>
+
+
+            <h1>
+                Settings
+            </h1>
+
+
+            <p>
+                Customize your Devora workspace, profile and preferences.
+            </p>
+
+        </div>
+
+
+        <!-- Settings Status -->
+
+        <div class="settings-hero-status">
+
+            <div class="settings-status-icon">
+
+                <i class="material-icons">
+                    tune
+                </i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Workspace
+                </span>
+
+                <strong>
+                    Fully Configurable
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SETTINGS SEARCH
+    ====================================================== -->
+
+    <section class="settings-search-section">
+
+        <div class="settings-search-box">
+
+            <i class="material-icons">
+                search
+            </i>
+
+
+            <input
+                type="text"
+                id="settingsSearch"
+                placeholder="Search settings..."
+                x-model="searchQuery"
+                @input="searchSettings()"
+                autocomplete="off"
+            >
+
+
+            <button
+                type="button"
+                class="settings-search-clear"
+                x-show="searchQuery"
+                @click="clearSearch()"
+                aria-label="Clear search"
+            >
+
+                <i class="material-icons">
+                    close
+                </i>
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="settings-search-results"
+            x-show="searchResults.length > 0"
+            x-transition
+        >
+
+            <template x-for="result in searchResults" :key="result.id">
+
+                <button
+                    type="button"
+                    class="settings-search-result"
+                    @click="openSearchResult(result)"
+                >
+
+                    <i
+                        class="material-icons"
+                        x-text="result.icon"
+                    >
+                        settings
+                    </i>
+
+                    <div>
+
+                        <strong x-text="result.title">
+                            Profile
+                        </strong>
+
+                        <span x-text="result.description">
+                            Manage your profile
+                        </span>
+
+                    </div>
+
+                </button>
+
+            </template>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROFILE OVERVIEW
+    ====================================================== -->
+
+    <section
+        class="settings-profile-overview settings-section-anchor"
+        id="profile"
+    >
+
+        <div class="settings-profile-card">
+
+
+            <!-- Profile Image -->
+
+            <div class="settings-profile-avatar-wrapper">
+
+                <img
+                    :src="profile.avatar"
+                    :alt="profile.name"
+                    class="settings-profile-avatar"
+                >
+
+
+                <button
+                    type="button"
+                    class="settings-avatar-edit"
+                    @click="openAvatarPicker()"
+                    aria-label="Change profile picture"
+                >
+
+                    <i class="material-icons">
+                        photo_camera
+                    </i>
+
+                </button>
+
+
+                <input
+                    type="file"
+                    id="avatarInput"
+                    accept="image/*"
+                    hidden
+                    @change="handleAvatarChange($event)"
+                >
+
+            </div>
+
+
+            <!-- Profile Information -->
+
+            <div class="settings-profile-information">
+
+                <span class="settings-profile-label">
+                    YOUR PROFILE
+                </span>
+
+
+                <h2 x-text="profile.name">
+                    mohammad
+                </h2>
+
+
+                <p x-text="profile.email">
+                    mohammad@gmail.com
+                </p>
+
+
+                <div class="settings-profile-meta">
+
+                    <span>
+
+                        <i class="material-icons">
+                            badge
+                        </i>
+
+                        <span x-text="profile.role">
+                            Administrator
+                        </span>
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="material-icons">
+                            verified
+                        </i>
+
+                        Account Active
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Edit Button -->
+
+            <button
+                type="button"
+                class="settings-primary-button"
+                @click="scrollToSection('profile-details')"
+            >
+
+                <i class="material-icons">
+                    edit
+                </i>
+
+                Edit Profile
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SETTINGS GRID
+    ====================================================== -->
+
+    <section class="settings-grid">
+
+
+        <!-- PROFILE -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="profile personal name email avatar username bio role"
+            @click="scrollToSection('profile-details')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    person
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    ACCOUNT
+                </span>
+
+                <h3>
+                    Profile
+                </h3>
+
+                <p>
+                    Manage your personal information, avatar and account identity.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- APPEARANCE -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="appearance theme dark light color accent density animation"
+            @click="scrollToSection('appearance')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    palette
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    INTERFACE
+                </span>
+
+                <h3>
+                    Appearance
+                </h3>
+
+                <p>
+                    Control theme, colors, density, animations and visual preferences.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- NAVIGATION -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="navigation sidebar navbar mobile desktop layout"
+            @click="scrollToSection('navigation')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    navigation
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    WORKSPACE
+                </span>
+
+                <h3>
+                    Navigation & Layout
+                </h3>
+
+                <p>
+                    Customize your sidebar, navigation behavior and workspace layout.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- FILES -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="files file manager grid list sort delete folder"
+            @click="scrollToSection('files-preferences')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    folder
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    STORAGE
+                </span>
+
+                <h3>
+                    Files
+                </h3>
+
+                <p>
+                    Set your preferred file view, sorting and file management behavior.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- IMAGES -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="images image gallery thumbnail preview category"
+            @click="scrollToSection('images-preferences')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    image
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    MEDIA
+                </span>
+
+                <h3>
+                    Images
+                </h3>
+
+                <p>
+                    Configure image library views, thumbnails, sorting and previews.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- ARTICLES -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="articles article editor draft autosave category content"
+            @click="scrollToSection('articles-preferences')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    article
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    CONTENT
+                </span>
+
+                <h3>
+                    Articles
+                </h3>
+
+                <p>
+                    Configure article editing, drafts, auto-save and content preferences.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- NOTIFICATIONS -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="notifications toast alert sound duration message"
+            @click="scrollToSection('notifications')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    notifications
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    EXPERIENCE
+                </span>
+
+                <h3>
+                    Notifications
+                </h3>
+
+                <p>
+                    Control alerts, toast messages, duration and notification behavior.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- SECURITY -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="security password session login two factor 2fa"
+            @click="scrollToSection('security')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    security
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    ACCOUNT
+                </span>
+
+                <h3>
+                    Security
+                </h3>
+
+                <p>
+                    Manage password, sessions and future account security controls.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- DATA -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="data storage export import backup reset cache"
+            @click="scrollToSection('data-storage')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    storage
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    SYSTEM
+                </span>
+
+                <h3>
+                    Data & Storage
+                </h3>
+
+                <p>
+                    Monitor application data and manage import, export and reset tools.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- LANGUAGE -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="language region timezone date time format"
+            @click="scrollToSection('language-region')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    language
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    REGIONAL
+                </span>
+
+                <h3>
+                    Language & Region
+                </h3>
+
+                <p>
+                    Configure language, timezone and regional date and time preferences.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+
+
+        <!-- ACCESSIBILITY -->
+
+        <button
+            type="button"
+            class="settings-category-card"
+            data-settings-search="accessibility contrast keyboard focus animation text"
+            @click="scrollToSection('accessibility')"
+        >
+
+            <div class="settings-category-icon">
+                <i class="material-icons">
+                    accessibility
+                </i>
+            </div>
+
+            <div class="settings-category-content">
+
+                <span>
+                    EXPERIENCE
+                </span>
+
+                <h3>
+                    Accessibility
+                </h3>
+
+                <p>
+                    Make Devora easier and more comfortable to use.
+                </p>
+
+            </div>
+
+            <i class="material-icons settings-category-arrow">
+                arrow_forward
+            </i>
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PROFILE DETAILS
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="profile-details"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    ACCOUNT
+                </span>
+
+                <h2>
+                    Profile Information
+                </h2>
+
+                <p>
+                    Update the information used throughout Devora.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                person
+            </i>
+
+        </div>
+
+
+        <div class="settings-form-grid">
+
+
+            <div class="settings-field">
+
+                <label for="profileName">
+                    Full Name
+                </label>
+
+                <input
+                    id="profileName"
+                    type="text"
+                    x-model="profile.name"
+                    placeholder="Your name"
+                >
+
+            </div>
+
+
+            <div class="settings-field">
+
+                <label for="profileUsername">
+                    Username
+                </label>
+
+                <input
+                    id="profileUsername"
+                    type="text"
+                    x-model="profile.username"
+                    placeholder="Username"
+                >
+
+            </div>
+
+
+            <div class="settings-field">
+
+                <label for="profileEmail">
+                    Email Address
+                </label>
+
+                <input
+                    id="profileEmail"
+                    type="email"
+                    x-model="profile.email"
+                    placeholder="you@example.com"
+                >
+
+            </div>
+
+
+            <div class="settings-field">
+
+                <label for="profileRole">
+                    Role
+                </label>
+
+                <input
+                    id="profileRole"
+                    type="text"
+                    x-model="profile.role"
+                    placeholder="Administrator"
+                >
+
+            </div>
+
+
+            <div class="settings-field settings-field-full">
+
+                <label for="profileBio">
+                    Bio
+                </label>
+
+                <textarea
+                    id="profileBio"
+                    rows="4"
+                    x-model="profile.bio"
+                    placeholder="Tell us something about yourself..."
+                ></textarea>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-panel-actions">
+
+            <button
+                type="button"
+                class="settings-primary-button"
+                @click="saveProfile()"
+            >
+
+                <i class="material-icons">
+                    save
+                </i>
+
+                Save Profile
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         APPEARANCE
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="appearance"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    INTERFACE
+                </span>
+
+                <h2>
+                    Appearance
+                </h2>
+
+                <p>
+                    Make Devora look and feel exactly the way you want.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                palette
+            </i>
+
+        </div>
+
+
+        <!-- Theme -->
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        brightness_6
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Theme
+                    </strong>
+
+                    <span>
+                        Choose how Devora should appear.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-segmented-control">
+
+                <button
+                    type="button"
+                    :class="{ 'active': appearance.theme === 'light' }"
+                    @click="setTheme('light')"
+                >
+                    Light
+                </button>
+
+                <button
+                    type="button"
+                    :class="{ 'active': appearance.theme === 'dark' }"
+                    @click="setTheme('dark')"
+                >
+                    Dark
+                </button>
+
+                <button
+                    type="button"
+                    :class="{ 'active': appearance.theme === 'system' }"
+                    @click="setTheme('system')"
+                >
+                    System
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Accent Color -->
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        color_lens
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Accent Color
+                    </strong>
+
+                    <span>
+                        Choose your preferred interface accent.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-color-options">
+
+                <button
+                    type="button"
+                    class="accent-option accent-red"
+                    :class="{ 'active': appearance.accent === 'red' }"
+                    @click="setAccent('red')"
+                    aria-label="Red accent"
+                ></button>
+
+
+                <button
+                    type="button"
+                    class="accent-option accent-blue"
+                    :class="{ 'active': appearance.accent === 'blue' }"
+                    @click="setAccent('blue')"
+                    aria-label="Blue accent"
+                ></button>
+
+
+                <button
+                    type="button"
+                    class="accent-option accent-green"
+                    :class="{ 'active': appearance.accent === 'green' }"
+                    @click="setAccent('green')"
+                    aria-label="Green accent"
+                ></button>
+
+
+                <button
+                    type="button"
+                    class="accent-option accent-purple"
+                    :class="{ 'active': appearance.accent === 'purple' }"
+                    @click="setAccent('purple')"
+                    aria-label="Purple accent"
+                ></button>
+
+
+                <button
+                    type="button"
+                    class="accent-option accent-orange"
+                    :class="{ 'active': appearance.accent === 'orange' }"
+                    @click="setAccent('orange')"
+                    aria-label="Orange accent"
+                ></button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Density -->
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        density_medium
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Interface Density
+                    </strong>
+
+                    <span>
+                        Choose between comfortable and compact spacing.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-segmented-control">
+
+                <button
+                    type="button"
+                    :class="{ 'active': appearance.density === 'comfortable' }"
+                    @click="setDensity('comfortable')"
+                >
+                    Comfortable
+                </button>
+
+                <button
+                    type="button"
+                    :class="{ 'active': appearance.density === 'compact' }"
+                    @click="setDensity('compact')"
+                >
+                    Compact
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Animations -->
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        animation
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Animations
+                    </strong>
+
+                    <span>
+                        Enable or reduce interface animations.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="appearance.animations"
+                    @change="saveAppearance()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         NAVIGATION & LAYOUT
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="navigation"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    WORKSPACE
+                </span>
+
+                <h2>
+                    Navigation & Layout
+                </h2>
+
+                <p>
+                    Customize how you move through Devora.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                navigation
+            </i>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        menu
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Remember Last Page
+                    </strong>
+
+                    <span>
+                        Return to your previous workspace when Devora opens.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="navigation.rememberLastPage"
+                    @change="saveNavigation()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        view_sidebar
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Compact Navigation
+                    </strong>
+
+                    <span>
+                        Use a more compact navigation experience on larger screens.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="navigation.compact"
+                    @change="saveNavigation()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        account_circle
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Show Profile Information
+                    </strong>
+
+                    <span>
+                        Show avatar, name and email in the mobile navigation.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="navigation.showProfile"
+                    @change="saveNavigation()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FILES PREFERENCES
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="files-preferences"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    STORAGE
+                </span>
+
+                <h2>
+                    Files Preferences
+                </h2>
+
+                <p>
+                    Customize your file manager experience.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                folder
+            </i>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        view_module
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Default View
+                    </strong>
+
+                    <span>
+                        Choose how files should be displayed.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-segmented-control">
+
+                <button
+                    type="button"
+                    :class="{ 'active': files.view === 'grid' }"
+                    @click="files.view = 'grid'; saveFiles()"
+                >
+                    Grid
+                </button>
+
+                <button
+                    type="button"
+                    :class="{ 'active': files.view === 'list' }"
+                    @click="files.view = 'list'; saveFiles()"
+                >
+                    List
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        sort
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Default Sorting
+                    </strong>
+
+                    <span>
+                        Select how files should be sorted.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <select
+                class="settings-select"
+                x-model="files.sort"
+                @change="saveFiles()"
+            >
+
+                <option value="name">
+                    Name
+                </option>
+
+                <option value="date">
+                    Date
+                </option>
+
+                <option value="size">
+                    Size
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        delete
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Confirm Before Delete
+                    </strong>
+
+                    <span>
+                        Ask for confirmation before permanently deleting files.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="files.confirmDelete"
+                    @change="saveFiles()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         IMAGES PREFERENCES
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="images-preferences"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    MEDIA
+                </span>
+
+                <h2>
+                    Images Preferences
+                </h2>
+
+                <p>
+                    Control your image library experience.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                image
+            </i>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        grid_view
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Thumbnail Size
+                    </strong>
+
+                    <span>
+                        Choose the default image thumbnail size.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-segmented-control">
+
+                <button
+                    type="button"
+                    :class="{ 'active': images.thumbnailSize === 'small' }"
+                    @click="images.thumbnailSize = 'small'; saveImages()"
+                >
+                    Small
+                </button>
+
+                <button
+                    type="button"
+                    :class="{ 'active': images.thumbnailSize === 'medium' }"
+                    @click="images.thumbnailSize = 'medium'; saveImages()"
+                >
+                    Medium
+                </button>
+
+                <button
+                    type="button"
+                    :class="{ 'active': images.thumbnailSize === 'large' }"
+                    @click="images.thumbnailSize = 'large'; saveImages()"
+                >
+                    Large
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        preview
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Open Preview Automatically
+                    </strong>
+
+                    <span>
+                        Open the image preview when selecting an image.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="images.autoPreview"
+                    @change="saveImages()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        sort
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Default Sorting
+                    </strong>
+
+                    <span>
+                        Choose how your images are ordered.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <select
+                class="settings-select"
+                x-model="images.sort"
+                @change="saveImages()"
+            >
+
+                <option value="name">
+                    Name
+                </option>
+
+                <option value="date">
+                    Date
+                </option>
+
+                <option value="category">
+                    Category
+                </option>
+
+            </select>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ARTICLES PREFERENCES
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="articles-preferences"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    CONTENT
+                </span>
+
+                <h2>
+                    Articles Preferences
+                </h2>
+
+                <p>
+                    Configure your article writing workflow.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                article
+            </i>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        save
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Auto Save
+                    </strong>
+
+                    <span>
+                        Automatically save article drafts while editing.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="articles.autoSave"
+                    @change="saveArticles()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        delete
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Confirm Before Delete
+                    </strong>
+
+                    <span>
+                        Prevent accidental article deletion.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="articles.confirmDelete"
+                    @change="saveArticles()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        edit
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Editor Mode
+                    </strong>
+
+                    <span>
+                        Choose your preferred writing mode.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-segmented-control">
+
+                <button
+                    type="button"
+                    :class="{ 'active': articles.editor === 'standard' }"
+                    @click="articles.editor = 'standard'; saveArticles()"
+                >
+                    Standard
+                </button>
+
+                <button
+                    type="button"
+                    :class="{ 'active': articles.editor === 'focus' }"
+                    @click="articles.editor = 'focus'; saveArticles()"
+                >
+                    Focus
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         NOTIFICATIONS
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="notifications"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    EXPERIENCE
+                </span>
+
+                <h2>
+                    Notifications
+                </h2>
+
+                <p>
+                    Control how Devora communicates with you.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                notifications
+            </i>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        notifications_active
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Enable Notifications
+                    </strong>
+
+                    <span>
+                        Show success, warning and error messages.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="notifications.enabled"
+                    @change="saveNotifications()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        timer
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Notification Duration
+                    </strong>
+
+                    <span>
+                        Choose how long toast messages remain visible.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <select
+                class="settings-select"
+                x-model="notifications.duration"
+                @change="saveNotifications()"
+            >
+
+                <option value="2000">
+                    2 Seconds
+                </option>
+
+                <option value="3000">
+                    3 Seconds
+                </option>
+
+                <option value="5000">
+                    5 Seconds
+                </option>
+
+                <option value="8000">
+                    8 Seconds
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        volume_up
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Notification Sound
+                    </strong>
+
+                    <span>
+                        Play a sound when an important notification appears.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="notifications.sound"
+                    @change="saveNotifications()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SECURITY
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="security"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    ACCOUNT
+                </span>
+
+                <h2>
+                    Security
+                </h2>
+
+                <p>
+                    Manage account security and session preferences.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                security
+            </i>
+
+        </div>
+
+
+        <div class="settings-security-card">
+
+            <div class="settings-security-icon">
+
+                <i class="material-icons">
+                    lock
+                </i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    Password
+                </strong>
+
+                <span>
+                    Password management can be connected to your authentication system later.
+                </span>
+
+            </div>
+
+            <button
+                type="button"
+                class="settings-secondary-button"
+                @click="showSecurityMessage('Password management')"
+            >
+                Manage
+            </button>
+
+        </div>
+
+
+        <div class="settings-security-card">
+
+            <div class="settings-security-icon">
+
+                <i class="material-icons">
+                    devices
+                </i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    Active Sessions
+                </strong>
+
+                <span>
+                    Review devices and sessions connected to your account.
+                </span>
+
+            </div>
+
+            <button
+                type="button"
+                class="settings-secondary-button"
+                @click="showSecurityMessage('Session management')"
+            >
+                View
+            </button>
+
+        </div>
+
+
+        <div class="settings-security-card">
+
+            <div class="settings-security-icon">
+
+                <i class="material-icons">
+                    verified_user
+                </i>
+
+            </div>
+
+            <div>
+
+                <strong>
+                    Two-Factor Authentication
+                </strong>
+
+                <span>
+                    Add an extra layer of protection when authentication is connected.
+                </span>
+
+            </div>
+
+            <button
+                type="button"
+                class="settings-secondary-button"
+                @click="showSecurityMessage('Two-factor authentication')"
+            >
+                Configure
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DATA & STORAGE
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="data-storage"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    SYSTEM
+                </span>
+
+                <h2>
+                    Data & Storage
+                </h2>
+
+                <p>
+                    Manage Devora's local application data.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                storage
+            </i>
+
+        </div>
+
+
+        <!-- Storage Overview -->
+
+        <div class="settings-storage-overview">
+
+            <div class="settings-storage-stat">
+
+                <div class="settings-storage-stat-icon">
+                    <i class="material-icons">
+                        storage
+                    </i>
+                </div>
+
+                <div>
+
+                    <span>
+                        Local Storage
+                    </span>
+
+                    <strong x-text="storage.localStorageSize">
+                        0 KB
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-storage-stat">
+
+                <div class="settings-storage-stat-icon">
+                    <i class="material-icons">
+                        image
+                    </i>
+                </div>
+
+                <div>
+
+                    <span>
+                        Images
+                    </span>
+
+                    <strong x-text="storage.imageCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-storage-stat">
+
+                <div class="settings-storage-stat-icon">
+                    <i class="material-icons">
+                        article
+                    </i>
+                </div>
+
+                <div>
+
+                    <span>
+                        Articles
+                    </span>
+
+                    <strong x-text="storage.articleCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="settings-storage-stat">
+
+                <div class="settings-storage-stat-icon">
+                    <i class="material-icons">
+                        folder
+                    </i>
+                </div>
+
+                <div>
+
+                    <span>
+                        Files
+                    </span>
+
+                    <strong x-text="storage.fileCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Data Actions -->
+
+        <div class="settings-data-actions">
+
+            <button
+                type="button"
+                class="settings-secondary-button"
+                @click="exportData()"
+            >
+
+                <i class="material-icons">
+                    download
+                </i>
+
+                Export Data
+
+            </button>
+
+
+            <button
+                type="button"
+                class="settings-secondary-button"
+                @click="openImportPicker()"
+            >
+
+                <i class="material-icons">
+                    upload
+                </i>
+
+                Import Data
+
+            </button>
+
+
+            <input
+                type="file"
+                id="importDataInput"
+                accept=".json,application/json"
+                hidden
+                @change="importData($event)"
+            >
+
+
+            <button
+                type="button"
+                class="settings-secondary-button"
+                @click="clearCache()"
+            >
+
+                <i class="material-icons">
+                    cached
+                </i>
+
+                Clear Cache
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LANGUAGE & REGION
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="language-region"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    REGIONAL
+                </span>
+
+                <h2>
+                    Language & Region
+                </h2>
+
+                <p>
+                    Configure regional display preferences.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                language
+            </i>
+
+        </div>
+
+
+        <div class="settings-form-grid">
+
+            <div class="settings-field">
+
+                <label for="languageSelect">
+                    Language
+                </label>
+
+                <select
+                    id="languageSelect"
+                    class="settings-select settings-select-full"
+                    x-model="region.language"
+                    @change="saveRegion()"
+                >
+
+                    <option value="en">
+                        English
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="settings-field">
+
+                <label for="timezoneSelect">
+                    Timezone
+                </label>
+
+                <select
+                    id="timezoneSelect"
+                    class="settings-select settings-select-full"
+                    x-model="region.timezone"
+                    @change="saveRegion()"
+                >
+
+                    <option value="system">
+                        System Default
+                    </option>
+
+                    <option value="UTC">
+                        UTC
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="settings-field">
+
+                <label for="dateFormatSelect">
+                    Date Format
+                </label>
+
+                <select
+                    id="dateFormatSelect"
+                    class="settings-select settings-select-full"
+                    x-model="region.dateFormat"
+                    @change="saveRegion()"
+                >
+
+                    <option value="MM/DD/YYYY">
+                        MM/DD/YYYY
+                    </option>
+
+                    <option value="DD/MM/YYYY">
+                        DD/MM/YYYY
+                    </option>
+
+                    <option value="YYYY-MM-DD">
+                        YYYY-MM-DD
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="settings-field">
+
+                <label for="timeFormatSelect">
+                    Time Format
+                </label>
+
+                <select
+                    id="timeFormatSelect"
+                    class="settings-select settings-select-full"
+                    x-model="region.timeFormat"
+                    @change="saveRegion()"
+                >
+
+                    <option value="12">
+                        12 Hour
+                    </option>
+
+                    <option value="24">
+                        24 Hour
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ACCESSIBILITY
+    ====================================================== -->
+
+    <section
+        class="settings-panel settings-section-anchor"
+        id="accessibility"
+    >
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    EXPERIENCE
+                </span>
+
+                <h2>
+                    Accessibility
+                </h2>
+
+                <p>
+                    Make Devora more comfortable and accessible.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                accessibility
+            </i>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        format_size
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Larger Text
+                    </strong>
+
+                    <span>
+                        Increase interface text size.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="accessibility.largeText"
+                    @change="saveAccessibility()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        contrast
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        High Contrast
+                    </strong>
+
+                    <span>
+                        Increase contrast for better readability.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="accessibility.highContrast"
+                    @change="saveAccessibility()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        motion_photos_off
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Reduce Motion
+                    </strong>
+
+                    <span>
+                        Minimize interface animations and transitions.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="accessibility.reduceMotion"
+                    @change="saveAccessibility()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="settings-option-row">
+
+            <div class="settings-option-info">
+
+                <div class="settings-option-icon">
+                    <i class="material-icons">
+                        keyboard
+                    </i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        Keyboard Navigation
+                    </strong>
+
+                    <span>
+                        Improve keyboard-focused navigation throughout the interface.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <label class="settings-switch">
+
+                <input
+                    type="checkbox"
+                    x-model="accessibility.keyboardNavigation"
+                    @change="saveAccessibility()"
+                >
+
+                <span class="settings-switch-slider"></span>
+
+            </label>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DANGER ZONE
+    ====================================================== -->
+
+    <section class="settings-danger-zone">
+
+        <div class="settings-panel-header">
+
+            <div>
+
+                <span>
+                    ADVANCED
+                </span>
+
+                <h2>
+                    Danger Zone
+                </h2>
+
+                <p>
+                    Actions here may permanently remove local application data.
+                </p>
+
+            </div>
+
+            <i class="material-icons">
+                warning
+            </i>
+
+        </div>
+
+
+        <div class="settings-danger-actions">
+
+            <button
+                type="button"
+                class="settings-danger-button"
+                @click="resetPreferences()"
+            >
+
+                <i class="material-icons">
+                    restart_alt
+                </i>
+
+                Reset Preferences
+
+            </button>
+
+
+            <button
+                type="button"
+                class="settings-danger-button"
+                @click="resetApplication()"
+            >
+
+                <i class="material-icons">
+                    delete_forever
+                </i>
+
+                Reset Application
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SAVE STATUS / TOAST
+    ====================================================== -->
+
+    <div
+        class="settings-toast"
+        :class="'settings-toast-' + toast.type"
+        x-show="toast.visible"
+        x-transition
+    >
+
+        <i
+            class="material-icons"
+            x-text="toast.icon"
+        >
+            check_circle
+        </i>
+
+        <span x-text="toast.message">
+            Settings saved successfully.
+        </span>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script src="assets/materialize/js/materialize.min.js"></script>
+<script src="assets/js/settings.js"></script>
+<script src="assets/js/alpine.js"></script>
+<script src="assets/js/main.js"></script>
+
+
+</body>
+
+</html>
