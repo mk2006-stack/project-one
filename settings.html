@@ -642,12 +642,13 @@
         <!-- PROFILE -->
 
         <button
+        
             type="button"
             class="settings-category-card"
             data-settings-search="profile personal name email avatar username bio role"
             @click="scrollToSection('profile-details')"
         >
-
+        
             <div class="settings-category-icon">
                 <i class="material-icons">
                     person
@@ -1361,6 +1362,15 @@
 
                 <button
                     type="button"
+                    class="accent-option accent-yellow"
+                    :class="{ 'active': appearance.accent === 'yellow' }"
+                    @click="setAccent('yellow')"
+                    aria-label="Yellow accent"
+                ></button>
+
+
+                <button
+                    type="button"
                     class="accent-option accent-purple"
                     :class="{ 'active': appearance.accent === 'purple' }"
                     @click="setAccent('purple')"
@@ -1376,6 +1386,33 @@
                     aria-label="Orange accent"
                 ></button>
 
+
+                <button
+                    type="button"
+                    class="accent-option accent-pink"
+                    :class="{ 'active': appearance.accent === 'pink' }"
+                    @click="setAccent('yellow')"
+                    aria-label="Pink accent"
+                ></button>
+
+
+                <button
+                    type="button"
+                    class="accent-option accent-cyan"
+                    :class="{ 'active': appearance.accent === 'cyan' }"
+                    @click="setAccent('yellow')"
+                    aria-label="Cyan accent"
+                ></button>                
+
+
+
+                <button
+                    type="button"
+                    class="accent-option accent-teal"
+                    :class="{ 'active': appearance.accent === 'Teal' }"
+                    @click="setAccent('yellow')"
+                    aria-label="Teal accent"
+                ></button>
             </div>
 
         </div>

@@ -707,7 +707,7 @@
                         type="button"
                         class="files-view-btn"
                         :class="{ active: viewMode === 'list' }"
-                        @click="viewMode = 'list'"
+                        @click="setViewMode('list')"
                         title="List view"
                     >
 
@@ -721,7 +721,7 @@
                         type="button"
                         class="files-view-btn"
                         :class="{ active: viewMode === 'grid' }"
-                        @click="viewMode = 'grid'"
+                        @click="setViewMode('grid')"
                         title="Grid view"
                     >
 

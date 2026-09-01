@@ -1,0 +1,47 @@
+/* =========================================================
+   USER MANAGEMENT — DARK MODE
+========================================================= */
+
+
+/* Remove the white Username badge */
+
+html[data-theme="dark"] .username-badge {
+    background: transparent !important;
+    color: #f5f5f5 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+
+/* Username text */
+
+html[data-theme="dark"] .username-badge {
+    font-weight: 600 !important;
+}
+
+
+/* Keep the other table text clearly visible */
+
+html[data-theme="dark"] .user-name-cell strong {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .user-name-cell small {
+    color: #bdbdbd !important;
+}
+
+html[data-theme="dark"] .desktop_table_body td {
+    color: #eeeeee !important;
+}
+
+html[data-theme="dark"] .desktop_table_body td > span:not(.username-badge) {
+    color: #eeeeee !important;
+}
+
+
+/* User avatar stays colored */
+
+html[data-theme="dark"] .user-avatar {
+    background: var(--devora-accent-light) !important;
+    color: var(--devora-accent) !important;
+}

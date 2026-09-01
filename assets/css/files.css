@@ -243,7 +243,7 @@
     background:
         rgba(255, 255, 255, .94);
 
-    color: #c62828;
+     color: var(--devora-accent);
 
     box-shadow:
         0 10px 25px
@@ -336,7 +336,7 @@
 
     background: #fff1f1;
 
-    color: #c62828;
+    color: var(--devora-accent);
 }
 
 .file-stat-icon i {
@@ -508,7 +508,7 @@
 
 
 .files-filter-main:hover {
-    color: #c62828;
+    color: var(--devora-accent);
 
     transform:
         translateY(-1px);
@@ -516,13 +516,12 @@
 
 
 .files-filter-main.active {
-    background: #fff3f3;
-
-    color: #c62828;
+    background: var(--devora-accent-light);
+    color: var(--devora-accent);
 
     box-shadow:
         0 5px 18px
-        rgba(198, 40, 40, .08);
+        color-mix(in srgb, var(--devora-accent) 10%, transparent);
 }
 
 
@@ -655,16 +654,13 @@
 
 
 .category-option:hover {
-    background: #fafafa;
-
-    color: #c62828;
+    background: var(--devora-accent-light);
+    color: var(--devora-accent);
 }
 
-
 .category-option.active {
-    background: #fff5f5;
-
-    color: #c62828;
+    background: var(--devora-accent-light);
+    color: var(--devora-accent);
 }
 
 
@@ -738,7 +734,7 @@
 .category-option .check-icon {
     margin-left: auto;
 
-    color: #c62828;
+    color: var(--devora-accent);
 
     font-size: 17px;
 }
@@ -864,16 +860,13 @@
 
 
 .files-upload-btn {
-    padding:
-        0 18px;
-
-    background: #c62828;
-
+    
+    background: var(--devora-accent);
     color: #ffffff;
 
     box-shadow:
         0 8px 20px
-        rgba(198, 40, 40, .20);
+        color-mix(in srgb, var(--devora-accent) 20%, transparent);
 
     transition:
         .2s ease;
@@ -881,7 +874,8 @@
 
 
 .files-upload-btn:hover {
-    background: #b71c1c;
+    background: var(--devora-accent-dark);
+
 
     transform:
         translateY(-1px);
@@ -942,7 +936,7 @@
 
     border-radius: 10px;
 
-    background: #e53935;
+    background: var(--devora-accent);
 
     transform:
         translateY(-50%);
@@ -1015,7 +1009,7 @@
 .files-view-btn.active {
     background: #ffffff;
 
-    color: #c62828;
+    color: var(--devora-accent);
 
     box-shadow:
         0 2px 7px
@@ -1321,7 +1315,7 @@
 .file-more:hover {
     background: #f7e8e8;
 
-    color: #c62828;
+    color: var(--devora-accent);
 }
 
 
@@ -1469,7 +1463,7 @@
 
 
 .file-card-actions button:hover {
-    color: #c62828;
+    color: var(--devora-accent);
 }
 
 
@@ -1534,7 +1528,7 @@
 
     border-radius: 10px;
 
-    background: #c62828;
+    background: var(--devora-accent);
 
     color: #ffffff;
 
@@ -1627,7 +1621,7 @@
 
 
 .modal-kicker {
-    color: #c62828;
+     color: var(--devora-accent);
 
     font-size: 9px;
 
@@ -1672,9 +1666,8 @@
 
 .drop-zone:hover,
 .drop-zone.selected {
-    border-color: #e57373;
-
-    background: #fff8f8;
+    border-color: var(--devora-accent);
+    background: var(--devora-accent-light);
 }
 
 
@@ -1686,7 +1679,7 @@
 .drop-zone > i {
     margin-bottom: 10px;
 
-    color: #c62828;
+    color: var(--devora-accent);
 
     font-size: 42px;
 }
@@ -1811,7 +1804,7 @@
 
 
 .modal-submit {
-    background: #c62828;
+    background: var(--devora-accent);
 
     color: #ffffff;
 }
@@ -2135,4 +2128,533 @@
         padding: 19px;
     }
 
+}
+
+/* =========================================================
+   FILE HERO TEXT — NEVER ACCENT
+========================================================= */
+
+.files-hero h1,
+.files-hero p,
+.files-hero .files-badge,
+.files-hero .files-badge i,
+.files-hero-meta,
+.files-hero-meta span,
+.files-hero-meta i {
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   FILES - ACCENT DETAILS
+========================================================= */
+
+html[data-accent] .files-section-heading::before,
+html[data-accent] .files-section-heading::after {
+    border-color: var(--devora-accent) !important;
+    background-color: var(--devora-accent) !important;
+}
+
+html[data-accent] .files-section-heading .files-eyebrow,
+html[data-accent] .files-section-heading .files-eyebrow i {
+    color: var(--devora-accent) !important;
+}
+
+/* =========================================================
+   FILES - DARK MODE FIX
+   Cards and menus stay white, text must stay dark.
+   File icons keep their original colors.
+========================================================= */
+
+html[data-theme="dark"] .files-list {
+    color: #333333 !important;
+}
+
+/* -------------------------
+   LIST HEADER
+------------------------- */
+
+html[data-theme="dark"] .files-list-head {
+    color: #666666 !important;
+    font-weight: 700 !important;
+}
+
+html[data-theme="dark"] .files-list-head span {
+    color: #666666 !important;
+}
+
+
+/* -------------------------
+   FILE NAME
+------------------------- */
+
+html[data-theme="dark"] .file-name-cell strong {
+    color: #333333 !important;
+    font-weight: 700 !important;
+}
+
+html[data-theme="dark"] .file-name-cell small {
+    color: #777777 !important;
+}
+
+
+/* -------------------------
+   FILE TYPE
+------------------------- */
+
+html[data-theme="dark"] .file-type-label {
+    color: #555555 !important;
+    background: #f5f5f5 !important;
+    font-weight: 800 !important;
+}
+
+
+/* -------------------------
+   SIZE / DATE
+------------------------- */
+
+html[data-theme="dark"] .file-size,
+html[data-theme="dark"] .file-date {
+    color: #666666 !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   FILE ICONS
+   VERY IMPORTANT:
+   Restore original icon colors
+========================================================= */
+
+html[data-theme="dark"] .file-type-icon {
+    opacity: 1 !important;
+}
+
+
+/* PDF */
+
+html[data-theme="dark"] .file-type-icon.type-pdf {
+    background: #fff0f0 !important;
+    color: #d32f2f !important;
+}
+
+html[data-theme="dark"] .file-type-icon.type-pdf i {
+    color: #d32f2f !important;
+}
+
+
+/* Word / Document */
+
+html[data-theme="dark"] .file-type-icon.type-doc,
+html[data-theme="dark"] .file-type-icon.type-docx,
+html[data-theme="dark"] .file-type-icon.type-txt,
+html[data-theme="dark"] .file-type-icon.type-rtf {
+    background: #eef5ff !important;
+    color: #1976d2 !important;
+}
+
+html[data-theme="dark"] .file-type-icon.type-doc i,
+html[data-theme="dark"] .file-type-icon.type-docx i,
+html[data-theme="dark"] .file-type-icon.type-txt i,
+html[data-theme="dark"] .file-type-icon.type-rtf i {
+    color: #1976d2 !important;
+}
+
+
+/* Excel */
+
+html[data-theme="dark"] .file-type-icon.type-xls,
+html[data-theme="dark"] .file-type-icon.type-xlsx,
+html[data-theme="dark"] .file-type-icon.type-csv {
+    background: #edf8f0 !important;
+    color: #2e7d32 !important;
+}
+
+html[data-theme="dark"] .file-type-icon.type-xls i,
+html[data-theme="dark"] .file-type-icon.type-xlsx i,
+html[data-theme="dark"] .file-type-icon.type-csv i {
+    color: #2e7d32 !important;
+}
+
+
+/* PowerPoint */
+
+html[data-theme="dark"] .file-type-icon.type-ppt,
+html[data-theme="dark"] .file-type-icon.type-pptx {
+    background: #fff5ea !important;
+    color: #e65100 !important;
+}
+
+html[data-theme="dark"] .file-type-icon.type-ppt i,
+html[data-theme="dark"] .file-type-icon.type-pptx i {
+    color: #e65100 !important;
+}
+
+
+/* Archive */
+
+html[data-theme="dark"] .file-type-icon.type-zip,
+html[data-theme="dark"] .file-type-icon.type-rar,
+html[data-theme="dark"] .file-type-icon.type-7z,
+html[data-theme="dark"] .file-type-icon.type-tar,
+html[data-theme="dark"] .file-type-icon.type-gz {
+    background: #f5efff !important;
+    color: #6a1b9a !important;
+}
+
+html[data-theme="dark"] .file-type-icon.type-zip i,
+html[data-theme="dark"] .file-type-icon.type-rar i,
+html[data-theme="dark"] .file-type-icon.type-7z i,
+html[data-theme="dark"] .file-type-icon.type-tar i,
+html[data-theme="dark"] .file-type-icon.type-gz i {
+    color: #6a1b9a !important;
+}
+
+
+/* =========================================================
+   MORE / CATEGORIES MENU
+========================================================= */
+
+html[data-theme="dark"] .files-category-menu {
+    background: #ffffff !important;
+}
+
+html[data-theme="dark"] .category-menu-header span {
+    color: #444444 !important;
+}
+
+html[data-theme="dark"] .category-menu-header small {
+    color: #999999 !important;
+}
+
+html[data-theme="dark"] .category-option {
+    color: #555555 !important;
+}
+
+html[data-theme="dark"] .category-option span {
+    color: #555555 !important;
+}
+
+
+/* Category icons */
+
+html[data-theme="dark"] .category-option-icon.document {
+    background: #eef5ff !important;
+    color: #1976d2 !important;
+}
+
+html[data-theme="dark"] .category-option-icon.pdf {
+    background: #fff0f0 !important;
+    color: #d32f2f !important;
+}
+
+html[data-theme="dark"] .category-option-icon.spreadsheet {
+    background: #edf8f0 !important;
+    color: #2e7d32 !important;
+}
+
+html[data-theme="dark"] .category-option-icon.presentation {
+    background: #fff5ea !important;
+    color: #e65100 !important;
+}
+
+html[data-theme="dark"] .category-option-icon.archive {
+    background: #f5efff !important;
+    color: #6a1b9a !important;
+}
+
+html[data-theme="dark"] .category-option-icon.other {
+    background: #f3f3f3 !important;
+    color: #777777 !important;
+}
+
+
+/* Icon itself */
+
+html[data-theme="dark"] .category-option-icon i {
+    color: inherit !important;
+}
+
+
+/* Active category */
+
+html[data-theme="dark"] .category-option.active {
+    color: var(--devora-accent) !important;
+}
+
+html[data-theme="dark"] .category-option.active span {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================================================
+   MORE BUTTON
+========================================================= */
+
+html[data-theme="dark"] .files-filter-main {
+    color: #555555 !important;
+}
+
+html[data-theme="dark"] .files-filter-main i {
+    color: #555555 !important;
+}
+
+
+/* =========================================================
+   GRID VIEW
+========================================================= */
+
+html[data-theme="dark"] .file-card {
+    background: #ffffff !important;
+}
+
+html[data-theme="dark"] .file-card-name {
+    color: #333333 !important;
+    font-weight: 700 !important;
+}
+
+html[data-theme="dark"] .file-card-category {
+    color: #777777 !important;
+}
+
+html[data-theme="dark"] .file-card-footer {
+    color: #777777 !important;
+}
+
+html[data-theme="dark"] .file-card-footer span {
+    color: #777777 !important;
+}
+
+
+/* Grid More icon */
+
+html[data-theme="dark"] .file-more {
+    color: #777777 !important;
+}
+
+html[data-theme="dark"] .file-more i {
+    color: #777777 !important;
+}
+
+
+/* Grid action buttons */
+
+html[data-theme="dark"] .file-card-actions button {
+    color: #666666 !important;
+}
+
+html[data-theme="dark"] .file-card-actions button i {
+    color: #666666 !important;
+}
+
+
+/* =========================================================
+   UPLOAD FILE
+========================================================= */
+
+html[data-theme="dark"] .files-upload-btn {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .files-upload-btn i {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   UPLOAD MODAL
+========================================================= */
+
+html[data-theme="dark"] .files-modal {
+    background: #ffffff !important;
+}
+
+html[data-theme="dark"] .files-modal-head h3 {
+    color: #333333 !important;
+}
+
+html[data-theme="dark"] .modal-kicker {
+    color: var(--devora-accent) !important;
+}
+
+html[data-theme="dark"] .drop-zone {
+    color: #666666 !important;
+}
+
+html[data-theme="dark"] .drop-zone strong {
+    color: #444444 !important;
+}
+
+html[data-theme="dark"] .drop-zone span {
+    color: #999999 !important;
+}
+
+html[data-theme="dark"] .upload-field label {
+    color: #666666 !important;
+}
+
+html[data-theme="dark"] .upload-field select {
+    color: #444444 !important;
+    background: #ffffff !important;
+}
+
+
+/* =========================================================
+   DETAILS MODAL
+========================================================= */
+
+html[data-theme="dark"] .details-preview strong {
+    color: #444444 !important;
+}
+
+html[data-theme="dark"] .details-preview span {
+    color: #888888 !important;
+}
+
+html[data-theme="dark"] .details-grid span {
+    color: #888888 !important;
+}
+
+html[data-theme="dark"] .details-grid strong {
+    color: #444444 !important;
+}
+
+/* =========================================================
+   FILES - FINAL DARK MODE FIX
+   ONLY FOR FILES PAGE
+========================================================= */
+
+
+/* =========================
+   ALL BUTTON
+========================= */
+
+html[data-theme="dark"] .files-filter-main:not(.more-btn) {
+    color: #555555 !important;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+}
+
+
+/* ALL when active */
+
+html[data-theme="dark"] .files-filter-main:not(.more-btn).active {
+    background: var(--devora-accent-light) !important;
+    color: var(--devora-accent) !important;
+    font-weight: 750 !important;
+}
+
+
+/* =========================
+   MORE BUTTON
+========================= */
+
+/* More when NOT active */
+
+html[data-theme="dark"] .files-filter-main.more-btn {
+    color: #555555 !important;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+}
+
+html[data-theme="dark"] .files-filter-main.more-btn i {
+    color: #555555 !important;
+    opacity: 1 !important;
+}
+
+
+/* More when a category is selected */
+
+html[data-theme="dark"] .files-filter-main.more-btn.active {
+    background: var(--devora-accent-light) !important;
+    color: var(--devora-accent) !important;
+    font-weight: 750 !important;
+}
+
+html[data-theme="dark"] .files-filter-main.more-btn.active i {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================
+   FILE ROW ACTION ICONS
+   Details / Download / Delete
+========================= */
+
+html[data-theme="dark"] .files-list .file-actions {
+    color: #777777 !important;
+    opacity: 1 !important;
+}
+
+
+/* Buttons */
+
+html[data-theme="dark"] .files-list .file-actions button {
+    color: #777777 !important;
+    opacity: 1 !important;
+    background: transparent !important;
+}
+
+
+/* Icons */
+
+html[data-theme="dark"] .files-list .file-actions button i {
+    color: #777777 !important;
+    opacity: 1 !important;
+}
+
+
+/* Hover */
+
+html[data-theme="dark"] .files-list .file-actions button:hover {
+    color: var(--devora-accent) !important;
+    background: #f7e8e8 !important;
+}
+
+html[data-theme="dark"] .files-list .file-actions button:hover i {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================
+   GRID ACTIONS
+   Keep them visible too
+========================= */
+
+html[data-theme="dark"] .file-card-actions button {
+    color: #777777 !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .file-card-actions button i {
+    color: #777777 !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .file-card-actions button:hover,
+html[data-theme="dark"] .file-card-actions button:hover i {
+    color: var(--devora-accent) !important;
+}
+
+/* =========================================================
+   FILES — FINAL LIST TEXT FIX
+   Type / Size / Updated
+========================================================= */
+
+html[data-theme="dark"] .files-list .file-type-label {
+    color: #555555 !important;
+    background: #f5f5f5 !important;
+    opacity: 1 !important;
+    font-weight: 800 !important;
+}
+
+html[data-theme="dark"] .files-list .file-size {
+    color: #555555 !important;
+    opacity: 1 !important;
+    font-weight: 650 !important;
+}
+
+html[data-theme="dark"] .files-list .file-date {
+    color: #555555 !important;
+    opacity: 1 !important;
+    font-weight: 650 !important;
 }

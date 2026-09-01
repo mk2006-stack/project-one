@@ -1,2276 +1,1606 @@
-/* =========================================================
-DEVORA SETTINGS — COMPLETE JAVASCRIPT
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-
 "use strict";
 
+/*
+=========================================================
+DEVORA SETTINGS
+Central settings controller
+=========================================================
+*/
 
-/* =====================================================
-   STORAGE KEY
-===================================================== */
+const DEVORA_SETTINGS_KEY = "devora_settings";
 
-const STORAGE_KEY = "devora_settings";
-
-
-/* =====================================================
-   DEFAULT SETTINGS
-===================================================== */
-
-const defaultSettings = {
+const DEVORA_DEFAULT_SETTINGS = {
 
     profile: {
         name: "Devora User",
+        username: "devorauser",
         email: "user@devora.com",
-        avatar: "",
-        bio: ""
+        role: "User",
+        bio: "",
+        avatar: ""
     },
 
     appearance: {
         theme: "light",
         accent: "red",
-        compact: false,
-        largeText: false,
-        reduceMotion: false,
-        highContrast: false
+        density: "comfortable",
+        animations: true
     },
 
-    language: "English",
+    navigation: {
+        rememberLastPage: true,
+        compact: false,
+        showProfile: true
+    },
+
+    files: {
+        view: "grid",
+        sort: "name",
+        confirmDelete: true
+    },
+
+    images: {
+        thumbnailSize: "medium",
+        autoPreview: true,
+        sort: "name"
+    },
+
+    articles: {
+        autoSave: true,
+        confirmDelete: true,
+        editor: "standard"
+    },
 
     notifications: {
-        email: true,
-        system: true,
-        article: true,
-        file: true,
-        image: true
+        enabled: true,
+        duration: 3000,
+        sound: true
     },
 
-    privacy: {
-        activityStatus: true,
-        profileVisibility: "private"
+    region: {
+        language: "en",
+        timezone: "system",
+        dateFormat: "DD/MM/YYYY",
+        timeFormat: "24"
     },
 
-    security: {
-        twoFactor: false
+    accessibility: {
+        largeText: false,
+        highContrast: false,
+        reduceMotion: false,
+        keyboardNavigation: true
+    }
+};
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function devoraDeepMerge(base, extra) {
+
+    const result = {
+        ...base
+    };
+
+    Object.keys(extra || {}).forEach(key => {
+
+        if (
+            extra[key] &&
+            typeof extra[key] === "object" &&
+            !Array.isArray(extra[key]) &&
+            typeof base[key] === "object"
+        ) {
+
+            result[key] =
+                devoraDeepMerge(
+                    base[key],
+                    extra[key]
+                );
+
+        } else {
+
+            result[key] = extra[key];
+
+        }
+
+    });
+
+    return result;
+}
+
+
+function getDevoraSettings() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                DEVORA_SETTINGS_KEY
+            );
+
+        if (!saved) {
+
+            return structuredClone(
+                DEVORA_DEFAULT_SETTINGS
+            );
+
+        }
+
+        return devoraDeepMerge(
+            DEVORA_DEFAULT_SETTINGS,
+            JSON.parse(saved)
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Devora settings load error:",
+            error
+        );
+
+        return structuredClone(
+            DEVORA_DEFAULT_SETTINGS
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   GLOBAL SETTINGS API
+===================================================== */
+
+window.DevoraSettings = {
+
+    get() {
+
+        return getDevoraSettings();
+
+    },
+
+    save(settings) {
+
+        localStorage.setItem(
+            DEVORA_SETTINGS_KEY,
+            JSON.stringify(settings)
+        );
+
+        window.dispatchEvent(
+            new CustomEvent(
+                "devora-settings-changed",
+                {
+                    detail: settings
+                }
+            )
+        );
+
+    },
+
+    update(section, values) {
+
+        const settings =
+            getDevoraSettings();
+
+        settings[section] = {
+            ...settings[section],
+            ...values
+        };
+
+        this.save(settings);
+
+        return settings;
+
     }
 
 };
 
 
 /* =====================================================
-   LOAD SETTINGS
+   ALPINE SETTINGS
 ===================================================== */
 
-function loadSettings() {
+function settingsData() {
 
-    try {
+    return {
 
-        const saved = localStorage.getItem(STORAGE_KEY);
+        profile: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.profile
+        ),
 
-        if (!saved) {
+        appearance: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.appearance
+        ),
 
-            return structuredClone(defaultSettings);
+        navigation: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.navigation
+        ),
 
-        }
+        files: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.files
+        ),
 
-        const parsed = JSON.parse(saved);
+        images: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.images
+        ),
 
-        return deepMerge(
-            structuredClone(defaultSettings),
-            parsed
-        );
+        articles: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.articles
+        ),
 
-    } catch (error) {
+        notifications: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.notifications
+        ),
 
-        console.warn(
-            "Devora Settings: unable to load settings.",
-            error
-        );
+        region: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.region
+        ),
 
-        return structuredClone(defaultSettings);
-
-    }
-
-}
+        accessibility: structuredClone(
+            DEVORA_DEFAULT_SETTINGS.accessibility
+        ),
 
 
-/* =====================================================
-   DEEP MERGE
-===================================================== */
+        /* SEARCH */
 
-function deepMerge(target, source) {
+        searchQuery: "",
 
-    Object.keys(source || {}).forEach(key => {
+        searchResults: [],
 
-        if (
-            source[key] &&
-            typeof source[key] === "object" &&
-            !Array.isArray(source[key])
-        ) {
+        searchItems: [
 
-            if (!target[key]) {
+            {
+                id: "profile",
+                title: "Profile",
+                description: "Manage your profile information"
+            },
 
-                target[key] = {};
+            {
+                id: "profile-details",
+                title: "Profile Details",
+                description: "Edit your name, username, email and bio"
+            },
+
+            {
+                id: "appearance",
+                title: "Appearance",
+                description: "Theme, accent color, density and animations"
+            },
+
+            {
+                id: "navigation",
+                title: "Navigation",
+                description: "Navigation and sidebar preferences"
+            },
+
+            {
+                id: "files-preferences",
+                title: "Files",
+                description: "File view, sorting and delete preferences"
+            },
+
+            {
+                id: "images-preferences",
+                title: "Images",
+                description: "Image thumbnails and preview preferences"
+            },
+
+            {
+                id: "articles-preferences",
+                title: "Articles",
+                description: "Article editor and saving preferences"
+            },
+
+            {
+                id: "notifications",
+                title: "Notifications",
+                description: "Notification settings and sound"
+            },
+
+            {
+                id: "security",
+                title: "Security",
+                description: "Password, sessions and two-factor authentication"
+            },
+
+            {
+                id: "data-storage",
+                title: "Data & Storage",
+                description: "Manage application data and storage"
+            },
+
+            {
+                id: "language-region",
+                title: "Language & Region",
+                description: "Language, timezone and date settings"
+            },
+
+            {
+                id: "accessibility",
+                title: "Accessibility",
+                description: "Accessibility and display options"
+            }
+
+        ],
+
+
+        /* STORAGE */
+
+        storage: {
+
+            localStorageSize: "0 KB",
+
+            imageCount: 0,
+
+            articleCount: 0,
+
+            fileCount: 0
+
+        },
+
+
+        /* TOAST */
+
+        toast: {
+
+            visible: false,
+
+            message: "",
+
+            icon: "check_circle",
+
+            type: "success",
+
+            timer: null
+
+        },
+
+
+        /* PROFILE MENU */
+
+        profileMenuOpen: false,
+
+
+        /* =================================================
+           INIT
+        ================================================= */
+
+        async init() {
+
+            const saved =
+                getDevoraSettings();
+
+            this.profile =
+                structuredClone(
+                    saved.profile
+                );
+
+            this.appearance =
+                structuredClone(
+                    saved.appearance
+                );
+
+            this.navigation =
+                structuredClone(
+                    saved.navigation
+                );
+
+            this.files =
+                structuredClone(
+                    saved.files
+                );
+
+            this.images =
+                structuredClone(
+                    saved.images
+                );
+
+            this.articles =
+                structuredClone(
+                    saved.articles
+                );
+
+            this.notifications =
+                structuredClone(
+                    saved.notifications
+                );
+
+            this.region =
+                structuredClone(
+                    saved.region
+                );
+
+            this.accessibility =
+                structuredClone(
+                    saved.accessibility
+                );
+
+            await this.updateStorageInfo();
+
+            this.applySettings();
+
+        },
+
+
+        /* =================================================
+           PROFILE
+        ================================================= */
+
+        toggleProfileMenu() {
+
+            this.profileMenuOpen =
+                !this.profileMenuOpen;
+
+        },
+
+
+        saveProfile() {
+
+            if (
+                !this.profile.name ||
+                !this.profile.name.trim()
+            ) {
+
+                this.showToast(
+                    "Name cannot be empty",
+                    "error"
+                );
+
+                return;
 
             }
 
-            deepMerge(
-                target[key],
-                source[key]
+            this.saveSection(
+                "profile",
+                this.profile
             );
 
-        } else {
-
-            target[key] = source[key];
-
-        }
-
-    });
-
-    return target;
-
-}
-
-
-let settings = loadSettings();
-
-
-/* =====================================================
-   SAVE SETTINGS
-===================================================== */
-
-function saveSettings(showMessage = true) {
-
-    try {
-
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(settings)
-        );
-
-        if (showMessage) {
-
-            showToast(
-                "Settings saved successfully.",
-                "success"
+            localStorage.setItem(
+                "devora_user_name",
+                this.profile.name
             );
 
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        showToast(
-            "Unable to save settings.",
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   HELPER
-===================================================== */
-
-function $(selector, parent = document) {
-
-    return parent.querySelector(selector);
-
-}
-
-
-function $$(selector, parent = document) {
-
-    return [
-        ...parent.querySelectorAll(selector)
-    ];
-
-}
-
-
-function setText(selector, value) {
-
-    const element = $(selector);
-
-    if (element) {
-
-        element.textContent =
-            value ?? "";
-
-    }
-
-}
-
-
-/* =====================================================
-   TOAST SYSTEM
-===================================================== */
-
-function showToast(
-    message,
-    type = "success"
-) {
-
-    let toast =
-        $(".settings-toast");
-
-    if (!toast) {
-
-        toast =
-            document.createElement("div");
-
-        toast.className =
-            "settings-toast";
-
-        document.body.appendChild(toast);
-
-    }
-
-    toast.className =
-        "settings-toast";
-
-    if (type === "error") {
-
-        toast.classList.add(
-            "settings-toast-error"
-        );
-
-    }
-
-    if (type === "warning") {
-
-        toast.classList.add(
-            "settings-toast-warning"
-        );
-
-    }
-
-
-    let icon = "ri-check-line";
-
-    if (type === "error") {
-
-        icon = "ri-error-warning-line";
-
-    }
-
-    if (type === "warning") {
-
-        icon = "ri-alert-line";
-
-    }
-
-
-    toast.innerHTML = `
-        <i class="${icon}"></i>
-        <span>${escapeHTML(message)}</span>
-    `;
-
-
-    toast.style.display = "flex";
-
-
-    clearTimeout(
-        toast._timer
-    );
-
-
-    toast._timer =
-        setTimeout(() => {
-
-            toast.style.display =
-                "none";
-
-        }, 3000);
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-
-}
-
-
-/* =====================================================
-   APPLY THEME
-===================================================== */
-
-function applyTheme() {
-
-    const theme =
-        settings.appearance.theme;
-
-
-    if (theme === "dark") {
-
-        document.documentElement
-            .setAttribute(
-                "data-theme",
-                "dark"
+            this.showToast(
+                "Profile saved successfully",
+                "check_circle"
             );
 
-    } else {
-
-        document.documentElement
-            .setAttribute(
-                "data-theme",
-                "light"
-            );
-
-    }
-
-
-    const themeButtons =
-        $$(".settings-segmented-control button[data-theme]");
-
-
-    themeButtons.forEach(button => {
-
-        button.classList.toggle(
-            "active",
-            button.dataset.theme === theme
-        );
-
-    });
-
-}
-
-
-/* =====================================================
-   ACCENT COLORS
-===================================================== */
-
-function applyAccent() {
-
-    const accent =
-        settings.appearance.accent;
-
-
-    const colors = {
-
-        red: {
-            primary: "#e53935",
-            dark: "#c62828",
-            light: "#ffebee"
         },
 
-        blue: {
-            primary: "#1976d2",
-            dark: "#0d47a1",
-            light: "#e3f2fd"
-        },
 
-        green: {
-            primary: "#2e7d32",
-            dark: "#1b5e20",
-            light: "#e8f5e9"
-        },
+        /* =================================================
+           AVATAR
+        ================================================= */
 
-        purple: {
-            primary: "#7b1fa2",
-            dark: "#4a148c",
-            light: "#f3e5f5"
-        },
+        openAvatarPicker() {
 
-        orange: {
-            primary: "#ef6c00",
-            dark: "#e65100",
-            light: "#fff3e0"
-        }
+            const input =
+                document.getElementById(
+                    "avatarInput"
+                );
 
-    };
-
-
-    const selected =
-        colors[accent] ||
-        colors.red;
-
-
-    document.documentElement.style
-        .setProperty(
-            "--settings-primary",
-            selected.primary
-        );
-
-
-    document.documentElement.style
-        .setProperty(
-            "--settings-primary-dark",
-            selected.dark
-        );
-
-
-    document.documentElement.style
-        .setProperty(
-            "--settings-primary-light",
-            selected.light
-        );
-
-
-    $$(".accent-option").forEach(option => {
-
-        option.classList.toggle(
-            "active",
-            option.dataset.accent === accent
-        );
-
-    });
-
-}
-
-
-/* =====================================================
-   ACCESSIBILITY
-===================================================== */
-
-function applyAccessibility() {
-
-    document.documentElement
-        .classList.toggle(
-            "settings-large-text",
-            settings.appearance.largeText
-        );
-
-
-    document.documentElement
-        .classList.toggle(
-            "settings-reduce-motion",
-            settings.appearance.reduceMotion
-        );
-
-
-    document.documentElement
-        .classList.toggle(
-            "settings-high-contrast",
-            settings.appearance.highContrast
-        );
-
-
-    document.documentElement
-        .classList.toggle(
-            "settings-compact",
-            settings.appearance.compact
-        );
-
-}
-
-
-/* =====================================================
-   APPLY ALL APPEARANCE SETTINGS
-===================================================== */
-
-function applyAppearance() {
-
-    applyTheme();
-
-    applyAccent();
-
-    applyAccessibility();
-
-}
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-function applyProfile() {
-
-    const name =
-        settings.profile.name ||
-        "Devora User";
-
-
-    const email =
-        settings.profile.email ||
-        "user@devora.com";
-
-
-    setText(
-        ".settings-profile-name",
-        name
-    );
-
-
-    setText(
-        ".settings-profile-email",
-        email
-    );
-
-
-    setText(
-        ".settings-profile-bio",
-        settings.profile.bio || ""
-    );
-
-
-    setText(
-        ".settings-navbar-name",
-        name
-    );
-
-
-    setText(
-        ".settings-dropdown-name",
-        name
-    );
-
-
-    setText(
-        ".settings-dropdown-email",
-        email
-    );
-
-
-    const avatar =
-        settings.profile.avatar;
-
-
-    $$(".settings-profile-avatar")
-        .forEach(image => {
-
-            if (avatar) {
-
-                image.src = avatar;
-
-            }
-
-        });
-
-
-    $$(".settings-navbar-avatar")
-        .forEach(image => {
-
-            if (avatar) {
-
-                image.src = avatar;
-
-            }
-
-        });
-
-
-    $$(".settings-dropdown-avatar")
-        .forEach(image => {
-
-            if (avatar) {
-
-                image.src = avatar;
-
-            }
-
-        });
-
-}
-
-
-/* =====================================================
-   PROFILE FORM
-===================================================== */
-
-function loadProfileForm() {
-
-    const nameInput =
-        $("#settingsProfileName");
-
-    const emailInput =
-        $("#settingsProfileEmail");
-
-    const bioInput =
-        $("#settingsProfileBio");
-
-
-    if (nameInput) {
-
-        nameInput.value =
-            settings.profile.name;
-
-    }
-
-
-    if (emailInput) {
-
-        emailInput.value =
-            settings.profile.email;
-
-    }
-
-
-    if (bioInput) {
-
-        bioInput.value =
-            settings.profile.bio;
-
-    }
-
-}
-
-
-/* =====================================================
-   SAVE PROFILE
-===================================================== */
-
-function saveProfile() {
-
-    const nameInput =
-        $("#settingsProfileName");
-
-    const emailInput =
-        $("#settingsProfileEmail");
-
-    const bioInput =
-        $("#settingsProfileBio");
-
-
-    if (!nameInput || !emailInput) {
-
-        return;
-
-    }
-
-
-    const name =
-        nameInput.value.trim();
-
-
-    const email =
-        emailInput.value.trim();
-
-
-    if (!name) {
-
-        showToast(
-            "Please enter your name.",
-            "warning"
-        );
-
-        nameInput.focus();
-
-        return;
-
-    }
-
-
-    if (
-        email &&
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/
-            .test(email)
-    ) {
-
-        showToast(
-            "Please enter a valid email address.",
-            "warning"
-        );
-
-        emailInput.focus();
-
-        return;
-
-    }
-
-
-    settings.profile.name =
-        name;
-
-
-    settings.profile.email =
-        email;
-
-
-    settings.profile.bio =
-        bioInput
-            ? bioInput.value.trim()
-            : settings.profile.bio;
-
-
-    saveSettings();
-
-    applyProfile();
-
-}
-
-
-/* =====================================================
-   AVATAR UPLOAD
-===================================================== */
-
-function setupAvatarUpload() {
-
-    const avatarButtons =
-        $$(".settings-avatar-edit");
-
-
-    avatarButtons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                let input =
-                    $("#settingsAvatarInput");
-
-
-                if (!input) {
-
-                    input =
-                        document.createElement(
-                            "input"
-                        );
-
-                    input.type =
-                        "file";
-
-                    input.id =
-                        "settingsAvatarInput";
-
-                    input.accept =
-                        "image/*";
-
-                    input.style.display =
-                        "none";
-
-                    document.body.appendChild(
-                        input
-                    );
-
-
-                    input.addEventListener(
-                        "change",
-                        handleAvatarUpload
-                    );
-
-                }
-
+            if (input) {
 
                 input.click();
 
             }
-        );
 
-    });
-
-}
-
-
-function handleAvatarUpload(event) {
-
-    const file =
-        event.target.files?.[0];
-
-
-    if (!file) {
-
-        return;
-
-    }
-
-
-    if (
-        !file.type.startsWith(
-            "image/"
-        )
-    ) {
-
-        showToast(
-            "Please select an image.",
-            "warning"
-        );
-
-        return;
-
-    }
-
-
-    if (
-        file.size >
-        2 * 1024 * 1024
-    ) {
-
-        showToast(
-            "Avatar must be smaller than 2MB.",
-            "warning"
-        );
-
-        return;
-
-    }
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload = () => {
-
-        settings.profile.avatar =
-            reader.result;
-
-
-        saveSettings();
-
-        applyProfile();
-
-    };
-
-
-    reader.readAsDataURL(file);
-
-}
-
-
-/* =====================================================
-   THEME EVENTS
-===================================================== */
-
-function setupTheme() {
-
-    $$(".settings-segmented-control button[data-theme]")
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    settings.appearance.theme =
-                        button.dataset.theme;
-
-                    applyTheme();
-
-                    saveSettings();
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =====================================================
-   ACCENT EVENTS
-===================================================== */
-
-function setupAccent() {
-
-    $$(".accent-option")
-        .forEach(option => {
-
-            option.addEventListener(
-                "click",
-                () => {
-
-                    const accent =
-                        option.dataset.accent;
-
-                    if (!accent) {
-
-                        return;
-
-                    }
-
-
-                    settings.appearance.accent =
-                        accent;
-
-
-                    applyAccent();
-
-                    saveSettings();
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =====================================================
-   SWITCH HANDLER
-===================================================== */
-
-function setupSwitches() {
-
-    const switchMap = {
-
-        "settingsEmailNotifications":
-            ["notifications", "email"],
-
-        "settingsSystemNotifications":
-            ["notifications", "system"],
-
-        "settingsArticleNotifications":
-            ["notifications", "article"],
-
-        "settingsFileNotifications":
-            ["notifications", "file"],
-
-        "settingsImageNotifications":
-            ["notifications", "image"],
-
-        "settingsActivityStatus":
-            ["privacy", "activityStatus"],
-
-        "settingsTwoFactor":
-            ["security", "twoFactor"],
-
-        "settingsCompactMode":
-            ["appearance", "compact"],
-
-        "settingsLargeText":
-            ["appearance", "largeText"],
-
-        "settingsReduceMotion":
-            ["appearance", "reduceMotion"],
-
-        "settingsHighContrast":
-            ["appearance", "highContrast"]
-
-    };
-
-
-    Object.entries(switchMap)
-        .forEach(([id, path]) => {
-
-            const element =
-                document.getElementById(id);
-
-
-            if (!element) {
-
-                return;
-
-            }
-
-
-            const [
-                group,
-                property
-            ] = path;
-
-
-            element.checked =
-                Boolean(
-                    settings[group][property]
-                );
-
-
-            element.addEventListener(
-                "change",
-                () => {
-
-                    settings[group][property] =
-                        element.checked;
-
-
-                    applyAppearance();
-
-                    saveSettings();
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =====================================================
-   SELECTS
-===================================================== */
-
-function setupSelects() {
-
-    const language =
-        $("#settingsLanguage");
-
-
-    if (language) {
-
-        language.value =
-            settings.language;
-
-
-        language.addEventListener(
-            "change",
-            () => {
-
-                settings.language =
-                    language.value;
-
-                saveSettings();
-
-                showToast(
-                    "Language preference updated.",
-                    "success"
-                );
-
-            }
-        );
-
-    }
-
-
-    const visibility =
-        $("#settingsProfileVisibility");
-
-
-    if (visibility) {
-
-        visibility.value =
-            settings.privacy.profileVisibility;
-
-
-        visibility.addEventListener(
-            "change",
-            () => {
-
-                settings.privacy.profileVisibility =
-                    visibility.value;
-
-                saveSettings();
-
-            }
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   LOAD SWITCH STATE
-===================================================== */
-
-function loadSwitchStates() {
-
-    const switchMap = {
-
-        settingsEmailNotifications:
-            settings.notifications.email,
-
-        settingsSystemNotifications:
-            settings.notifications.system,
-
-        settingsArticleNotifications:
-            settings.notifications.article,
-
-        settingsFileNotifications:
-            settings.notifications.file,
-
-        settingsImageNotifications:
-            settings.notifications.image,
-
-        settingsActivityStatus:
-            settings.privacy.activityStatus,
-
-        settingsTwoFactor:
-            settings.security.twoFactor,
-
-        settingsCompactMode:
-            settings.appearance.compact,
-
-        settingsLargeText:
-            settings.appearance.largeText,
-
-        settingsReduceMotion:
-            settings.appearance.reduceMotion,
-
-        settingsHighContrast:
-            settings.appearance.highContrast
-
-    };
-
-
-    Object.entries(switchMap)
-        .forEach(([id, value]) => {
-
-            const element =
-                document.getElementById(id);
-
-
-            if (element) {
-
-                element.checked =
-                    Boolean(value);
-
-            }
-
-        });
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function setupSearch() {
-
-    const input =
-        $("#settingsSearch");
-
-
-    const clear =
-        $(".settings-search-clear");
-
-
-    const results =
-        $(".settings-search-results");
-
-
-    if (!input) {
-
-        return;
-
-    }
-
-
-    const searchableSections = [
-        {
-            title: "Profile",
-            description:
-                "Name, email and profile picture",
-            selector:
-                "#settings-profile"
         },
 
-        {
-            title: "Appearance",
-            description:
-                "Theme, colors and interface",
-            selector:
-                "#settings-appearance"
-        },
 
-        {
-            title: "Notifications",
-            description:
-                "Manage notification preferences",
-            selector:
-                "#settings-notifications"
-        },
-
-        {
-            title: "Privacy",
-            description:
-                "Privacy and visibility",
-            selector:
-                "#settings-privacy"
-        },
-
-        {
-            title: "Security",
-            description:
-                "Password and account security",
-            selector:
-                "#settings-security"
-        },
-
-        {
-            title: "Storage",
-            description:
-                "Files, cache and data",
-            selector:
-                "#settings-storage"
-        },
-
-        {
-            title: "Accessibility",
-            description:
-                "Accessibility preferences",
-            selector:
-                "#settings-accessibility"
-        }
-
-    ];
-
-
-    function renderSearch(query) {
-
-        if (!results) {
-
-            return;
-
-        }
-
-
-        query =
-            query
-                .trim()
-                .toLowerCase();
-
-
-        if (!query) {
-
-            results.innerHTML = "";
-
-            results.style.display =
-                "none";
-
-            return;
-
-        }
-
-
-        const filtered =
-            searchableSections.filter(item =>
-                `${item.title} ${item.description}`
-                    .toLowerCase()
-                    .includes(query)
-            );
-
-
-        if (!filtered.length) {
-
-            results.innerHTML = `
-                <div class="settings-search-result">
-                    <i class="ri-search-line"></i>
-                    <div>
-                        <strong>No settings found</strong>
-                        <span>Try another search term.</span>
-                    </div>
-                </div>
-            `;
-
-            results.style.display =
-                "block";
-
-            return;
-
-        }
-
-
-        results.innerHTML =
-            filtered.map(item => `
-                <button
-                    type="button"
-                    class="settings-search-result"
-                    data-target="${item.selector}"
-                >
-                    <i class="ri-settings-3-line"></i>
-
-                    <div>
-                        <strong>
-                            ${escapeHTML(item.title)}
-                        </strong>
-
-                        <span>
-                            ${escapeHTML(item.description)}
-                        </span>
-                    </div>
-                </button>
-            `).join("");
-
-
-        results.style.display =
-            "block";
-
-
-        $$(".settings-search-result", results)
-            .forEach(button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        const target =
-                            $(button.dataset.target);
-
-
-                        if (target) {
-
-                            target.scrollIntoView({
-                                behavior:
-                                    settings.appearance.reduceMotion
-                                        ? "auto"
-                                        : "smooth",
-                                block: "start"
-                            });
-
-                        }
-
-
-                        input.value = "";
-
-                        results.style.display =
-                            "none";
-
-                    }
-                );
-
-            });
-
-    }
-
-
-    input.addEventListener(
-        "input",
-        () => {
-
-            renderSearch(
-                input.value
-            );
-
-        }
-    );
-
-
-    if (clear) {
-
-        clear.addEventListener(
-            "click",
-            () => {
-
-                input.value = "";
-
-                renderSearch("");
-
-                input.focus();
-
-            }
-        );
-
-    }
-
-
-    document.addEventListener(
-        "click",
-        event => {
-
-            if (
-                !event.target.closest(
-                    ".settings-search-section"
-                )
-            ) {
-
-                if (results) {
-
-                    results.style.display =
-                        "none";
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   CATEGORY CARDS
-===================================================== */
-
-function setupCategoryCards() {
-
-    $$(".settings-category-card")
-        .forEach(card => {
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    const targetSelector =
-                        card.dataset.target;
-
-
-                    if (!targetSelector) {
-
-                        return;
-
-                    }
-
-
-                    const target =
-                        $(targetSelector);
-
-
-                    if (!target) {
-
-                        return;
-
-                    }
-
-
-                    target.scrollIntoView({
-                        behavior:
-                            settings.appearance.reduceMotion
-                                ? "auto"
-                                : "smooth",
-                        block: "start"
-                    });
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =====================================================
-   PROFILE DROPDOWN
-===================================================== */
-
-function setupProfileDropdown() {
-
-    const button =
-        $(".settings-desktop-profile-button");
-
-
-    const dropdown =
-        $(".settings-profile-dropdown");
-
-
-    if (!button || !dropdown) {
-
-        return;
-
-    }
-
-
-    dropdown.style.display =
-        "none";
-
-
-    button.addEventListener(
-        "click",
-        event => {
-
-            event.stopPropagation();
-
-            const visible =
-                dropdown.style.display ===
-                "block";
-
-
-            dropdown.style.display =
-                visible
-                    ? "none"
-                    : "block";
-
-        }
-    );
-
-
-    document.addEventListener(
-        "click",
-        event => {
-
-            if (
-                !dropdown.contains(event.target) &&
-                !button.contains(event.target)
-            ) {
-
-                dropdown.style.display =
-                    "none";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   TWO FACTOR
-===================================================== */
-
-function setupTwoFactor() {
-
-    const checkbox =
-        $("#settingsTwoFactor");
-
-
-    const button =
-        $("#settingsTwoFactorSetup");
-
-
-    if (!checkbox || !button) {
-
-        return;
-
-    }
-
-
-    function updateButton() {
-
-        button.textContent =
-            checkbox.checked
-                ? "Manage 2FA"
-                : "Set up 2FA";
-
-    }
-
-
-    updateButton();
-
-
-    checkbox.addEventListener(
-        "change",
-        updateButton
-    );
-
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            if (!checkbox.checked) {
-
-                showToast(
-                    "Two-factor authentication setup is ready.",
-                    "success"
-                );
-
-                return;
-
-            }
-
-
-            showToast(
-                "Two-factor authentication management opened.",
-                "success"
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   PASSWORD
-===================================================== */
-
-function setupPasswordButton() {
-
-    const button =
-        $("#settingsChangePassword");
-
-
-    if (!button) {
-
-        return;
-
-    }
-
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            showToast(
-                "Password change panel is ready.",
-                "success"
-            );
-
-        }
-    );
-
-}
-
-
-/* =====================================================
-   EXPORT SETTINGS
-===================================================== */
-
-function exportSettings() {
-
-    const data = {
-
-        exportedAt:
-            new Date().toISOString(),
-
-        application:
-            "Devora",
-
-        settings
-
-    };
-
-
-    const blob =
-        new Blob(
-            [
-                JSON.stringify(
-                    data,
-                    null,
-                    2
-                )
-            ],
-            {
-                type:
-                    "application/json"
-            }
-        );
-
-
-    const url =
-        URL.createObjectURL(blob);
-
-
-    const anchor =
-        document.createElement("a");
-
-
-    anchor.href =
-        url;
-
-
-    anchor.download =
-        "devora-settings.json";
-
-
-    document.body.appendChild(
-        anchor
-    );
-
-
-    anchor.click();
-
-
-    anchor.remove();
-
-
-    URL.revokeObjectURL(
-        url
-    );
-
-
-    showToast(
-        "Settings exported successfully.",
-        "success"
-    );
-
-}
-
-
-/* =====================================================
-   IMPORT SETTINGS
-===================================================== */
-
-function importSettings() {
-
-    const input =
-        document.createElement("input");
-
-
-    input.type =
-        "file";
-
-    input.accept =
-        "application/json,.json";
-
-
-    input.addEventListener(
-        "change",
-        event => {
+        handleAvatarChange(event) {
 
             const file =
-                event.target.files?.[0];
-
+                event?.target?.files?.[0];
 
             if (!file) {
+                return;
+            }
+
+            if (
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
+
+                this.showToast(
+                    "Please select an image",
+                    "error"
+                );
 
                 return;
 
             }
-
 
             const reader =
                 new FileReader();
 
-
             reader.onload = () => {
+
+                this.profile.avatar =
+                    reader.result;
+
+                this.saveSection(
+                    "profile",
+                    this.profile
+                );
+
+                this.showToast(
+                    "Profile picture updated",
+                    "check_circle"
+                );
+
+            };
+
+            reader.onerror = () => {
+
+                this.showToast(
+                    "Unable to load image",
+                    "error"
+                );
+
+            };
+
+            reader.readAsDataURL(file);
+
+        },
+
+
+        /* =================================================
+           APPEARANCE
+        ================================================= */
+
+        setTheme(theme) {
+
+            if (
+                ![
+                    "light",
+                    "dark",
+                    "system"
+                ].includes(theme)
+            ) {
+
+                return;
+
+            }
+
+            this.appearance.theme =
+                theme;
+
+            this.saveSection(
+                "appearance",
+                this.appearance
+            );
+
+            this.applySettings();
+
+            this.showToast(
+                "Theme updated",
+                "check_circle"
+            );
+
+        },
+
+
+        setAccent(accent) {
+
+            if (
+                ![
+                    "red",
+                    "blue",
+                    "green",
+                    "yellow",
+                    "purple",
+                    "orange",
+                    "pink",
+                    "cyan",
+                    "teal"
+                ].includes(accent)
+            ) {
+
+                return;
+
+            }
+
+            this.appearance.accent =
+                accent;
+
+            this.saveSection(
+                "appearance",
+                this.appearance
+            );
+
+            this.applySettings();
+
+            this.showToast(
+                "Accent color updated",
+                "check_circle"
+            );
+
+        },
+
+
+        setDensity(density) {
+
+            if (
+                ![
+                    "comfortable",
+                    "compact"
+                ].includes(density)
+            ) {
+
+                return;
+
+            }
+
+            this.appearance.density =
+                density;
+
+            this.saveSection(
+                "appearance",
+                this.appearance
+            );
+
+            this.applySettings();
+
+            this.showToast(
+                "Interface density updated",
+                "check_circle"
+            );
+
+        },
+
+
+        saveAppearance() {
+
+            this.saveSection(
+                "appearance",
+                this.appearance
+            );
+
+            this.applySettings();
+
+        },
+
+
+        /* =================================================
+           OTHER SETTINGS
+        ================================================= */
+
+        saveNavigation() {
+
+            this.saveSection(
+                "navigation",
+                this.navigation
+            );
+
+            this.applySettings();
+
+        },
+
+
+        saveFiles() {
+
+            this.saveSection(
+                "files",
+                this.files
+            );
+
+            this.applySettings();
+
+        },
+
+
+        saveImages() {
+
+            this.saveSection(
+                "images",
+                this.images
+            );
+
+            this.applySettings();
+
+        },
+
+
+        saveArticles() {
+
+            this.saveSection(
+                "articles",
+                this.articles
+            );
+
+            this.applySettings();
+
+        },
+
+
+        saveNotifications() {
+
+            this.saveSection(
+                "notifications",
+                this.notifications
+            );
+
+        },
+
+
+        saveRegion() {
+
+            this.saveSection(
+                "region",
+                this.region
+            );
+
+        },
+
+
+        saveAccessibility() {
+
+            this.saveSection(
+                "accessibility",
+                this.accessibility
+            );
+
+            this.applySettings();
+
+        },
+
+
+        saveSection(section, data) {
+
+            window.DevoraSettings.update(
+                section,
+                data
+            );
+
+        },
+
+
+        /* =================================================
+           APPLY
+        ================================================= */
+
+        applySettings() {
+
+            const settings =
+                getDevoraSettings();
+
+            this.applyTheme(
+                settings.appearance.theme
+            );
+
+            this.applyAccent(
+                settings.appearance.accent
+            );
+
+            this.applyAccessibility(
+                settings.accessibility
+            );
+
+            this.applyDensity(
+                settings.appearance.density
+            );
+
+        },
+
+
+        applyTheme(theme) {
+
+            let finalTheme =
+                theme;
+
+            if (
+                theme === "system"
+            ) {
+
+                finalTheme =
+                    window.matchMedia(
+                        "(prefers-color-scheme: dark)"
+                    ).matches
+                        ? "dark"
+                        : "light";
+
+            }
+
+            document.documentElement
+                .setAttribute(
+                    "data-theme",
+                    finalTheme
+                );
+
+            document.documentElement
+                .classList.toggle(
+                    "devora-dark",
+                    finalTheme === "dark"
+                );
+
+            document.body.classList.toggle(
+                "dark-mode",
+                finalTheme === "dark"
+            );
+
+        },
+
+
+        applyAccent(accent) {
+
+            document.documentElement
+                .setAttribute(
+                    "data-accent",
+                    accent
+                );
+
+            document.body
+                .setAttribute(
+                    "data-accent",
+                    accent
+                );
+
+        },
+
+
+        applyDensity(density) {
+
+            document.documentElement
+                .setAttribute(
+                    "data-density",
+                    density
+                );
+
+        },
+
+
+        applyAccessibility(settings) {
+
+            document.documentElement
+                .classList.toggle(
+                    "devora-large-text",
+                    settings.largeText
+                );
+
+            document.documentElement
+                .classList.toggle(
+                    "devora-high-contrast",
+                    settings.highContrast
+                );
+
+            document.documentElement
+                .classList.toggle(
+                    "devora-reduce-motion",
+                    settings.reduceMotion
+                );
+
+            document.documentElement
+                .classList.toggle(
+                    "devora-keyboard-navigation",
+                    settings.keyboardNavigation
+                );
+
+        },
+
+
+        /* =================================================
+           SEARCH
+        ================================================= */
+
+        searchSettings() {
+
+            const query =
+                String(
+                    this.searchQuery || ""
+                )
+                    .trim()
+                    .toLowerCase();
+
+            if (!query) {
+
+                this.searchResults = [];
+
+                return;
+
+            }
+
+            this.searchResults =
+                this.searchItems.filter(
+                    item =>
+
+                        item.title
+                            .toLowerCase()
+                            .includes(query)
+
+                        ||
+
+                        item.description
+                            .toLowerCase()
+                            .includes(query)
+                );
+
+        },
+
+
+        clearSearch() {
+
+            this.searchQuery = "";
+
+            this.searchResults = [];
+
+        },
+
+
+        openSearchResult(result) {
+
+            if (!result) {
+                return;
+            }
+
+            this.clearSearch();
+
+            this.$nextTick(() => {
+
+                this.scrollToSection(
+                    result.id
+                );
+
+            });
+
+        },
+
+
+        scrollToSection(sectionId) {
+
+            const element =
+                document.getElementById(
+                    sectionId
+                );
+
+            if (!element) {
+                return;
+            }
+
+            element.scrollIntoView({
+                behavior:
+                    this.accessibility.reduceMotion
+                        ? "auto"
+                        : "smooth",
+                block: "start"
+            });
+
+            history.replaceState(
+                null,
+                "",
+                "#" + sectionId
+            );
+
+        },
+
+
+        /* =================================================
+           SECURITY
+        ================================================= */
+
+        showSecurityMessage(title) {
+
+            this.showToast(
+                title +
+                " is not connected yet",
+                "info"
+            );
+
+        },
+
+
+        /* =================================================
+           EXPORT
+        ================================================= */
+
+        async exportData() {
+
+            try {
+
+                const settings =
+                    getDevoraSettings();
+
+                const articles =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "devora_articles"
+                        ) || "[]"
+                    );
+
+                const customUsers =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "devora_custom_users"
+                        ) || "[]"
+                    );
+
+                const exportObject = {
+
+                    devora: true,
+
+                    version: 1,
+
+                    exportedAt:
+                        new Date().toISOString(),
+
+                    settings,
+
+                    articles,
+
+                    customUsers
+
+                };
+
+                const blob =
+                    new Blob(
+                        [
+                            JSON.stringify(
+                                exportObject,
+                                null,
+                                2
+                            )
+                        ],
+                        {
+                            type:
+                                "application/json"
+                        }
+                    );
+
+                const url =
+                    URL.createObjectURL(
+                        blob
+                    );
+
+                const link =
+                    document.createElement("a");
+
+                link.href = url;
+
+                link.download =
+                    "devora-backup.json";
+
+                document.body.appendChild(
+                    link
+                );
+
+                link.click();
+
+                link.remove();
+
+                URL.revokeObjectURL(
+                    url
+                );
+
+                this.showToast(
+                    "Devora backup exported",
+                    "download"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                this.showToast(
+                    "Unable to export data",
+                    "error"
+                );
+
+            }
+
+        },
+
+
+        /* =================================================
+           IMPORT
+        ================================================= */
+
+        openImportPicker() {
+
+            const input =
+                document.getElementById(
+                    "importDataInput"
+                );
+
+            if (input) {
+
+                input.click();
+
+            }
+
+        },
+
+
+        async importData(event) {
+
+            const file =
+                event?.target?.files?.[0];
+
+            if (!file) {
+                return;
+            }
+
+            try {
+
+                const text =
+                    await file.text();
+
+                const imported =
+                    JSON.parse(text);
+
+                if (
+                    !imported ||
+                    typeof imported !==
+                    "object"
+                ) {
+
+                    throw new Error(
+                        "Invalid backup"
+                    );
+
+                }
+
+                const settings =
+                    imported.settings ||
+                    imported;
+
+                localStorage.setItem(
+                    DEVORA_SETTINGS_KEY,
+                    JSON.stringify(
+                        devoraDeepMerge(
+                            DEVORA_DEFAULT_SETTINGS,
+                            settings
+                        )
+                        )
+                    );
+
+                if (
+                    Array.isArray(
+                        imported.articles
+                    )
+                ) {
+
+                    localStorage.setItem(
+                        "devora_articles",
+                        JSON.stringify(
+                            imported.articles
+                        )
+                    );
+
+                }
+
+                if (
+                    Array.isArray(
+                        imported.customUsers
+                    )
+                ) {
+
+                    localStorage.setItem(
+                        "devora_custom_users",
+                        JSON.stringify(
+                            imported.customUsers
+                        )
+                    );
+
+                }
+
+                await this.init();
+
+                this.showToast(
+                    "Devora backup imported successfully",
+                    "check_circle"
+                );
+
+                setTimeout(() => {
+
+                    location.reload();
+
+                }, 500);
+
+            } catch (error) {
+
+                console.error(
+                    "Import error:",
+                    error
+                );
+
+                this.showToast(
+                    "Invalid Devora backup file",
+                    "error"
+                );
+
+            } finally {
+
+                event.target.value = "";
+
+            }
+
+        },
+
+
+        /* =================================================
+           CACHE
+        ================================================= */
+
+        async clearCache() {
+
+            const message =
+                "Clear Devora cache?\n\n" +
+                "This will remove temporary/cache data only.\n\n" +
+                "Your images, files, articles, users and settings will NOT be deleted.";
+
+            const confirmed =
+                window.confirm(
+                    message
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            const cacheKeys = [
+
+                "devora_users_cache"
+
+            ];
+
+            cacheKeys.forEach(
+                key => {
+                    localStorage.removeItem(
+                        key
+                    );
+                }
+            );
+
+            sessionStorage.clear();
+
+            if (
+                "caches" in window
+            ) {
 
                 try {
 
-                    const imported =
-                        JSON.parse(
-                            reader.result
-                        );
+                    const keys =
+                        await caches.keys();
 
-
-                    const incoming =
-                        imported.settings ||
-                        imported;
-
-
-                    settings =
-                        deepMerge(
-                            structuredClone(
-                                defaultSettings
-                            ),
-                            incoming
-                        );
-
-
-                    saveSettings(
-                        false
-                    );
-
-
-                    applyAll();
-
-                    loadSwitchStates();
-
-                    loadProfileForm();
-
-
-                    showToast(
-                        "Settings imported successfully.",
-                        "success"
+                    await Promise.all(
+                        keys.map(
+                            key =>
+                                caches.delete(
+                                    key
+                                )
+                        )
                     );
 
                 } catch (error) {
 
-                    console.error(error);
-
-                    showToast(
-                        "Invalid settings file.",
-                        "error"
+                    console.warn(
+                        "CacheStorage clear failed:",
+                        error
                     );
 
                 }
 
-            };
-
-
-            reader.readAsText(file);
-
-        }
-    );
-
-
-    input.click();
-
-}
-
-
-/* =====================================================
-   RESET SETTINGS
-===================================================== */
-
-function resetSettings() {
-
-    const confirmed =
-        window.confirm(
-            "Reset all Devora settings to their default values?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    settings =
-        structuredClone(
-            defaultSettings
-        );
-
-
-    saveSettings(
-        false
-    );
-
-
-    applyAll();
-
-    loadSwitchStates();
-
-    loadProfileForm();
-
-
-    showToast(
-        "All settings have been reset.",
-        "success"
-    );
-
-}
-
-
-/* =====================================================
-   CLEAR CACHE
-===================================================== */
-
-function clearDevoraCache() {
-
-    const confirmed =
-        window.confirm(
-            "Clear Devora local cache and temporary data?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    const keepSettings =
-        localStorage.getItem(
-            STORAGE_KEY
-        );
-
-
-    localStorage.clear();
-
-
-    if (keepSettings) {
-
-        localStorage.setItem(
-            STORAGE_KEY,
-            keepSettings
-        );
-
-    }
-
-
-    sessionStorage.clear();
-
-
-    showToast(
-        "Temporary data cleared.",
-        "success"
-    );
-
-}
-
-
-/* =====================================================
-   DANGER BUTTONS
-===================================================== */
-
-function setupDangerZone() {
-
-    const reset =
-        $("#settingsResetButton");
-
-
-    const clear =
-        $("#settingsClearCacheButton");
-
-
-    const exportButton =
-        $("#settingsExportButton");
-
-
-    const importButton =
-        $("#settingsImportButton");
-
-
-    if (reset) {
-
-        reset.addEventListener(
-            "click",
-            resetSettings
-        );
-
-    }
-
-
-    if (clear) {
-
-        clear.addEventListener(
-            "click",
-            clearDevoraCache
-        );
-
-    }
-
-
-    if (exportButton) {
-
-        exportButton.addEventListener(
-            "click",
-            exportSettings
-        );
-
-    }
-
-
-    if (importButton) {
-
-        importButton.addEventListener(
-            "click",
-            importSettings
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   SAVE ALL BUTTON
-===================================================== */
-
-function setupGlobalSave() {
-
-    const buttons =
-        $$("[data-settings-save]");
-
-
-    buttons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                saveProfile();
-
-                saveSettings();
-
             }
-        );
 
-    });
+            await this.updateStorageInfo();
 
-}
+            this.showToast(
+                "Cache cleared. Your data was kept.",
+                "check_circle"
+            );
 
-
-/* =====================================================
-   SYSTEM THEME
-===================================================== */
-
-function setupSystemTheme() {
-
-    const media =
-        window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        );
+        },
 
 
-    media.addEventListener?.(
-        "change",
-        () => {
+        /* =================================================
+           RESET
+        ================================================= */
 
-            if (
-                settings.appearance.theme ===
-                "system"
-            ) {
+        resetPreferences() {
 
-                document.documentElement
-                    .setAttribute(
-                        "data-theme",
-                        media.matches
-                            ? "dark"
-                            : "light"
+            const confirmed =
+                window.confirm(
+                    "Reset all Devora preferences?\n\nYour articles, files, images and users will remain."
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            localStorage.removeItem(
+                DEVORA_SETTINGS_KEY
+            );
+
+            location.reload();
+
+        },
+
+
+        resetApplication() {
+
+            const confirmed =
+                window.confirm(
+                    "WARNING!\n\nThis will delete Devora application data and preferences.\n\nAre you sure?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+            localStorage.clear();
+
+            sessionStorage.clear();
+
+            location.reload();
+
+        },
+
+
+        /* =================================================
+           STORAGE
+        ================================================= */
+
+        async updateStorageInfo() {
+
+            try {
+
+                this.storage.articleCount =
+                    this.getArticleCount();
+
+                this.storage.imageCount =
+                    await this.getIndexedDBCount(
+                        "DevoraImagesDB",
+                        "images"
                     );
 
-            }
+                this.storage.fileCount =
+                    await this.getIndexedDBCount(
+                        "DevoraFilesDB",
+                        "files"
+                    );
 
-        }
-    );
+                let bytes = 0;
 
-}
+                for (
+                    let i = 0;
+                    i < localStorage.length;
+                    i++
+                ) {
 
+                    const key =
+                        localStorage.key(i);
 
-/* =====================================================
-   KEYBOARD SHORTCUT
-===================================================== */
+                    const value =
+                        localStorage.getItem(
+                            key
+                        ) || "";
 
-function setupKeyboardShortcuts() {
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                (event.ctrlKey ||
-                    event.metaKey) &&
-                event.key.toLowerCase() ===
-                    "k"
-            ) {
-
-                const search =
-                    $("#settingsSearch");
-
-
-                if (search) {
-
-                    event.preventDefault();
-
-                    search.focus();
+                    bytes +=
+                        (
+                            key.length +
+                            value.length
+                        ) * 2;
 
                 }
 
-            }
+                this.storage.localStorageSize =
+                    this.formatBytes(
+                        bytes
+                    );
 
+            } catch (error) {
 
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                const results =
-                    $(".settings-search-results");
-
-
-                if (results) {
-
-                    results.style.display =
-                        "none";
-
-                }
+                console.error(
+                    "Storage information error:",
+                    error
+                );
 
             }
 
-        }
-    );
-
-}
+        },
 
 
-/* =====================================================
-   PROFILE IMAGE FALLBACK
-===================================================== */
+        getArticleCount() {
 
-function setupImageFallbacks() {
+            try {
 
-    $$(".settings-profile-avatar, .settings-navbar-avatar, .settings-dropdown-avatar")
-        .forEach(image => {
+                const articles =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "devora_articles"
+                        ) || "[]"
+                    );
 
-            image.addEventListener(
-                "error",
-                () => {
+                return Array.isArray(
+                    articles
+                )
+                    ? articles.length
+                    : 0;
 
-                    image.style.objectFit =
-                        "cover";
+            } catch {
+
+                return 0;
+
+            }
+
+        },
+
+
+        getIndexedDBCount(
+            databaseName,
+            storeName
+        ) {
+
+            return new Promise(
+                resolve => {
+
+                    if (
+                        !window.indexedDB
+                    ) {
+
+                        resolve(0);
+
+                        return;
+
+                    }
+
+                    const request =
+                        indexedDB.open(
+                            databaseName
+                        );
+
+                    request.onsuccess =
+                        event => {
+
+                            const db =
+                                event.target.result;
+
+                            if (
+                                !db.objectStoreNames
+                                    .contains(
+                                        storeName
+                                    )
+                            ) {
+
+                                db.close();
+
+                                resolve(0);
+
+                                return;
+
+                            }
+
+                            const transaction =
+                                db.transaction(
+                                    storeName,
+                                    "readonly"
+                                );
+
+                            const store =
+                                transaction
+                                    .objectStore(
+                                        storeName
+                                    );
+
+                            const countRequest =
+                                store.count();
+
+                            countRequest.onsuccess =
+                                () => {
+
+                                    const count =
+                                        countRequest.result;
+
+                                    db.close();
+
+                                    resolve(
+                                        count
+                                    );
+
+                                };
+
+                            countRequest.onerror =
+                                () => {
+
+                                    db.close();
+
+                                    resolve(0);
+
+                                };
+
+                        };
+
+                    request.onerror =
+                        () => {
+
+                            resolve(0);
+
+                        };
 
                 }
             );
 
-        });
-
-}
+        },
 
 
-/* =====================================================
-   UPDATE MOBILE USER INFO
-   This is the important part for File/Mobile profile
-===================================================== */
+        formatBytes(bytes) {
 
-function updateMobileUserProfile() {
+            if (
+                !bytes ||
+                bytes <= 0
+            ) {
 
-    const name =
-        settings.profile.name ||
-        "Devora User";
-
-
-    const email =
-        settings.profile.email ||
-        "user@devora.com";
-
-
-    /*
-     * We intentionally support several possible
-     * class names so the Settings page can control
-     * the existing mobile profile area.
-     */
-
-
-    const nameSelectors = [
-
-        ".mobile-profile-name",
-
-        ".mobile-user-name",
-
-        ".sidebar-profile-name",
-
-        ".profile-name",
-
-        "[data-user-name]"
-
-    ];
-
-
-    const emailSelectors = [
-
-        ".mobile-profile-email",
-
-        ".mobile-user-email",
-
-        ".sidebar-profile-email",
-
-        ".profile-email",
-
-        "[data-user-email]"
-
-    ];
-
-
-    const avatarSelectors = [
-
-        ".mobile-profile-avatar",
-
-        ".mobile-user-avatar",
-
-        ".sidebar-profile-avatar",
-
-        ".profile-avatar",
-
-        "[data-user-avatar]"
-
-    ];
-
-
-    nameSelectors.forEach(
-        selector => {
-
-            $$(selector)
-                .forEach(element => {
-
-                    element.textContent =
-                        name;
-
-                });
-
-        }
-    );
-
-
-    emailSelectors.forEach(
-        selector => {
-
-            $$(selector)
-                .forEach(element => {
-
-                    element.textContent =
-                        email;
-
-                });
-
-        }
-    );
-
-
-    if (settings.profile.avatar) {
-
-        avatarSelectors.forEach(
-            selector => {
-
-                $$(selector)
-                    .forEach(element => {
-
-                        if (
-                            element.tagName ===
-                            "IMG"
-                        ) {
-
-                            element.src =
-                                settings.profile.avatar;
-
-                        } else {
-
-                            element.style.backgroundImage =
-                                `url("${settings.profile.avatar}")`;
-
-                        }
-
-                    });
+                return "0 KB";
 
             }
-        );
 
-    }
+            const units = [
+                "B",
+                "KB",
+                "MB",
+                "GB"
+            ];
+
+            const index =
+                Math.min(
+                    Math.floor(
+                        Math.log(bytes) /
+                        Math.log(1024)
+                    ),
+                    units.length - 1
+                );
+
+            return (
+                bytes /
+                Math.pow(
+                    1024,
+                    index
+                )
+            ).toFixed(1)
+            + " "
+            + units[index];
+
+        },
+
+
+        /* =================================================
+           TOAST
+        ================================================= */
+
+        showToast(
+            message,
+            icon = "check_circle",
+            type = "success"
+        ) {
+
+            clearTimeout(
+                this.toast.timer
+            );
+
+            this.toast.message =
+                message;
+
+            this.toast.icon =
+                icon;
+
+            this.toast.type =
+                type;
+
+            this.toast.visible =
+                true;
+
+            this.toast.timer =
+                setTimeout(() => {
+
+                    this.toast.visible =
+                        false;
+
+                }, 3000);
+
+        }
+
+    };
 
 }
-
-
-/* =====================================================
-   APPLY EVERYTHING
-===================================================== */
-
-function applyAll() {
-
-    applyAppearance();
-
-    applyProfile();
-
-    updateMobileUserProfile();
-
-}
-
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
-applyAll();
-
-loadProfileForm();
-
-loadSwitchStates();
-
-setupAvatarUpload();
-
-setupTheme();
-
-setupAccent();
-
-setupSwitches();
-
-setupSelects();
-
-setupSearch();
-
-setupCategoryCards();
-
-setupProfileDropdown();
-
-setupTwoFactor();
-
-setupPasswordButton();
-
-setupDangerZone();
-
-setupGlobalSave();
-
-setupSystemTheme();
-
-setupKeyboardShortcuts();
-
-setupImageFallbacks();
-
-
-/* =====================================================
-   READY
-===================================================== */
-
-document.documentElement
-    .classList.add(
-        "settings-ready"
-    );
-
-
-console.log(
-    "Devora Settings initialized successfully."
-);
-
-
-});

@@ -219,7 +219,7 @@
 
     background: white;
 
-    color: #c62828;
+    color: var(--devora-accent);
 
     box-shadow:
         0 2px 8px rgba(0,0,0,.08);
@@ -245,7 +245,7 @@
 
     border-radius: 12px;
 
-    background: #c62828;
+    background: var(--devora-accent);
 
     color: white;
 
@@ -260,7 +260,7 @@
 
 .new-article-btn:hover {
 
-    background: #b71c1c;
+    background: var(--devora-accent);
 
     transform: translateY(-2px);
 
@@ -666,7 +666,7 @@
 
     background: #ffebee;
 
-    color: #c62828;
+    color: var(--devora-accent);
 
     font-weight: 700;
 
@@ -735,7 +735,7 @@
 
     background: #ffebee;
 
-    color: #c62828;
+    color: var(--devora-accent);
 
 }
 
@@ -1003,7 +1003,7 @@
 
     gap: 7px;
 
-    background: #c62828;
+    background: var(--devora-accent);
 
     color: white;
 
@@ -1284,3 +1284,301 @@
 
 }
 
+/* =========================================================
+   ARTICLE HERO — WHITE CONTENT
+========================================================= */
+
+.articles-hero h1,
+.articles-hero p,
+.articles-hero .articles-badge,
+.articles-hero .articles-badge i,
+.articles-hero-icon,
+.articles-hero-icon i {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   ARTICLE STATS — KEEP THEIR OWN COLORS
+========================================================= */
+
+.stat-icon.blue {
+    background: #e3f2fd !important;
+    color: #1e88e5 !important;
+}
+
+.stat-icon.green {
+    background: #e8f5e9 !important;
+    color: #43a047 !important;
+}
+
+.stat-icon.orange {
+    background: #fff3e0 !important;
+    color: #fb8c00 !important;
+}
+
+
+/* Published / Draft text stays natural */
+
+.filter-btn {
+    color: #616161 !important;
+}
+
+.filter-btn.active {
+    color: #c62828 !important;
+}
+
+/* =========================================================
+   ARTICLES - DARK MODE FIX
+   White cards/modal => dark readable text
+========================================================= */
+
+
+/* =========================================================
+   FILTER BUTTONS
+========================================================= */
+
+html[data-theme="dark"] .filter-btn {
+    color: #666666 !important;
+}
+
+html[data-theme="dark"] .filter-btn i {
+    color: inherit !important;
+}
+
+html[data-theme="dark"] .filter-btn.active {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================================================
+   ARTICLE CARDS
+========================================================= */
+
+html[data-theme="dark"] .article-card {
+    background: #ffffff !important;
+}
+
+
+/* Category + Read Time */
+
+html[data-theme="dark"] .article-meta {
+    color: #777777 !important;
+}
+
+html[data-theme="dark"] .article-meta span {
+    color: #777777 !important;
+}
+
+html[data-theme="dark"] .article-meta i {
+    color: #888888 !important;
+}
+
+
+/* Article title */
+
+html[data-theme="dark"] .article-card h3 {
+    color: #333333 !important;
+    font-weight: 700 !important;
+}
+
+
+/* Short description */
+
+html[data-theme="dark"] .article-card-content > p {
+    color: #666666 !important;
+}
+
+
+/* =========================================================
+   ARTICLE FOOTER
+========================================================= */
+
+html[data-theme="dark"] .article-footer {
+    border-top-color: #eeeeee !important;
+}
+
+
+/* Author */
+
+html[data-theme="dark"] .article-author strong {
+    color: #333333 !important;
+}
+
+html[data-theme="dark"] .article-author small {
+    color: #999999 !important;
+}
+
+
+/* Avatar keeps accent */
+
+html[data-theme="dark"] .author-avatar {
+    background: var(--devora-accent-light) !important;
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================================================
+   READ / EDIT / DELETE
+========================================================= */
+
+html[data-theme="dark"] .article-actions button {
+    color: #888888 !important;
+}
+
+html[data-theme="dark"] .article-actions button i {
+    color: inherit !important;
+}
+
+html[data-theme="dark"] .article-actions button:hover {
+    color: #424242 !important;
+}
+
+
+/* Delete */
+
+html[data-theme="dark"] .article-actions .delete-action {
+    color: #888888 !important;
+}
+
+
+/* =========================================================
+   NEW ARTICLE MODAL
+========================================================= */
+
+html[data-theme="dark"] .article-modal {
+    background: #ffffff !important;
+}
+
+
+/* Header */
+
+html[data-theme="dark"] .modal-header span {
+    color: #999999 !important;
+}
+
+html[data-theme="dark"] .modal-header h2 {
+    color: #333333 !important;
+}
+
+
+/* Close */
+
+html[data-theme="dark"] .modal-header button {
+    background: #f5f5f5 !important;
+    color: #555555 !important;
+}
+
+html[data-theme="dark"] .modal-header button i {
+    color: #555555 !important;
+}
+
+
+/* =========================================================
+   FORM LABELS
+========================================================= */
+
+html[data-theme="dark"] .input-field label {
+    color: #555555 !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   FORM INPUTS
+========================================================= */
+
+html[data-theme="dark"] .input-field input,
+html[data-theme="dark"] .input-field textarea,
+html[data-theme="dark"] .input-field select {
+    background: #ffffff !important;
+    color: #333333 !important;
+    border-color: #dddddd !important;
+}
+
+
+/* Placeholder */
+
+html[data-theme="dark"] .input-field input::placeholder,
+html[data-theme="dark"] .input-field textarea::placeholder {
+    color: #999999 !important;
+    opacity: 1 !important;
+}
+
+
+/* Select options */
+
+html[data-theme="dark"] .input-field select option {
+    background: #ffffff !important;
+    color: #333333 !important;
+}
+
+
+/* =========================================================
+   ARTICLE CONTENT
+========================================================= */
+
+html[data-theme="dark"] .article-content-input {
+    color: #333333 !important;
+    background: #ffffff !important;
+}
+
+
+/* =========================================================
+   MODAL BUTTONS
+========================================================= */
+
+html[data-theme="dark"] .cancel-btn {
+    background: #eeeeee !important;
+    color: #555555 !important;
+}
+
+html[data-theme="dark"] .cancel-btn:hover {
+    color: #333333 !important;
+}
+
+html[data-theme="dark"] .save-btn {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .save-btn i {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   READ ARTICLE
+========================================================= */
+
+html[data-theme="dark"] .read-article-modal {
+    background: #ffffff !important;
+}
+
+html[data-theme="dark"] .read-category {
+    color: var(--devora-accent) !important;
+}
+
+html[data-theme="dark"] .read-content h1 {
+    color: #333333 !important;
+}
+
+html[data-theme="dark"] .read-meta {
+    color: #777777 !important;
+}
+
+html[data-theme="dark"] .read-meta span {
+    color: #777777 !important;
+}
+
+html[data-theme="dark"] .read-meta i {
+    color: #888888 !important;
+}
+
+html[data-theme="dark"] .read-excerpt {
+    background: #fafafa !important;
+    color: #555555 !important;
+}
+
+html[data-theme="dark"] .read-body {
+    color: #424242 !important;
+}

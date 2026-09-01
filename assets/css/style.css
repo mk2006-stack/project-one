@@ -66,7 +66,12 @@ table.highlight > tbody > tr:hover {
   bottom: -70vh;
 }
 .add_user_modal.show{
-  box-shadow: 0 0 10px #c62828 ;
+  box-shadow:
+    0 0 10px color-mix(
+      in srgb,
+      var(--devora-accent) 55%,
+      transparent
+    );
   bottom: 0;
 }
 .center-by-center{
@@ -119,7 +124,7 @@ table.highlight > tbody > tr:hover {
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 2px;
-    color: #c62828;
+    color: var(--devora-accent);
     margin-bottom: 5px;
 }
 
@@ -143,7 +148,12 @@ table.highlight > tbody > tr:hover {
     justify-content: center;
     gap: 7px;
     padding: 0 22px !important;
-    box-shadow: 0 8px 20px rgba(198, 40, 40, .20);
+    box-shadow:
+    0 8px 20px color-mix(
+        in srgb,
+        var(--devora-accent) 20%,
+        transparent
+    );
 }
 
 .add-user-btn i {
@@ -202,7 +212,7 @@ table.highlight > tbody > tr:hover {
 
 .users-total strong {
     background: #ffebee;
-    color: #c62828;
+    color: var(--devora-accent);
     padding: 8px 13px;
     border-radius: 10px;
     font-size: 15px;
@@ -296,7 +306,7 @@ table.striped > tbody > tr:nth-child(odd) {
     flex: 0 0 40px;
     border-radius: 12px;
     background: #ffebee;
-    color: #c62828;
+    color: var(--devora-accent);
 
     display: flex;
     justify-content: center;
@@ -373,7 +383,7 @@ table.striped > tbody > tr:nth-child(odd) {
 
 .user-action.delete {
     background: #ffebee;
-    color: #c62828;
+    color: #e53935 !important;
 }
 
 .user-action:hover {
@@ -453,7 +463,7 @@ table.striped > tbody > tr:nth-child(odd) {
     height: 34px;
     border: none;
     border-radius: 10px;
-    background: #c62828;
+    background: var(--devora-accent);
     color: white;
     cursor: pointer;
 
@@ -1890,12 +1900,12 @@ table.striped > tbody > tr:nth-child(odd) {
 }
 
 .location-select-button:hover {
-    border-color: #c62828;
+    border-color: var(--devora-accent);
 }
 
 .location-select-button:focus {
     outline: none;
-    border-color: #c62828;
+    border-color: var(--devora-accent);
     box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.08);
 }
 
@@ -2016,4 +2026,2430 @@ table.striped > tbody > tr:nth-child(odd) {
     font-family: inherit;
     font-size: 14px;
     cursor: pointer;
+}
+
+/* =========================================================
+   DEVORA GLOBAL SETTINGS
+========================================================= */
+
+:root {
+
+    --devora-accent: #c62828;
+
+    --devora-accent-light: #ffebee;
+
+    --devora-accent-dark: #b71c1c;
+
+    --devora-bg: #ffffff;
+
+    --devora-surface: #ffffff;
+
+    --devora-surface-2: #fafafa;
+
+    --devora-text: #212121;
+
+    --devora-text-secondary: #757575;
+
+    --devora-border: #eeeeee;
+
+}
+
+
+/* =========================================================
+   ACCENTS
+========================================================= */
+
+
+
+html.devora-high-contrast button,
+html.devora-high-contrast input,
+html.devora-high-contrast select,
+html.devora-high-contrast textarea {
+
+    border-width:
+        2px !important;
+
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+html.devora-reduce-motion *,
+html.devora-reduce-motion *::before,
+html.devora-reduce-motion *::after {
+
+    animation-duration:
+        0.001ms !important;
+
+    animation-iteration-count:
+        1 !important;
+
+    transition-duration:
+        0.001ms !important;
+
+    scroll-behavior:
+        auto !important;
+
+}
+
+
+/* =========================================================
+   ANIMATIONS OFF
+========================================================= */
+
+html.devora-no-animations *,
+html.devora-no-animations *::before,
+html.devora-no-animations *::after {
+
+    animation:
+        none !important;
+
+    transition:
+        none !important;
+
+}
+
+
+/* =========================================================
+   COMPACT NAVIGATION
+========================================================= */
+
+html.devora-compact-navigation
+    .sidenav {
+
+    width:
+        220px !important;
+
+}
+
+
+html.devora-compact-navigation
+    .sidenav li a {
+
+    padding-left:
+        12px !important;
+
+    padding-right:
+        12px !important;
+
+}
+
+
+html.devora-compact-navigation
+    .sidenav li a i {
+
+    margin-right:
+        8px !important;
+
+}
+
+
+/* =========================================================
+   HIDE PROFILE INFORMATION
+========================================================= */
+
+html.devora-hide-profile-info
+    .user-view .name,
+
+html.devora-hide-profile-info
+    .user-view .email {
+
+    display:
+        none !important;
+
+}
+
+
+/* =========================================================
+   IMAGE THUMBNAILS
+========================================================= */
+
+html[data-thumbnail-size="small"]
+    .image-preview {
+
+    height:
+        150px !important;
+
+}
+
+
+html[data-thumbnail-size="medium"]
+    .image-preview {
+
+    height:
+        220px !important;
+
+}
+
+
+html[data-thumbnail-size="large"]
+    .image-preview {
+
+    height:
+        320px !important;
+
+}
+
+
+html[data-thumbnail-size="small"]
+    .image-preview img {
+
+    object-fit:
+        contain !important;
+
+}
+
+
+html[data-thumbnail-size="medium"]
+    .image-preview img {
+
+    object-fit:
+        cover !important;
+
+}
+
+
+html[data-thumbnail-size="large"]
+    .image-preview img {
+
+    object-fit:
+        cover !important;
+
+}
+
+
+/* =========================================================
+   ARTICLE EDITOR
+========================================================= */
+
+html[data-article-editor="focus"]
+    .article-modal {
+
+    width:
+        min(1100px, 95vw) !important;
+
+    max-width:
+        1100px !important;
+
+}
+
+
+html[data-article-editor="focus"]
+    .article-content-input {
+
+    min-height:
+        500px !important;
+
+    font-size:
+        17px !important;
+
+    line-height:
+        1.8 !important;
+
+}
+
+
+/* =========================================================
+   DENSITY
+========================================================= */
+
+html[data-density="compact"]
+    .settings-option-row {
+
+    padding-top:
+        10px !important;
+
+    padding-bottom:
+        10px !important;
+
+}
+
+
+html[data-density="compact"]
+    .settings-panel {
+
+    padding:
+        18px !important;
+
+}
+
+
+html[data-density="comfortable"]
+    .settings-option-row {
+
+    padding-top:
+        18px;
+
+    padding-bottom:
+        18px;
+
+}
+
+
+/* =========================================================
+   KEYBOARD NAVIGATION
+========================================================= */
+
+html.devora-keyboard-navigation
+    button:focus-visible,
+
+html.devora-keyboard-navigation
+    a:focus-visible,
+
+html.devora-keyboard-navigation
+    input:focus-visible,
+
+html.devora-keyboard-navigation
+    select:focus-visible,
+
+html.devora-keyboard-navigation
+    textarea:focus-visible {
+
+    outline:
+        3px solid
+        var(--devora-accent) !important;
+
+    outline-offset:
+        3px !important;
+
+}
+
+/* =========================================================
+   DEVORA GLOBAL DARK MODE
+========================================================= */
+
+html[data-theme="dark"] body {
+    background: #121212 !important;
+    color: #f5f5f5 !important;
+}
+
+
+/* =========================================================
+   GLOBAL TEXT
+========================================================= */
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6,
+html[data-theme="dark"] p,
+html[data-theme="dark"] label,
+html[data-theme="dark"] span,
+html[data-theme="dark"] strong,
+html[data-theme="dark"] td,
+html[data-theme="dark"] th {
+    color: inherit;
+}
+
+
+/* =========================================================
+   TOP NAVBAR
+========================================================= */
+
+/* =========================================================
+   MOBILE SIDENAV
+========================================================= */
+
+html[data-theme="dark"] .sidenav {
+    background: #1b1b1b !important;
+}
+
+html[data-theme="dark"] .sidenav li a {
+    color: #eeeeee !important;
+}
+
+html[data-theme="dark"] .sidenav .sidenav_link_icon {
+    color: #eeeeee !important;
+}
+
+
+/* =========================================================
+   HOME DARK
+========================================================= */
+
+html[data-theme="dark"] .section-title h2 {
+    color: #f5f5f5 !important;
+}
+
+
+html[data-theme="dark"] .resource-card,
+html[data-theme="dark"] .management-user-card,
+html[data-theme="dark"] .user-feedback-section,
+html[data-theme="dark"] .status-item {
+    background: #1e1e1e !important;
+    color: #f5f5f5 !important;
+    border-color: #333333 !important;
+}
+
+
+html[data-theme="dark"] .resource-content h3,
+html[data-theme="dark"] .management-content h3,
+html[data-theme="dark"] .feedback-header h3 {
+    color: #f5f5f5 !important;
+}
+
+
+html[data-theme="dark"] .resource-content p,
+html[data-theme="dark"] .management-content p,
+html[data-theme="dark"] .status-item p,
+html[data-theme="dark"] .feedback-content p {
+    color: #bdbdbd !important;
+}
+
+
+/* Feedback */
+
+html[data-theme="dark"] .feedback-item {
+    background: #252525 !important;
+    border-color: #383838 !important;
+}
+
+
+html[data-theme="dark"] .feedback-user strong {
+    color: #ffffff !important;
+}
+
+
+html[data-theme="dark"] .feedback-user span {
+    color: #9e9e9e !important;
+}
+
+
+html[data-theme="dark"] .feedback-count {
+    background: #252525 !important;
+}
+
+
+html[data-theme="dark"] .feedback-count strong {
+    color: #ffffff !important;
+}
+
+
+
+/* =========================================================
+   USER MANAGEMENT
+========================================================= */
+
+html[data-theme="dark"] .users-toolbar-header h1 {
+    color: #ffffff !important;
+}
+
+
+html[data-theme="dark"] .users-toolbar-header p,
+html[data-theme="dark"] .users-total,
+html[data-theme="dark"] .users-loading {
+    color: #bdbdbd !important;
+}
+
+
+html[data-theme="dark"] .users-search {
+    background: #ffffff !important;
+    border-color: #dddddd !important;
+}
+
+
+html[data-theme="dark"] .users-search input {
+    background: #ffffff !important;
+    color: #212121 !important;
+}
+
+
+html[data-theme="dark"] .users-search input::placeholder {
+    color: #888888 !important;
+}
+
+
+html[data-theme="dark"] .users-total strong {
+    background: var(--devora-accent-light) !important;
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================================================
+   FILES
+========================================================= */
+
+html[data-theme="dark"] .files-search {
+    background: #ffffff !important;
+    border-color: #dddddd !important;
+}
+
+
+html[data-theme="dark"] .files-search input {
+    background: #ffffff !important;
+    color: #212121 !important;
+}
+
+
+html[data-theme="dark"] .files-search input::placeholder {
+    color: #888888 !important;
+}
+
+
+html[data-theme="dark"] .file-stat-card {
+    background: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #333333 !important;
+}
+
+
+html[data-theme="dark"] .file-stat-card span {
+    color: #bdbdbd !important;
+}
+
+
+html[data-theme="dark"] .file-stat-card strong {
+    color: #ffffff !important;
+}
+
+
+html[data-theme="dark"] .files-filter-main,
+html[data-theme="dark"] .category-option {
+    color: #eeeeee !important;
+}
+
+
+/* =========================================================
+   ARTICLES
+========================================================= */
+
+html[data-theme="dark"] .search-box {
+    background: #ffffff !important;
+}
+
+
+html[data-theme="dark"] .search-box input {
+    background: #ffffff !important;
+    color: #212121 !important;
+}
+
+
+html[data-theme="dark"] .search-box input::placeholder {
+    color: #888888 !important;
+}
+
+
+html[data-theme="dark"] .filter-buttons {
+    background: #292929 !important;
+}
+
+
+html[data-theme="dark"] .filter-btn {
+    color: #eeeeee !important;
+}
+
+
+html[data-theme="dark"] .filter-btn.active {
+    background: #ffffff !important;
+    color: var(--devora-accent) !important;
+}
+
+
+html[data-theme="dark"] .article-stat-card {
+    background: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #333333 !important;
+}
+
+
+html[data-theme="dark"] .article-stat-card span {
+    color: #bdbdbd !important;
+}
+
+
+html[data-theme="dark"] .article-stat-card strong {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+html[data-theme="dark"] .images-search {
+    background: #ffffff !important;
+}
+
+
+html[data-theme="dark"] .images-search input {
+    background: #ffffff !important;
+    color: #212121 !important;
+}
+
+
+html[data-theme="dark"] .images-search input::placeholder {
+    color: #888888 !important;
+}
+
+
+html[data-theme="dark"] .images-filter {
+    background: #292929 !important;
+}
+
+
+html[data-theme="dark"] .images-filter-btn {
+    color: #eeeeee !important;
+}
+
+
+html[data-theme="dark"] .images-filter-btn.active {
+    background: #ffffff !important;
+    color: var(--devora-accent) !important;
+}
+
+
+html[data-theme="dark"] .gallery-heading-left h2 {
+    color: #ffffff !important;
+}
+
+
+html[data-theme="dark"] .image-card {
+    background: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #333333 !important;
+}
+
+
+html[data-theme="dark"] .image-card h3,
+html[data-theme="dark"] .image-card .image-name {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+html[data-theme="dark"] .modal,
+html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .modal-footer {
+    background: #1e1e1e !important;
+    color: #ffffff !important;
+}
+
+
+html[data-theme="dark"] .modal input,
+html[data-theme="dark"] .modal textarea,
+html[data-theme="dark"] .modal select {
+    background: #252525 !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+html[data-theme="dark"] table {
+    color: #ffffff !important;
+}
+
+
+html[data-theme="dark"] table.striped > tbody > tr:nth-child(odd) {
+    background-color: #242424 !important;
+}
+
+
+html[data-theme="dark"] table.highlight > tbody > tr:hover {
+    background-color: #303030 !important;
+}
+
+
+
+
+html.devora-large-text {
+    font-size: 108%;
+}
+
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+html.devora-reduce-motion *,
+html.devora-reduce-motion *::before,
+html.devora-reduce-motion *::after,
+html.devora-no-animations *,
+html.devora-no-animations *::before,
+html.devora-no-animations *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+}
+
+
+/* =========================================================
+   COMPACT NAVIGATION
+========================================================= */
+
+html[data-density="compact"] .settings-option-row {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+
+html[data-density="compact"] .settings-panel {
+    padding: 18px !important;
+}
+
+
+/* =========================================================
+   KEYBOARD NAVIGATION
+========================================================= */
+
+html.devora-keyboard-navigation
+button:focus-visible,
+html.devora-keyboard-navigation
+a:focus-visible,
+html.devora-keyboard-navigation
+input:focus-visible,
+html.devora-keyboard-navigation
+select:focus-visible,
+html.devora-keyboard-navigation
+textarea:focus-visible {
+    outline: 3px solid var(--devora-accent) !important;
+    outline-offset: 3px !important;
+}
+
+/* =========================================================
+   DEVORA ACCENT — FINAL
+   Accent changes ONLY UI accent elements.
+   Hero text always stays WHITE.
+   Natural category colors stay untouched.
+========================================================= */
+
+:root {
+    --devora-accent: #c62828;
+    --devora-accent-dark: #b71c1c;
+    --devora-accent-light: #ffebee;
+}
+
+
+/* =========================
+   RED
+========================= */
+
+html[data-accent="red"] {
+    --devora-accent: #c62828;
+    --devora-accent-dark: #b71c1c;
+    --devora-accent-light: #ffebee;
+}
+
+
+/* =========================
+   BLUE
+========================= */
+
+html[data-accent="blue"] {
+    --devora-accent: #1976d2;
+    --devora-accent-dark: #0d47a1;
+    --devora-accent-light: #e3f2fd;
+}
+
+
+/* =========================
+   GREEN
+========================= */
+
+html[data-accent="green"] {
+    --devora-accent: #2e7d32;
+    --devora-accent-dark: #1b5e20;
+    --devora-accent-light: #e8f5e9;
+}
+
+
+/* =========================
+   YELLOW
+========================= */
+
+html[data-accent="yellow"] {
+    --devora-accent: #f9a825;
+    --devora-accent-dark: #f57f17;
+    --devora-accent-light: #fff8e1;
+}
+
+
+/* =========================
+   PURPLE
+========================= */
+
+html[data-accent="purple"] {
+    --devora-accent: #7b1fa2;
+    --devora-accent-dark: #4a148c;
+    --devora-accent-light: #f3e5f5;
+}
+
+
+/* =========================
+   ORANGE
+========================= */
+
+html[data-accent="orange"] {
+    --devora-accent: #ef6c00;
+    --devora-accent-dark: #e65100;
+    --devora-accent-light: #fff3e0;
+}
+
+/* =========================
+    PINK
+========================= */
+
+html[data-accent="pink"] {
+    --devora-accent: #ec407a;
+    --devora-accent-dark: #d81b60;
+    --devora-accent-light: #fce4ec;
+}
+
+/* =========================
+    CYAN
+========================= */
+
+html[data-accent="cyan"] {
+    --devora-accent: #00acc1;
+    --devora-accent-dark: #00838f;
+    --devora-accent-light: #e0f7fa;
+}
+
+/* =========================
+    TEAL
+========================= */
+
+html[data-accent="teal"] {
+    --devora-accent: #00897b;
+    --devora-accent-dark: #00695c;
+    --devora-accent-light: #e0f2f1;
+}
+
+/* =========================================================
+   HOME HERO
+   IMPORTANT:
+   Keep the original two-tone hero.
+   Do NOT use the pale accent color here.
+========================================================= */
+
+html[data-accent="red"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #ef5350,
+        #c62828
+    ) !important;
+}
+
+html[data-accent="blue"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #42a5f5,
+        #1565c0
+    ) !important;
+}
+
+html[data-accent="green"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #66bb6a,
+        #2e7d32
+    ) !important;
+}
+
+html[data-accent="purple"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #ab47bc,
+        #6a1b9a
+    ) !important;
+}
+
+html[data-accent="orange"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #ffa726,
+        #ef6c00
+    ) !important;
+}
+
+html[data-accent="pink"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #f06292,
+        #ec407a
+    ) !important;
+}
+
+html[data-accent="cyan"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #26c6da,
+        #00acc1
+    ) !important;
+}
+
+html[data-accent="teal"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #26a69a,
+        #00897b
+    ) !important;
+}
+
+
+/* HOME HERO TEXT MUST ALWAYS BE WHITE */
+
+.hero-section,
+.hero-section h1,
+.hero-section p,
+.hero-section .hero-badge,
+.hero-section .hero-badge i {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   ALL OTHER HEROES
+   Same principle: background changes, text does NOT.
+========================================================= */
+
+html[data-accent="red"] .files-hero,
+html[data-accent="red"] .articles-hero,
+html[data-accent="red"] .images-hero {
+    background: linear-gradient(
+        135deg,
+        #ef5350,
+        #c62828
+    ) !important;
+}
+
+html[data-accent="blue"] .files-hero,
+html[data-accent="blue"] .articles-hero,
+html[data-accent="blue"] .images-hero {
+    background: linear-gradient(
+        135deg,
+        #42a5f5,
+        #1565c0
+    ) !important;
+}
+
+html[data-accent="green"] .files-hero,
+html[data-accent="green"] .articles-hero,
+html[data-accent="green"] .images-hero {
+    background: linear-gradient(
+        135deg,
+        #66bb6a,
+        #2e7d32
+    ) !important;
+}
+
+html[data-accent="purple"] .files-hero,
+html[data-accent="purple"] .articles-hero,
+html[data-accent="purple"] .images-hero {
+    background: linear-gradient(
+        135deg,
+        #ab47bc,
+        #6a1b9a
+    ) !important;
+}
+
+html[data-accent="orange"] .files-hero,
+html[data-accent="orange"] .articles-hero,
+html[data-accent="orange"] .images-hero {
+    background: linear-gradient(
+        135deg,
+        #ffa726,
+        #ef6c00
+    ) !important;
+}
+
+html[data-accent="yellow"] .files-hero,
+html[data-accent="yellow"] .articles-hero,
+html[data-accent="yellow"] .images-hero {
+    background: linear-gradient(
+        135deg,
+        #fdd835,
+        #f9a825
+    ) !important;
+}
+
+html[data-accent="teal"] .files-hero ,
+html[data-accent="teal"] .articles-hero,
+html[data-accent="teal"] .images-hero {
+    background: linear-gradient(
+        135deg,
+        #26a69a,
+        #00897b
+    ) !important;
+}
+
+html[data-accent="cyan"] .files-hero ,
+html[data-accent="cyan"] .articles-hero,
+html[data-accent="cyan"] .images-hero {
+    background: linear-gradient(
+        135deg,
+        #26c6da,
+        #00acc1
+    ) !important;
+}
+
+html[data-accent="pink"] .files-hero ,
+html[data-accent="pink"] .articles-hero,
+html[data-accent="pink"] .images-hero  {
+    background: linear-gradient(
+        135deg,
+        #f06292,
+        #ec407a
+    ) !important;
+}
+
+/* HERO TEXT = WHITE */
+
+.files-hero,
+.files-hero h1,
+.files-hero p,
+.files-hero .files-badge,
+.files-hero .files-badge i,
+.files-hero .files-hero-meta,
+.files-hero .files-hero-meta span,
+.files-hero .files-hero-meta i,
+
+.articles-hero,
+.articles-hero h1,
+.articles-hero p,
+.articles-hero .articles-badge,
+.articles-hero .articles-badge i,
+.articles-hero .articles-hero-icon,
+.articles-hero .articles-hero-icon i,
+
+.images-hero,
+.images-hero h1,
+.images-hero p,
+.images-hero .images-badge,
+.images-hero .images-badge i,
+.images-hero .hero-image-icon,
+.images-hero .hero-image-icon i {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   ARTICLE — KEEP NATURAL STAT COLORS
+========================================================= */
+
+/*
+   DO NOT recolor:
+   .stat-icon.blue
+   .stat-icon.green
+   .stat-icon.orange
+*/
+
+.article-stat-card .stat-icon.blue {
+    background: #e3f2fd !important;
+    color: #1e88e5 !important;
+}
+
+.article-stat-card .stat-icon.green {
+    background: #e8f5e9 !important;
+    color: #43a047 !important;
+}
+
+.article-stat-card .stat-icon.orange {
+    background: #fff3e0 !important;
+    color: #fb8c00 !important;
+}
+
+
+/* Article filter stays natural */
+
+.filter-btn {
+    color: #616161 !important;
+}
+
+.filter-btn.active {
+    color: var(--devora-accent) !important;
+}
+
+
+/* ONLY New Article gets accent */
+
+html[data-accent] .new-article-btn {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .new-article-btn:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+
+/* =========================================================
+   FILES
+========================================================= */
+
+html[data-accent] .files-upload-btn {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .files-upload-btn:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+
+/* File manager text remains white */
+
+.files-hero h1,
+.files-hero p,
+.files-badge {
+    color: #ffffff !important;
+}
+
+
+/* File statistic icons use accent */
+
+html[data-accent] .file-stat-icon {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* File filter active */
+
+html[data-accent] .files-filter-main.active {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* Grid/List active */
+
+html[data-accent] .files-view-btn.active {
+    color: var(--devora-accent) !important;
+}
+
+
+/* Category active */
+
+html[data-accent] .category-option.active {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+html[data-accent] .images-upload-btn {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .images-upload-btn:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+
+/* Your Media */
+
+html[data-accent] .gallery-eyebrow {
+    color: #777777 !important;
+}
+
+html[data-accent] .gallery-eyebrow i {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .gallery-eyebrow::before {
+    background: var(--devora-accent) !important;
+}
+
+
+/* Image count */
+
+html[data-accent] .image-result-count,
+html[data-accent] .image-result-count i {
+    color: var(--devora-accent) !important;
+}
+
+
+/* Grid / List */
+
+html[data-accent] .gallery-view-btn.active {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+html[data-accent] .gallery-view-btn:hover {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* Image filters */
+
+html[data-accent] .images-filter-btn.active {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================================================
+   USER MANAGEMENT
+========================================================= */
+
+html[data-accent] .users-eyebrow {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .user-avatar {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* Pagination */
+
+html[data-accent] .pagination-button {
+    background: var(--devora-accent) !important;
+}
+
+
+/* Total Users */
+
+html[data-accent] .users-total strong {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* Mobile arrow */
+
+html[data-accent] .user_list_arrow_icon {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================================================
+   HOME MANAGEMENT
+========================================================= */
+
+html[data-accent] .management-icon {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+html[data-accent] .management-label {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .management-arrow {
+    color: var(--devora-accent) !important;
+}
+
+
+/* Status icons */
+
+html[data-accent] .status-item > i {
+    color: var(--devora-accent) !important;
+}
+
+
+/* Community / Feedback */
+
+html[data-accent] .feedback-header > div:first-child span,
+html[data-accent] .feedback-count i,
+html[data-accent] .feedback-avatar {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .feedback-avatar {
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* =========================================================
+   MOBILE SIDENAV
+   FIX WIDTH + PROFILE BACKGROUND
+========================================================= */
+
+.sidenav {
+    width: 300px !important;
+    max-width: 85vw !important;
+}
+
+
+/* Profile header */
+
+.sidenav .user-view {
+    min-height: 205px !important;
+
+    padding:
+        32px 20px 20px 20px !important;
+
+    position: relative !important;
+
+    overflow: hidden !important;
+}
+
+
+/* Background MUST cover entire profile block */
+
+.sidenav .user-view .background {
+    position: absolute !important;
+
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    z-index: 0 !important;
+}
+
+
+/* Background image */
+
+.sidenav .user-view .background img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+
+    display: block !important;
+}
+
+
+/* Dark overlay so profile text stays readable */
+
+.sidenav .user-view::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.18);
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+/* Profile content above image */
+
+.sidenav .user-view > a,
+.sidenav .user-view > img {
+    position: relative !important;
+
+    z-index: 2 !important;
+}
+
+
+/* Avatar */
+
+.sidenav .user-view .circle {
+    width: 64px !important;
+    height: 64px !important;
+
+    object-fit: cover !important;
+
+    display: block !important;
+
+    margin-bottom: 12px !important;
+}
+
+
+/* NAME */
+
+.sidenav .user-view .name,
+.sidenav .user-view .email {
+    display: block !important;
+
+    color: #ffffff !important;
+
+    text-shadow:
+        0 1px 3px rgba(0,0,0,.7) !important;
+}
+
+
+/* Name spacing */
+
+.sidenav .user-view .name {
+    margin-top: 4px !important;
+    margin-bottom: 5px !important;
+}
+
+
+/* Email */
+
+.sidenav .user-view .email {
+    margin-top: 0 !important;
+}
+
+
+/* Sidenav links */
+
+.sidenav li > a {
+    min-height: 48px !important;
+    line-height: 48px !important;
+}
+
+
+/* Divider */
+
+.sidenav .divider {
+    margin: 8px 0 !important;
+}
+
+
+/* =========================================================
+   DARK SIDENAV
+========================================================= */
+
+html[data-theme="dark"] .sidenav {
+    background: #1b1b1b !important;
+}
+
+html[data-theme="dark"] .sidenav li > a,
+html[data-theme="dark"] .sidenav .subheader {
+    color: #eeeeee !important;
+}
+
+html[data-theme="dark"] .sidenav li > a i {
+    color: #eeeeee !important;
+}
+
+
+/* =========================================================
+   DARK MODE — USER PAGE
+========================================================= */
+
+html[data-theme="dark"] .users-toolbar-header h1 {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .users-search {
+    background: #ffffff !important;
+}
+
+html[data-theme="dark"] .users-search input {
+    color: #212121 !important;
+}
+
+html[data-theme="dark"] .pagination-container {
+    background: rgba(25,25,25,.97) !important;
+    border-top-color: #333333 !important;
+}
+
+html[data-theme="dark"] .pagination-info {
+    color: #bdbdbd !important;
+}
+
+html[data-theme="dark"] .pagination-info strong {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .page-number {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   DARK MODE — FILES / ARTICLES / IMAGES
+========================================================= */
+
+html[data-theme="dark"] .file-stat-card,
+html[data-theme="dark"] .article-stat-card,
+html[data-theme="dark"] .image-card {
+    background: #1e1e1e !important;
+    color: #ffffff !important;
+}
+
+
+/* Search boxes stay white */
+
+html[data-theme="dark"] .files-search,
+html[data-theme="dark"] .search-box,
+html[data-theme="dark"] .images-search {
+    background: #ffffff !important;
+}
+
+html[data-theme="dark"] .files-search input,
+html[data-theme="dark"] .search-box input,
+html[data-theme="dark"] .images-search input {
+    background: #ffffff !important;
+    color: #212121 !important;
+}
+
+
+/* Image title */
+
+html[data-theme="dark"] .gallery-heading-left h2 {
+    color: #ffffff !important;
+}
+
+
+/* Article heading */
+
+html[data-theme="dark"] .articles-section h2,
+html[data-theme="dark"] .articles-section h3 {
+    color: #ffffff !important;
+}
+
+html[data-accent] .user-avatar {
+    background: var(--devora-accent-light) !important;
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .pagination-button {
+    background: var(--devora-accent) !important;
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   DEVORA - GLOBAL ACCENT BRIDGE
+   Final accent synchronization
+========================================================= */
+
+/* =========================
+   TOP NAVIGATION
+========================= */
+
+html[data-accent] .top_navbar {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .top_navbar a,
+html[data-accent] .top_navbar i {
+    color: #ffffff !important;
+}
+
+/* User page uses white navbar */
+html[data-accent] nav.white .red-text {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================
+   FILES
+========================= */
+
+html[data-accent] .files-eyebrow {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .files-eyebrow i {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .files-floating-file {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .files-upload-btn {
+    background: var(--devora-accent) !important;
+    border-color: var(--devora-accent) !important;
+}
+
+html[data-accent] .files-upload-btn:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+html[data-accent] .files-view-btn.active {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .files-filter-main.active,
+html[data-accent] .category-option.active {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* =========================
+   ARTICLES
+========================= */
+
+html[data-accent] .filter-btn.active {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .article-author .author-avatar {
+    background: var(--devora-accent-light) !important;
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .article-actions .delete-action:hover {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .new-article-btn {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .new-article-btn:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+
+/* =========================
+   IMAGES
+========================= */
+
+html[data-accent] .images-upload-btn {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .images-upload-btn:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+html[data-accent] .gallery-eyebrow {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .gallery-eyebrow::before {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .gallery-eyebrow i {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .image-result-count,
+html[data-accent] .image-result-count i {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .gallery-view-btn.active,
+html[data-accent] .gallery-view-btn:hover {
+    color: var(--devora-accent) !important;
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* =========================
+   USER MANAGEMENT
+========================= */
+
+html[data-accent] .users-eyebrow {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .add-user-btn {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .add-user-btn:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+html[data-accent] .add_user_modal.show {
+    box-shadow:
+        0 0 10px var(--devora-accent) !important;
+}
+
+html[data-accent] .add_user_modal .red-text,
+html[data-accent] .add_user_modal .red-text.darken-3 {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .add_user_modal .btn.red,
+html[data-accent] .add_user_modal .btn.red.darken-3 {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .add_user_modal .btn.red:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+
+/* =========================
+   USER MANAGEMENT HOME
+========================= */
+
+html[data-accent] .management-label,
+html[data-accent] .management-arrow,
+html[data-accent] .management-icon {
+    color: var(--devora-accent) !important;
+}
+
+html[data-accent] .management-icon {
+    background: var(--devora-accent-light) !important;
+}
+
+
+/* =========================
+   DARK MODE - STRONGER TEXT
+========================= */
+
+/* Files */
+html[data-theme="dark"] .file-stat-card span,
+html[data-theme="dark"] .file-stat-card strong,
+html[data-theme="dark"] .files-list-head,
+html[data-theme="dark"] .file-type-label,
+html[data-theme="dark"] .file-size,
+html[data-theme="dark"] .file-card-name,
+html[data-theme="dark"] .file-card-content,
+html[data-theme="dark"] .file-card p {
+    color: #eeeeee !important;
+}
+
+html[data-theme="dark"] .files-list-head {
+    font-weight: 700 !important;
+}
+
+html[data-theme="dark"] .file-type-label,
+html[data-theme="dark"] .file-size {
+    font-weight: 600 !important;
+}
+
+
+/* Articles */
+html[data-theme="dark"] .article-card-content,
+html[data-theme="dark"] .article-card-content p,
+html[data-theme="dark"] .article-meta,
+html[data-theme="dark"] .article-meta span {
+    color: #eeeeee !important;
+}
+
+html[data-theme="dark"] .article-author strong {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] .article-author small {
+    color: #bdbdbd !important;
+}
+
+
+/* Images */
+html[data-theme="dark"] .image-card,
+html[data-theme="dark"] .image-card h3,
+html[data-theme="dark"] .image-card .image-name {
+    color: #eeeeee !important;
+}
+
+
+/* User Add Modal */
+html[data-theme="dark"] .add_user_modal {
+    color: #eeeeee !important;
+}
+
+html[data-theme="dark"] .add_user_modal h5,
+html[data-theme="dark"] .add_user_modal label,
+html[data-theme="dark"] .add_user_modal span,
+html[data-theme="dark"] .add_user_modal p {
+    color: #eeeeee !important;
+}
+
+
+/* Image Upload Modal */
+html[data-theme="dark"] .image-upload-modal-content,
+html[data-theme="dark"] .image-upload-modal-content h3,
+html[data-theme="dark"] .image-upload-modal-content p,
+html[data-theme="dark"] .image-upload-modal-content label {
+    color: #eeeeee !important;
+}
+
+
+/* =========================
+   IMAGE UPLOAD MODAL ACCENT
+========================= */
+
+html[data-accent] .image-upload-icon {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .image-upload-field input:focus,
+html[data-accent] .image-upload-field select:focus {
+    border-color: var(--devora-accent) !important;
+    box-shadow:
+        0 0 0 3px var(--devora-accent-light) !important;
+}
+
+html[data-accent] .image-upload-submit {
+    background: var(--devora-accent) !important;
+}
+
+html[data-accent] .image-upload-submit:hover {
+    background: var(--devora-accent-dark) !important;
+}
+
+
+/* =========================
+   ARTICLE FILTER ACCENT
+========================= */
+
+html[data-accent] .filter-btn.active {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================
+   USER LOCATION
+========================= */
+
+html[data-accent] .location-select-button:hover,
+html[data-accent] .location-select-button:focus {
+    border-color: var(--devora-accent) !important;
+}
+
+html[data-accent] .location-select-button:focus {
+    box-shadow:
+        0 0 0 2px var(--devora-accent-light) !important;
+}
+
+/* =========================================================
+   DEVORA — FINAL DARK/LIGHT TEXT CONTRAST FIX
+   Do not remove existing theme code.
+========================================================= */
+
+
+/* =========================================================
+   SETTINGS USER MENU — LIGHT MODE
+========================================================= */
+
+html[data-theme="light"] .settings-user-menu,
+html:not([data-theme="dark"]) .settings-user-menu {
+    color: #111111 !important;
+}
+
+html[data-theme="light"] .settings-user-menu *,
+html:not([data-theme="dark"]) .settings-user-menu * {
+    color: #111111 !important;
+}
+
+html[data-theme="light"] .settings-user-menu a:hover,
+html[data-theme="light"] .settings-user-menu button:hover {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================================================
+   DARK MODE — GLOBAL SECONDARY TEXT
+========================================================= */
+
+html[data-theme="dark"] {
+    --devora-dark-main-text: #eeeeee;
+    --devora-dark-secondary-text: #c8c8c8;
+    --devora-dark-muted-text: #b5b5b5;
+}
+
+
+/* =========================================================
+   FILES — LIST / GRID
+========================================================= */
+
+html[data-theme="dark"] .files-list,
+html[data-theme="dark"] .files-grid {
+    color: var(--devora-dark-main-text) !important;
+}
+
+html[data-theme="dark"] .files-list th,
+html[data-theme="dark"] .files-list td,
+html[data-theme="dark"] .files-list-head,
+html[data-theme="dark"] .file-name,
+html[data-theme="dark"] .file-type,
+html[data-theme="dark"] .file-size,
+html[data-theme="dark"] .file-updated,
+html[data-theme="dark"] .file-actions,
+html[data-theme="dark"] .file-card-name,
+html[data-theme="dark"] .file-card p,
+html[data-theme="dark"] .file-card span {
+    color: var(--devora-dark-secondary-text) !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .files-list th,
+html[data-theme="dark"] .files-list-head {
+    color: #eeeeee !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   FILES — ALL / MORE / SORT
+========================================================= */
+
+html[data-theme="dark"] .files-filter-main,
+html[data-theme="dark"] .files-filter-main:not(.active),
+html[data-theme="dark"] .category-option,
+html[data-theme="dark"] .sort-option,
+html[data-theme="dark"] .files-sort,
+html[data-theme="dark"] .files-more {
+    color: #c8c8c8 !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .files-filter-main:hover,
+html[data-theme="dark"] .category-option:hover,
+html[data-theme="dark"] .files-sort:hover,
+html[data-theme="dark"] .files-more:hover {
+    color: var(--devora-accent) !important;
+}
+
+html[data-theme="dark"] .files-filter-main.active {
+    color: var(--devora-accent) !important;
+}
+
+
+/* =========================================================
+   ARTICLES — CARDS
+========================================================= */
+
+html[data-theme="dark"] .article-card,
+html[data-theme="dark"] .article-card * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .article-card h1,
+html[data-theme="dark"] .article-card h2,
+html[data-theme="dark"] .article-card h3,
+html[data-theme="dark"] .article-card h4,
+html[data-theme="dark"] .article-card h5,
+html[data-theme="dark"] .article-card h6,
+html[data-theme="dark"] .article-title {
+    color: #eeeeee !important;
+    font-weight: 700 !important;
+}
+
+html[data-theme="dark"] .article-card p,
+html[data-theme="dark"] .article-description,
+html[data-theme="dark"] .article-card-content,
+html[data-theme="dark"] .article-meta,
+html[data-theme="dark"] .article-meta span,
+html[data-theme="dark"] .article-time,
+html[data-theme="dark"] .article-author,
+html[data-theme="dark"] .article-author span,
+html[data-theme="dark"] .article-author small {
+    color: #c8c8c8 !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .article-author strong {
+    color: #eeeeee !important;
+}
+
+
+/* =========================================================
+   CREATE ARTICLE MODAL
+========================================================= */
+
+html[data-theme="dark"] .article-modal,
+html[data-theme="dark"] .article-modal *,
+html[data-theme="dark"] .create-article-modal,
+html[data-theme="dark"] .create-article-modal * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .article-modal label,
+html[data-theme="dark"] .article-modal span,
+html[data-theme="dark"] .article-modal p,
+html[data-theme="dark"] .create-article-modal label,
+html[data-theme="dark"] .create-article-modal span,
+html[data-theme="dark"] .create-article-modal p {
+    color: #c8c8c8 !important;
+}
+
+html[data-theme="dark"] .article-modal input,
+html[data-theme="dark"] .article-modal textarea,
+html[data-theme="dark"] .article-modal select,
+html[data-theme="dark"] .create-article-modal input,
+html[data-theme="dark"] .create-article-modal textarea,
+html[data-theme="dark"] .create-article-modal select {
+    color: #eeeeee !important;
+}
+
+
+/* =========================================================
+   IMAGE UPLOAD
+========================================================= */
+
+html[data-theme="dark"] .image-upload-modal,
+html[data-theme="dark"] .image-upload-modal *,
+html[data-theme="dark"] .upload-image-modal,
+html[data-theme="dark"] .upload-image-modal * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .image-upload-modal label,
+html[data-theme="dark"] .image-upload-modal p,
+html[data-theme="dark"] .image-upload-modal span,
+html[data-theme="dark"] .image-upload-modal small,
+html[data-theme="dark"] .upload-image-modal label,
+html[data-theme="dark"] .upload-image-modal p,
+html[data-theme="dark"] .upload-image-modal span,
+html[data-theme="dark"] .upload-image-modal small {
+    color: #c8c8c8 !important;
+}
+
+html[data-theme="dark"] .image-upload-modal input,
+html[data-theme="dark"] .image-upload-modal select,
+html[data-theme="dark"] .image-upload-modal textarea,
+html[data-theme="dark"] .upload-image-modal input,
+html[data-theme="dark"] .upload-image-modal select,
+html[data-theme="dark"] .upload-image-modal textarea {
+    color: #eeeeee !important;
+}
+
+
+/* =========================================================
+   USERS — ADD / EDIT MODAL
+========================================================= */
+
+html[data-theme="dark"] .add_user_modal,
+html[data-theme="dark"] .add_user_modal *,
+html[data-theme="dark"] .edit_user_modal,
+html[data-theme="dark"] .edit_user_modal * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .add_user_modal label,
+html[data-theme="dark"] .add_user_modal span,
+html[data-theme="dark"] .add_user_modal p,
+html[data-theme="dark"] .add_user_modal small,
+html[data-theme="dark"] .edit_user_modal label,
+html[data-theme="dark"] .edit_user_modal span,
+html[data-theme="dark"] .edit_user_modal p,
+html[data-theme="dark"] .edit_user_modal small {
+    color: #c8c8c8 !important;
+}
+
+html[data-theme="dark"] .add_user_modal input,
+html[data-theme="dark"] .add_user_modal select,
+html[data-theme="dark"] .add_user_modal textarea,
+html[data-theme="dark"] .edit_user_modal input,
+html[data-theme="dark"] .edit_user_modal select,
+html[data-theme="dark"] .edit_user_modal textarea {
+    color: #eeeeee !important;
+}
+
+
+/* =========================================================
+   UPLOAD / ADD BUTTON TEXT
+========================================================= */
+
+html[data-theme="dark"] .add-user-btn,
+html[data-theme="dark"] .new-article-btn,
+html[data-theme="dark"] .files-upload-btn,
+html[data-theme="dark"] .images-upload-btn {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   FORCE DARK TEXT VISIBILITY
+========================================================= */
+
+html[data-theme="dark"] .text-muted,
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .secondary-text,
+html[data-theme="dark"] .grey-text,
+html[data-theme="dark"] .grey-text.text-darken-1,
+html[data-theme="dark"] .grey-text.text-darken-2,
+html[data-theme="dark"] .grey-text.text-darken-3,
+html[data-theme="dark"] .grey-text.text-darken-4 {
+    color: #c8c8c8 !important;
+    opacity: 1 !important;
+}
+
+/* =========================================================
+   DEVORA — FINAL DARK MODE CONTRAST
+   HIGH VISIBILITY
+========================================================= */
+
+html[data-theme="dark"] {
+
+    /* Strong dark-mode text */
+    --dark-text-primary: #ffffff;
+    --dark-text-secondary: #e5e5e5;
+    --dark-text-tertiary: #cfcfcf;
+}
+
+
+/* =========================================================
+   FILES — LIST
+========================================================= */
+
+html[data-theme="dark"] .files-list,
+html[data-theme="dark"] .files-list *,
+html[data-theme="dark"] .files-table,
+html[data-theme="dark"] .files-table * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .files-list th,
+html[data-theme="dark"] .files-list td,
+html[data-theme="dark"] .files-list .name,
+html[data-theme="dark"] .files-list .type,
+html[data-theme="dark"] .files-list .size,
+html[data-theme="dark"] .files-list .updated,
+html[data-theme="dark"] .files-list .actions,
+html[data-theme="dark"] .files-list .file-name,
+html[data-theme="dark"] .files-list .file-type,
+html[data-theme="dark"] .files-list .file-size,
+html[data-theme="dark"] .files-list .file-date,
+html[data-theme="dark"] .files-list .file-updated,
+html[data-theme="dark"] .files-list button,
+html[data-theme="dark"] .files-list span {
+    color: #e8e8e8 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+
+/* Headers: NAME / TYPE / SIZE / UPDATED / ACTIONS */
+
+html[data-theme="dark"] .files-list th,
+html[data-theme="dark"] .files-list-head,
+html[data-theme="dark"] .files-list-header,
+html[data-theme="dark"] .file-list-header {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+
+/* Actual file names */
+
+html[data-theme="dark"] .files-list td:first-child,
+html[data-theme="dark"] .files-list td:first-child *,
+html[data-theme="dark"] .files-list .file-name,
+html[data-theme="dark"] .files-list .file-name * {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+
+/* Type */
+
+html[data-theme="dark"] .files-list td:nth-child(2),
+html[data-theme="dark"] .files-list td:nth-child(2) *,
+html[data-theme="dark"] .files-list .file-type,
+html[data-theme="dark"] .files-list .file-type * {
+    color: #dddddd !important;
+    font-weight: 600 !important;
+}
+
+
+/* Size */
+
+html[data-theme="dark"] .files-list td:nth-child(3),
+html[data-theme="dark"] .files-list td:nth-child(3) * {
+    color: #dddddd !important;
+    font-weight: 600 !important;
+}
+
+
+/* Updated */
+
+html[data-theme="dark"] .files-list td:nth-child(4),
+html[data-theme="dark"] .files-list td:nth-child(4) * {
+    color: #d6d6d6 !important;
+    font-weight: 600 !important;
+}
+
+
+/* Actions */
+
+html[data-theme="dark"] .files-list td:last-child,
+html[data-theme="dark"] .files-list td:last-child *,
+html[data-theme="dark"] .files-list .file-actions,
+html[data-theme="dark"] .files-list .file-actions * {
+    color: #e0e0e0 !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   FILES — GRID
+========================================================= */
+
+html[data-theme="dark"] .files-grid,
+html[data-theme="dark"] .files-grid *,
+html[data-theme="dark"] .file-card,
+html[data-theme="dark"] .file-card * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .file-card-name,
+html[data-theme="dark"] .file-card-name *,
+html[data-theme="dark"] .file-card h3,
+html[data-theme="dark"] .file-card h4 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+html[data-theme="dark"] .file-card p,
+html[data-theme="dark"] .file-card span,
+html[data-theme="dark"] .file-card .file-type,
+html[data-theme="dark"] .file-card .file-size {
+    color: #d8d8d8 !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   FILES — ALL / MORE / FILTERS
+========================================================= */
+
+html[data-theme="dark"] .files-filter-main,
+html[data-theme="dark"] .files-filter-main:not(.active),
+html[data-theme="dark"] .files-filter-main *,
+html[data-theme="dark"] .category-option,
+html[data-theme="dark"] .category-option *,
+html[data-theme="dark"] .files-more,
+html[data-theme="dark"] .files-more *,
+html[data-theme="dark"] .files-sort,
+html[data-theme="dark"] .files-sort * {
+    color: #dddddd !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .files-filter-main.active,
+html[data-theme="dark"] .files-filter-main.active * {
+    color: var(--devora-accent) !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   ARTICLES
+========================================================= */
+
+html[data-theme="dark"] .article-card,
+html[data-theme="dark"] .article-card * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .article-card h1,
+html[data-theme="dark"] .article-card h2,
+html[data-theme="dark"] .article-card h3,
+html[data-theme="dark"] .article-card h4,
+html[data-theme="dark"] .article-title,
+html[data-theme="dark"] .article-title * {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+html[data-theme="dark"] .article-card p,
+html[data-theme="dark"] .article-description,
+html[data-theme="dark"] .article-card-content,
+html[data-theme="dark"] .article-card-content *,
+html[data-theme="dark"] .article-meta,
+html[data-theme="dark"] .article-meta *,
+html[data-theme="dark"] .article-time,
+html[data-theme="dark"] .article-author,
+html[data-theme="dark"] .article-author *,
+html[data-theme="dark"] .article-author small {
+    color: #d8d8d8 !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+}
+
+html[data-theme="dark"] .article-author strong {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   CREATE ARTICLE MODAL
+========================================================= */
+
+html[data-theme="dark"] .create-article-modal *,
+html[data-theme="dark"] .article-modal * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .create-article-modal label,
+html[data-theme="dark"] .create-article-modal span,
+html[data-theme="dark"] .create-article-modal p,
+html[data-theme="dark"] .article-modal label,
+html[data-theme="dark"] .article-modal span,
+html[data-theme="dark"] .article-modal p {
+    color: #d8d8d8 !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   IMAGE UPLOAD MODAL
+========================================================= */
+
+html[data-theme="dark"] .image-upload-modal *,
+html[data-theme="dark"] .upload-image-modal * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .image-upload-modal label,
+html[data-theme="dark"] .image-upload-modal p,
+html[data-theme="dark"] .image-upload-modal span,
+html[data-theme="dark"] .image-upload-modal small,
+html[data-theme="dark"] .upload-image-modal label,
+html[data-theme="dark"] .upload-image-modal p,
+html[data-theme="dark"] .upload-image-modal span,
+html[data-theme="dark"] .upload-image-modal small {
+    color: #dddddd !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   USER — ADD / EDIT MODALS
+========================================================= */
+
+html[data-theme="dark"] .add_user_modal *,
+html[data-theme="dark"] .edit_user_modal * {
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .add_user_modal label,
+html[data-theme="dark"] .add_user_modal span,
+html[data-theme="dark"] .add_user_modal p,
+html[data-theme="dark"] .add_user_modal small,
+html[data-theme="dark"] .edit_user_modal label,
+html[data-theme="dark"] .edit_user_modal span,
+html[data-theme="dark"] .edit_user_modal p,
+html[data-theme="dark"] .edit_user_modal small {
+    color: #dddddd !important;
+    font-weight: 600 !important;
+}
+
+
+/* =========================================================
+   INPUTS — DARK MODE
+========================================================= */
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #bdbdbd !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   MATERIALIZE GREY TEXT OVERRIDE
+========================================================= */
+
+html[data-theme="dark"] .grey-text,
+html[data-theme="dark"] .grey-text.text-darken-1,
+html[data-theme="dark"] .grey-text.text-darken-2,
+html[data-theme="dark"] .grey-text.text-darken-3,
+html[data-theme="dark"] .grey-text.text-darken-4,
+html[data-theme="dark"] .grey-text.text-darken-5 {
+    color: #d0d0d0 !important;
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   LIGHT MODE — SETTINGS USER MENU
+========================================================= */
+
+html[data-theme="light"] .settings-user-menu,
+html[data-theme="light"] .settings-user-menu *,
+html:not([data-theme="dark"]) .settings-user-menu,
+html:not([data-theme="dark"]) .settings-user-menu * {
+    color: #111111 !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="light"] .settings-user-menu a:hover,
+html[data-theme="light"] .settings-user-menu button:hover,
+html:not([data-theme="dark"]) .settings-user-menu a:hover,
+html:not([data-theme="dark"]) .settings-user-menu button:hover {
+    color: var(--devora-accent) !important;
+}
+
+/* =========================================================
+   USER MODALS — FINAL DARK MODE
+========================================================= */
+
+html[data-theme="dark"] .add_user_modal {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+html[data-theme="dark"] .add_user_modal label,
+html[data-theme="dark"] .add_user_modal span,
+html[data-theme="dark"] .add_user_modal p,
+html[data-theme="dark"] .add_user_modal h5,
+html[data-theme="dark"] .add_user_modal strong {
+    color: #222222 !important;
+    font-weight: 700 !important;
+}
+
+html[data-theme="dark"] .add_user_modal input,
+html[data-theme="dark"] .add_user_modal select,
+html[data-theme="dark"] .add_user_modal textarea {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #cccccc !important;
+}
+
+html[data-theme="dark"] .add_user_modal input::placeholder {
+    color: #666666 !important;
+    opacity: 1 !important;
+}
+
+html[data-theme="dark"] .add_user_modal .btn,
+html[data-theme="dark"] .add_user_modal button {
+    opacity: 1 !important;
+}
+
+/* =========================================================
+   YELLOW - HOME HERO
+========================================================= */
+
+html[data-accent="yellow"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #fdd835 0%,
+        #f9a825 100%
+    ) !important;
+}
+
+/* =========================================================
+   PINK - HOME HERO
+========================================================= */
+
+html[data-accent="pink"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #f06292 0%,
+        #ec407a 100%
+    ) !important;
+}
+
+
+/* =========================================================
+   CYAN - HOME HERO
+========================================================= */
+
+html[data-accent="cyan"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #26c6da,
+        #00acc1
+    ) !important;
+}
+
+/* =========================================================
+   TEAL - HOME HERO
+========================================================= */
+
+html[data-accent="teal"] .hero-section {
+    background: linear-gradient(
+        135deg,
+        #26a69a,
+        #00897b
+    ) !important;
 }

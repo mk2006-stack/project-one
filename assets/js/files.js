@@ -44,6 +44,18 @@ document.addEventListener("alpine:init", () => {
 
         async init() {
 
+
+            const savedSettings = JSON.parse(
+    localStorage.getItem("devora_settings") || "{}"
+);
+
+if (
+    savedSettings.files &&
+    ["grid", "list"].includes(savedSettings.files.view)
+) {
+    this.viewMode = savedSettings.files.view;
+}
+
             try {
 
                 await this.openDatabase();
@@ -76,6 +88,33 @@ document.addEventListener("alpine:init", () => {
             }
 
         },
+
+
+        setViewMode(mode) {
+
+    if (!["grid", "list"].includes(mode)) {
+        return;
+    }
+
+    this.viewMode = mode;
+
+    try {
+        const settings = JSON.parse(
+            localStorage.getItem("devora_settings") || "{}"
+        );
+
+        settings.files = settings.files || {};
+
+        settings.files.view = mode;
+
+        localStorage.setItem(
+            "devora_settings",
+            JSON.stringify(settings)
+        );
+    } catch (error) {
+        console.error("Unable to save file view preference:", error);
+    }
+},
 
 
         /* =====================================

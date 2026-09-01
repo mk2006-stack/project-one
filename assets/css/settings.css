@@ -371,7 +371,11 @@ position: relative;
 overflow: hidden;
 
 box-shadow:
-    0 16px 45px rgba(229, 57, 53, 0.22);
+    0 16px 45px color-mix(
+        in srgb,
+        var(--settings-primary) 22%,
+        transparent
+    );
     
 
 }
@@ -1046,7 +1050,11 @@ background: var(--settings-primary-dark);
 transform: translateY(-1px);
 
 box-shadow:
-    0 7px 18px rgba(229, 57, 53, 0.22);
+    0 7px 18px color-mix(
+        in srgb,
+        var(--settings-primary) 22%,
+        transparent
+    );
     
 
 }
@@ -1876,6 +1884,10 @@ background: #1976d2;
 background: #2e7d32;
 }
 
+.accent-yellow {
+background: #f9a825;
+}
+
 .accent-purple {
 background: #7b1fa2;
 }
@@ -1883,6 +1895,19 @@ background: #7b1fa2;
 .accent-orange {
 background: #ef6c00;
 }
+
+.accent-pink {
+background: #ec407a ;
+}
+
+.accent-cyan {
+background: #00acc1 ;
+}
+
+.accent-teal {
+background: #00897b;
+}
+
 
 /* =========================================================
 SELECT
@@ -2158,7 +2183,7 @@ border-bottom-color: #f1dada;
 .settings-danger-zone .settings-panel-header > div > span {
 
     
-color: #c62828;
+color: var(--devora-accent);
     
 
 }
@@ -2168,7 +2193,7 @@ color: #c62828;
     
 background: #ffebee;
 
-color: #c62828;
+color: var(--devora-accent);
     
 
 }
@@ -2192,7 +2217,7 @@ padding-top: 18px;
     
 background: #fff5f5;
 
-color: #c62828;
+color: var(--devora-accent);
 
 border: 1px solid #f0c4c4;
     
@@ -2989,4 +3014,175 @@ PRINT
 }
 
 
+}
+/* =========================================================
+   DEVORA SETTINGS ACCENT
+========================================================= */
+
+html[data-accent="red"] {
+    --settings-primary: #e53935;
+    --settings-primary-dark: #c62828;
+    --settings-primary-light: #ffebee;
+}
+
+html[data-accent="blue"] {
+    --settings-primary: #1976d2;
+    --settings-primary-dark: #0d47a1;
+    --settings-primary-light: #e3f2fd;
+}
+
+html[data-accent="green"] {
+    --settings-primary: #2e7d32;
+    --settings-primary-dark: #1b5e20;
+    --settings-primary-light: #e8f5e9;
+}
+
+html[data-accent="yellow"] {
+    --settings-primary: #f9a825;
+    --settings-primary-dark: #f57f17;
+    --settings-primary-light: #fff8e1;
+}
+
+html[data-accent="purple"] {
+    --settings-primary: #7b1fa2;
+    --settings-primary-dark: #4a148c;
+    --settings-primary-light: #f3e5f5;
+}
+
+html[data-accent="orange"] {
+    --settings-primary: #ef6c00;
+    --settings-primary-dark: #e65100;
+    --settings-primary-light: #fff3e0;
+}
+
+html[data-accent="pink"] {
+    --settings-primary: #ec407a;
+    --settings-primary-dark: #d81b60;
+    --settings-primary-light: #fce4ec;
+}
+
+
+html[data-accent="cyan"] {
+    --settings-primary: #00acc1;
+    --settings-primary-dark: #00838f;
+    --settings-primary-light: #e0f7fa;
+}
+
+html[data-accent="teal"] {
+    --settings-primary: #00897b;
+    --settings-primary-dark: #00695c;
+    --settings-primary-light: #e0f2f1;
+}
+
+
+/* Settings buttons */
+
+html[data-accent] .settings-primary-button,
+html[data-accent] .settings-save-button,
+html[data-accent] .settings-action-button {
+    background-color:
+        var(--settings-primary) !important;
+}
+
+
+/* Settings icons */
+
+html[data-accent] .settings-panel-header > i,
+html[data-accent] .settings-category-icon,
+html[data-accent] .settings-option-icon,
+html[data-accent] .settings-security-icon {
+    color:
+        var(--settings-primary) !important;
+}
+
+
+/* Switches */
+
+html[data-accent] .settings-switch input:checked + .settings-switch-slider {
+    background:
+        var(--settings-primary) !important;
+}
+
+
+/* Accent text */
+
+html[data-accent] .settings-primary-text,
+html[data-accent] .settings-accent-text {
+    color:
+        var(--settings-primary) !important;
+}
+
+/* =========================================================
+   SETTINGS DANGER ZONE — ACCENT AWARE
+========================================================= */
+
+html[data-accent] .settings-danger-zone {
+    border-color: var(--settings-primary) !important;
+}
+
+
+html[data-accent] .settings-danger-zone .settings-panel-header {
+    border-bottom-color: var(--settings-primary-light) !important;
+}
+
+
+html[data-accent] .settings-danger-zone .settings-panel-header > div > span {
+    color: var(--settings-primary) !important;
+}
+
+
+html[data-accent] .settings-danger-zone .settings-panel-header > i {
+    background: var(--settings-primary-light) !important;
+    color: var(--settings-primary) !important;
+}
+
+
+html[data-accent] .settings-danger-button {
+    background: var(--settings-primary-light) !important;
+    color: var(--settings-primary) !important;
+    border-color: var(--settings-primary) !important;
+}
+
+
+html[data-accent] .settings-danger-button:hover {
+    background: var(--settings-primary) !important;
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   SETTINGS - ACCENT BORDER / HERO DETAILS
+========================================================= */
+
+html[data-accent] .settings-hero {
+    border-bottom: 3px solid var(--settings-primary) !important;
+}
+
+html[data-accent] .settings-primary-button:hover {
+    background: var(--settings-primary-dark) !important;
+    box-shadow:
+        0 7px 18px
+        color-mix(in srgb, var(--settings-primary) 25%, transparent) !important;
+}
+
+/* =========================================================
+   SETTINGS PROFILE DROPDOWN — LIGHT MODE
+========================================================= */
+
+html[data-theme="light"] .settings-profile-dropdown,
+html[data-theme="light"] .settings-profile-dropdown > a,
+html[data-theme="light"] .settings-profile-dropdown > a i {
+    color: #111111 !important;
+}
+
+html:not([data-theme="dark"]) .settings-profile-dropdown,
+html:not([data-theme="dark"]) .settings-profile-dropdown > a,
+html:not([data-theme="dark"]) .settings-profile-dropdown > a i {
+    color: #111111 !important;
+}
+
+html[data-theme="light"] .settings-profile-dropdown > a:hover,
+html[data-theme="light"] .settings-profile-dropdown > a:hover i,
+html:not([data-theme="dark"]) .settings-profile-dropdown > a:hover,
+html:not([data-theme="dark"]) .settings-profile-dropdown > a:hover i {
+    color: var(--settings-primary) !important;
 }
