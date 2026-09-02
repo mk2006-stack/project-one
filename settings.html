@@ -2689,148 +2689,254 @@
 
 
 
-    <!-- =====================================================
-         LANGUAGE & REGION
-    ====================================================== -->
+  <!-- =====================================================
+        LANGUAGE & REGION
+  ====================================================== -->
+  
+  <section
+      class="settings-panel settings-section-anchor settings-region-panel"
+      id="language-region"
+  >
+  
+      <div class="settings-panel-header">
+  
+          <div>
+  
+              <span>
+                  REGIONAL
+              </span>
+  
+              <h2>
+                  Language & Region
+              </h2>
+  
+              <p>
+                  Configure language, timezone and regional display preferences.
+              </p>
+  
+          </div>
+  
+          <div class="settings-region-header-icon">
+              <i class="material-icons">
+                  language
+              </i>
+          </div>
+  
+      </div>
+  
+  
+      <div class="settings-region-grid">
+  
+  
+          <!-- LANGUAGE -->
+  
+          <div class="settings-region-card">
+  
+              <div class="settings-region-icon">
+                  <i class="material-icons">
+                      translate
+                  </i>
+              </div>
+  
+              <div class="settings-region-content">
+  
+                  <label for="languageSelect">
+                      Language
+                  </label>
+  
+                  <p>
+                      Choose your preferred interface language.
+                  </p>
+  
+                  <select
+                      id="languageSelect"
+                      class="settings-region-select"
+                      x-model="region.language"
+                      @change="saveRegion()"
+                  >
+  
+                      <option value="en">
+                          English
+                      </option>
+  
+                      <option value="fa">
+                          فارسی
+                      </option>
+  
+                      <option value="tr">
+                          Türkçe
+                      </option>
+  
+                      <option value="ar">
+                          العربية
+                      </option>
+  
+                  </select>
+  
+              </div>
+  
+          </div>
+  
+  
+          <!-- TIMEZONE -->
+  
+          <div class="settings-region-card">
+  
+              <div class="settings-region-icon">
+                  <i class="material-icons">
+                      public
+                  </i>
+              </div>
+  
+              <div class="settings-region-content">
+  
+                  <label for="timezoneSelect">
+                      Timezone
+                  </label>
+  
+                  <p>
+                      Select the timezone used by Devora.
+                  </p>
+  
+                  <select
+                      id="timezoneSelect"
+                      class="settings-region-select"
+                      x-model="region.timezone"
+                      @change="saveRegion()"
+                  >
+  
+                      <option value="system">
+                          System Default
+                      </option>
+  
+                      <option value="UTC">
+                          UTC
+                      </option>
+  
+                      <option value="Asia/Tehran">
+                          Tehran
+                      </option>
+  
+                      <option value="Europe/Istanbul">
+                          Istanbul
+                      </option>
+  
+                      <option value="Asia/Baku">
+                          Baku
+                      </option>
+  
+                      <option value="Europe/London">
+                          London
+                      </option>
+  
+                      <option value="America/New_York">
+                          New York
+                      </option>
+  
+                      <option value="America/Los_Angeles">
+                          Los Angeles
+                      </option>
+  
+                  </select>
+  
+              </div>
+  
+          </div>
+  
+  
+          <!-- DATE FORMAT -->
+  
+          <div class="settings-region-card">
+  
+              <div class="settings-region-icon">
+                  <i class="material-icons">
+                      calendar_today
+                  </i>
+              </div>
+  
+              <div class="settings-region-content">
+  
+                  <label for="dateFormatSelect">
+                      Date Format
+                  </label>
+  
+                  <p>
+                      Choose how dates are displayed across the app.
+                  </p>
+  
+                  <select
+                      id="dateFormatSelect"
+                      class="settings-region-select"
+                      x-model="region.dateFormat"
+                      @change="saveRegion()"
+                  >
+  
+                      <option value="DD/MM/YYYY">
+                          DD/MM/YYYY
+                      </option>
+  
+                      <option value="MM/DD/YYYY">
+                          MM/DD/YYYY
+                      </option>
+  
+                      <option value="YYYY-MM-DD">
+                          YYYY-MM-DD
+                      </option>
+  
+                  </select>
+  
+              </div>
+  
+          </div>
+  
+  
+          <!-- TIME FORMAT -->
+  
+          <div class="settings-region-card">
+  
+              <div class="settings-region-icon">
+                  <i class="material-icons">
+                      schedule
+                  </i>
+              </div>
+  
+              <div class="settings-region-content">
+  
+                  <label for="timeFormatSelect">
+                      Time Format
+                  </label>
+  
+                  <p>
+                      Choose between 12-hour and 24-hour time.
+                  </p>
+  
+                  <select
+                      id="timeFormatSelect"
+                      class="settings-region-select"
+                      x-model="region.timeFormat"
+                      @change="saveRegion()"
+                  >
+  
+                      <option value="24">
+                          24 Hour
+                      </option>
+  
+                      <option value="12">
+                          12 Hour
+                      </option>
+  
+                  </select>
+  
+              </div>
+  
+          </div>
+  
+  
+      </div>
+  
+  </section>
 
-    <section
-        class="settings-panel settings-section-anchor"
-        id="language-region"
-    >
-
-        <div class="settings-panel-header">
-
-            <div>
-
-                <span>
-                    REGIONAL
-                </span>
-
-                <h2>
-                    Language & Region
-                </h2>
-
-                <p>
-                    Configure regional display preferences.
-                </p>
-
-            </div>
-
-            <i class="material-icons">
-                language
-            </i>
-
-        </div>
-
-
-        <div class="settings-form-grid">
-
-            <div class="settings-field">
-
-                <label for="languageSelect">
-                    Language
-                </label>
-
-                <select
-                    id="languageSelect"
-                    class="settings-select settings-select-full"
-                    x-model="region.language"
-                    @change="saveRegion()"
-                >
-
-                    <option value="en">
-                        English
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="settings-field">
-
-                <label for="timezoneSelect">
-                    Timezone
-                </label>
-
-                <select
-                    id="timezoneSelect"
-                    class="settings-select settings-select-full"
-                    x-model="region.timezone"
-                    @change="saveRegion()"
-                >
-
-                    <option value="system">
-                        System Default
-                    </option>
-
-                    <option value="UTC">
-                        UTC
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="settings-field">
-
-                <label for="dateFormatSelect">
-                    Date Format
-                </label>
-
-                <select
-                    id="dateFormatSelect"
-                    class="settings-select settings-select-full"
-                    x-model="region.dateFormat"
-                    @change="saveRegion()"
-                >
-
-                    <option value="MM/DD/YYYY">
-                        MM/DD/YYYY
-                    </option>
-
-                    <option value="DD/MM/YYYY">
-                        DD/MM/YYYY
-                    </option>
-
-                    <option value="YYYY-MM-DD">
-                        YYYY-MM-DD
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="settings-field">
-
-                <label for="timeFormatSelect">
-                    Time Format
-                </label>
-
-                <select
-                    id="timeFormatSelect"
-                    class="settings-select settings-select-full"
-                    x-model="region.timeFormat"
-                    @change="saveRegion()"
-                >
-
-                    <option value="12">
-                        12 Hour
-                    </option>
-
-                    <option value="24">
-                        24 Hour
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-    </section>
+  
 
 
 

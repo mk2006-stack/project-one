@@ -3186,3 +3186,249 @@ html:not([data-theme="dark"]) .settings-profile-dropdown > a:hover,
 html:not([data-theme="dark"]) .settings-profile-dropdown > a:hover i {
     color: var(--settings-primary) !important;
 }
+
+/* =========================================================
+   LANGUAGE & REGION — MODERN CARDS
+========================================================= */
+
+.settings-region-panel {
+    overflow: hidden;
+}
+
+
+.settings-region-header-icon {
+    width: 48px;
+    height: 48px;
+
+    flex: 0 0 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: var(--settings-primary-light);
+    color: var(--settings-primary);
+}
+
+
+.settings-region-header-icon i {
+    font-size: 23px;
+}
+
+
+/* =========================================================
+   REGION GRID
+========================================================= */
+
+.settings-region-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-top: 22px;
+}
+
+
+/* =========================================================
+   REGION CARD
+========================================================= */
+
+.settings-region-card {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 15px;
+
+    min-width: 0;
+
+    padding: 20px;
+
+    border: 1px solid var(--settings-border);
+
+    border-radius: 16px;
+
+    background: var(--settings-card-soft);
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
+}
+
+
+.settings-region-card:hover {
+    border-color: var(--settings-primary);
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, .06);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.settings-region-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: var(--settings-primary-light);
+
+    color: var(--settings-primary);
+}
+
+
+.settings-region-icon i {
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.settings-region-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.settings-region-content label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    color: var(--settings-text);
+}
+
+
+.settings-region-content p {
+    margin: 0 0 12px;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    color: var(--settings-text-muted);
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.settings-region-select {
+    width: 100% !important;
+
+    height: 44px !important;
+
+    margin: 0 !important;
+
+    padding: 0 12px !important;
+
+    border: 1px solid var(--settings-border-dark) !important;
+
+    border-radius: 10px !important;
+
+    outline: none !important;
+
+    background: var(--settings-card) !important;
+
+    color: var(--settings-text) !important;
+
+    box-shadow: none !important;
+
+    font-size: 13px !important;
+
+    cursor: pointer;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.settings-region-select:focus {
+    border-color: var(--settings-primary) !important;
+
+    box-shadow:
+        0 0 0 3px rgba(229, 57, 53, .08) !important;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html[data-theme="dark"] .settings-region-card {
+    background: #181818;
+    border-color: #303030;
+}
+
+
+html[data-theme="dark"] .settings-region-card:hover {
+    border-color: var(--settings-primary);
+}
+
+
+html[data-theme="dark"] .settings-region-select {
+    background: #202020 !important;
+    border-color: #3a3a3a !important;
+    color: #eeeeee !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .settings-region-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .settings-region-grid {
+        gap: 14px;
+    }
+
+    .settings-region-card {
+        padding: 16px;
+    }
+
+    .settings-region-header-icon {
+        width: 42px;
+        height: 42px;
+
+        flex-basis: 42px;
+    }
+
+}

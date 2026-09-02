@@ -13,6 +13,10 @@ document.addEventListener("alpine:init", () => {
 
         filter: "all",
 
+        categoryFilter: "",
+
+        showCategories: false,
+
         showModal: false,
 
         showReadModal: false,
@@ -30,7 +34,7 @@ document.addEventListener("alpine:init", () => {
 
             title: "",
 
-            category: "Technology",
+            category: " AI & Technology",
 
             image: "",
 
@@ -250,6 +254,32 @@ document.addEventListener("alpine:init", () => {
             }
 
 
+            // =========================
+            // CATEGORY FILTER
+            // =========================
+            
+            if (this.categoryFilter) {
+            
+                const selectedCategory =
+                    this.categoryFilter
+                        .trim()
+                        .toLowerCase();
+            
+                result =
+                    result.filter(article => {
+            
+                        const articleCategory =
+                            String(article.category || "")
+                                .trim()
+                                .toLowerCase();
+            
+                        return articleCategory === selectedCategory;
+            
+                    });
+            
+            }
+
+
             return result;
 
         },
@@ -352,6 +382,91 @@ document.addEventListener("alpine:init", () => {
 
         },
 
+        // =========================================================
+        // ARTICLE COVER IMAGE PICKER
+        // =========================================================
+        
+        openCoverPicker() {
+        
+            const input =
+                document.getElementById("articleCoverInput");
+        
+            if (input) {
+                input.click();
+            }
+        
+        },
+        
+        
+        handleCoverImageChange(event) {
+        
+            const file =
+                event?.target?.files?.[0];
+        
+            if (!file) {
+                return;
+            }
+        
+        
+            // Only images
+            if (!file.type.startsWith("image/")) {
+        
+                M.toast({
+                    html: "Please select an image file."
+                });
+        
+                event.target.value = "";
+        
+                return;
+            }
+        
+        
+            // Keep localStorage safe
+            const maxSize =
+                5 * 1024 * 1024;
+        
+            if (file.size > maxSize) {
+        
+                M.toast({
+                    html: "Cover image must be smaller than 5 MB."
+                });
+        
+                event.target.value = "";
+        
+                return;
+            }
+        
+        
+            const reader =
+                new FileReader();
+        
+        
+            reader.onload = (e) => {
+        
+                this.form.image =
+                    e.target.result;
+        
+        
+                M.toast({
+                    html: "Cover image selected successfully",
+                    classes: "green"
+                });
+        
+            };
+        
+        
+            reader.onerror = () => {
+        
+                M.toast({
+                    html: "Unable to read the selected image."
+                });
+        
+            };
+        
+        
+            reader.readAsDataURL(file);
+        
+        },
 
         // =========================
         // SAVE

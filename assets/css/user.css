@@ -45,3 +45,106 @@ html[data-theme="dark"] .user-avatar {
     background: var(--devora-accent-light) !important;
     color: var(--devora-accent) !important;
 }
+
+/* =========================================================
+   USER MANAGEMENT - ADD / EDIT USER MODAL
+========================================================= */
+
+.user-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+.user-modal .form-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+
+.user-modal label {
+    position: relative;
+    z-index: 3;
+    display: block;
+    margin-bottom: 7px;
+}
+
+
+.user-modal input,
+.user-modal select,
+.user-modal textarea {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 44px;
+}
+
+
+/* Name */
+
+.user-modal input[name="name"] {
+    margin-bottom: 4px;
+}
+
+
+/* Username */
+
+.user-modal input[name="username"] {
+    margin-bottom: 4px;
+}
+
+
+/* Email */
+
+.user-modal input[type="email"] {
+    margin-bottom: 4px;
+}
+
+
+/* Phone / Number */
+
+.user-modal input[type="number"],
+.user-modal input[type="tel"] {
+    margin-bottom: 4px;
+}
+
+
+/* Footer */
+
+.user-modal .modal-footer {
+    margin-top: 8px;
+    padding-top: 18px;
+}
+
+/* =========================================================
+   USER MANAGEMENT - DARK MODE
+========================================================= */
+
+html[data-theme="dark"] .user-modal input,
+html[data-theme="dark"] .user-modal select,
+html[data-theme="dark"] .user-modal textarea {
+
+    background: #252525;
+
+    color: #f5f5f5;
+
+    border-color: #444;
+
+}
+
+
+html[data-theme="dark"] .user-modal label {
+
+    color: #eeeeee;
+
+}
+
+
+html[data-theme="dark"] .user-modal input::placeholder {
+
+    color: #999;
+
+}

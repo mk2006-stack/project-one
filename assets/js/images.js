@@ -23,21 +23,21 @@ document.addEventListener("alpine:init", () => {
 
         db: null,
 
-         setViewMode(mode) {
-         
-             if (!["grid", "list"].includes(mode)) {
-                 return;
-             }
-         
-             this.viewMode = mode;
-         
-         },
-         
-         toggleView(mode) {
-         
-             this.setViewMode(mode);
-         
-         },        
+            setViewMode(mode) {
+            
+                if (!["grid", "masonry"].includes(mode)) {
+                    return;
+                }
+            
+                this.viewMode = mode;
+            
+            },
+            
+            toggleView(mode) {
+            
+                this.setViewMode(mode);
+            
+            },       
 
         // =========================
         // INIT

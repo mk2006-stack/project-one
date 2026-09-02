@@ -103,12 +103,247 @@
 
         <div class="filter-buttons">
 
-            <button class="filter-btn":class="{ 'active': filter === 'all' }"@click="filter = 'all'">All</button>
+            <button
+                class="filter-btn"
+                :class="{ 'active': filter === 'all' && !categoryFilter }"
+                @click="filter = 'all'; categoryFilter = ''"
+            >
+                All
+            </button>
+        
+            <button
+                class="filter-btn"
+                :class="{ 'active': filter === 'published' && !categoryFilter }"
+                @click="filter = 'published'; categoryFilter = ''"
+            >
+                Published
+            </button>
+        
+            <button
+                class="filter-btn"
+                :class="{ 'active': filter === 'draft' && !categoryFilter }"
+                @click="filter = 'draft'; categoryFilter = ''"
+            >
+                Draft
+            </button>
+        
+        
+            <!-- MORE -->
+            <button
+                class="filter-btn more-filter-btn"
+                :class="{ 'active': showCategories || categoryFilter }"
+                @click="showCategories = !showCategories"
+                title="Article Categories"
+            >
+                <i class="material-icons">apps</i>
+                <span>More</span>
+                <i
+                    class="material-icons more-arrow"
+                    :class="{ 'rotate': showCategories }"
+                >
+                    expand_more
+                </i>
+            </button>
+        
+        
+            <!-- EDIT / DONE -->
+            
+            <button
+                type="button"
+                class="article-reorder-btn"
+                :class="{ 'active': reorderMode }"
+                @click="toggleReorderMode()"
+                title="Reorder articles"
+            >
+                <i class="material-icons">swap_vert</i>
+            
+                <span
+                    x-text="reorderMode ? 'Done' : 'Edit'"
+                ></span>
+            </button>
+        
+        
+        <!-- ================= ARTICLE CATEGORIES ================= -->
+        
+        <div
+            class="article-category-panel"
+            x-show="showCategories"
+            x-transition
+        >
+        
+            <div class="category-panel-header">
+        
+                <div>
+                    <span class="category-panel-label">CATEGORIES</span>
+        
+                    <h3>Browse by Category</h3>
+                </div>
+        
+                <button
+                    class="category-clear-btn"
+                    x-show="categoryFilter"
+                    @click="categoryFilter = ''; filter = 'all'"
+                >
+                    <i class="material-icons">close</i>
+                    Clear
+                </button>
+        
+            </div>
+        
+               <div class="article-category-grid">
+               
+                   <!-- 1. AI & TECHNOLOGY -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'AI & Technology' }"
+                       @click="categoryFilter = 'AI & Technology'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">smart_toy</i>
+                       </span>
+               
+                       <span>AI & Technology</span>
+                   </button>
+               
+               
+                   <!-- 2. HEALTH & WELLNESS -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Health & Wellness' }"
+                       @click="categoryFilter = 'Health & Wellness'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">health_and_safety</i>
+                       </span>
+               
+                       <span>Health & Wellness</span>
+                   </button>
+               
+               
+                   <!-- 3. EDUCATION & LEARNING -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Education & Learning' }"
+                       @click="categoryFilter = 'Education & Learning'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">school</i>
+                       </span>
+               
+                       <span>Education & Learning</span>
+                   </button>
+               
+               
+                   <!-- 4. TRAVEL & TOURISM -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Travel & Tourism' }"
+                       @click="categoryFilter = 'Travel & Tourism'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">travel_explore</i>
+                       </span>
+               
+                       <span>Travel & Tourism</span>
+                   </button>
+               
+               
+                   <!-- 5. RELATIONSHIPS & PSYCHOLOGY -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Relationships & Psychology' }"
+                       @click="categoryFilter = 'Relationships & Psychology'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">psychology</i>
+                       </span>
+               
+                       <span>Relationships & Psychology</span>
+                   </button>
+               
+               
+                   <!-- 6. LIFESTYLE -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Lifestyle' }"
+                       @click="categoryFilter = 'Lifestyle'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">self_improvement</i>
+                       </span>
+               
+                       <span>Lifestyle</span>
+                   </button>
+               
+               
+                   <!-- 7. DESIGN -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Design' }"
+                       @click="categoryFilter = 'Design'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">palette</i>
+                       </span>
+               
+                       <span>Design</span>
+                   </button>
+               
+               
+                   <!-- 8. DEVELOPMENT -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Development' }"
+                       @click="categoryFilter = 'Development'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">code</i>
+                       </span>
+               
+                       <span>Development</span>
+                   </button>
+               
+               
+                   <!-- 9. BUSINESS -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Business' }"
+                       @click="categoryFilter = 'Business'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">business_center</i>
+                       </span>
+               
+                       <span>Business</span>
+                   </button>
+               
+               
+                   <!-- 10. FINANCE & MONEY -->
+               
+                   <button
+                       class="article-category-card"
+                       :class="{ 'active': categoryFilter === 'Sport' }"
+                       @click="categoryFilter = 'Sport'; filter = 'all'"
+                   >
+                       <span class="category-icon">
+                           <i class="material-icons">sports</i>
+                       </span>
+               
+                       <span>Sport</span>
+                   </button>
+               
+               </div>        
 
-            <button class="filter-btn":class="{ 'active': filter === 'published' }"@click="filter = 'published'">Published </button>
-
-            <button class="filter-btn":class="{ 'active': filter === 'draft' }"@click="filter = 'draft'">Draft</button>
-
+        
         </div>
 
 
@@ -329,24 +564,46 @@
 
                     <select x-model="form.category">
 
-                        <option value="AI & Technology">AI & Technology</option>
-
-                        <option value="Health & wellness"> Health & wellness </option>
-
-                        <option value="Education & Learning ">Education & Learning</option>
-
-                        <option value="Travel & Tourism">Travel & Tourism</option>
-
-                        <option value="Relationships & Psychology">Relationships & Psychology</option>
-
-                        <option value="Lifestyle">Lifestyle</option>
-
-                        <option value="Design">Design</option>
-
-                        <option value="Development">Development</option>
-
-                        <option value="Business"> Business </option>
-
+                        <option value="AI & Technology">
+                            AI & Technology
+                        </option>
+                    
+                        <option value="Health & Wellness">
+                            Health & Wellness
+                        </option>
+                    
+                        <option value="Education & Learning">
+                            Education & Learning
+                        </option>
+                    
+                        <option value="Travel & Tourism">
+                            Travel & Tourism
+                        </option>
+                    
+                        <option value="Relationships & Psychology">
+                            Relationships & Psychology
+                        </option>
+                    
+                        <option value="Lifestyle">
+                            Lifestyle
+                        </option>
+                    
+                        <option value="Design">
+                            Design
+                        </option>
+                    
+                        <option value="Development">
+                            Development
+                        </option>
+                    
+                        <option value="Business">
+                            Business
+                        </option>
+                    
+                        <option value="Sport">
+                            Sport
+                        </option>
+                    
                     </select>
 
                 </div>
@@ -354,13 +611,47 @@
             </div>
 
 
-            <div class="input-field">
-
-                <label>Cover Image URL</label>
-
-                <input type="text" x-model="form.image" placeholder="/assets/images/example.jpg">
-
-            </div>
+             <div class="input-field article-cover-input">
+             
+                 <label for="articleCoverUrl">
+                     Cover Image URL
+                 </label>
+             
+                 <div class="article-cover-url-row">
+             
+                     <input
+                         id="articleCoverUrl"
+                         type="text"
+                         x-model="form.image"
+                         placeholder="/assets/images/example.jpg"
+                     >
+             
+                     <button
+                         type="button"
+                         class="article-cover-picker"
+                         @click="openCoverPicker()"
+                         title="Choose cover image"
+                         aria-label="Choose cover image"
+                     >
+                         <i class="material-icons">photo_camera</i>
+                     </button>
+             
+                     <input
+                         id="articleCoverInput"
+                         type="file"
+                         accept="image/*"
+                         hidden
+                         @change="handleCoverImageChange($event)"
+                     >
+             
+                 </div>
+             
+                 <small class="article-cover-help">
+                     Use an image URL or choose an image from your device.
+                     Recommended size: 1600 × 900 px.
+                 </small>
+             
+             </div>
 
 
             <div class="input-field">

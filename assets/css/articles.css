@@ -1506,12 +1506,7 @@ html[data-theme="dark"] .input-field textarea::placeholder {
 }
 
 
-/* Select options */
 
-html[data-theme="dark"] .input-field select option {
-    background: #ffffff !important;
-    color: #333333 !important;
-}
 
 
 /* =========================================================
@@ -1582,3 +1577,1044 @@ html[data-theme="dark"] .read-excerpt {
 html[data-theme="dark"] .read-body {
     color: #424242 !important;
 }
+
+/* =========================================================
+   ARTICLE COVER IMAGE PICKER
+========================================================= */
+
+.article-cover-url-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+}
+
+
+.article-cover-url-row input[type="text"] {
+    flex: 1;
+    min-width: 0;
+}
+
+
+.article-cover-picker {
+    width: 46px;
+    height: 46px;
+
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #555555;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+
+.article-cover-picker i {
+    font-size: 21px;
+}
+
+
+.article-cover-picker:hover {
+    background: #fff3f3;
+    color: #e53935;
+    border-color: #e53935;
+
+    transform: translateY(-1px);
+}
+
+
+.article-cover-help {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #9e9e9e;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ARTICLE COVER — 16:9
+========================================================= */
+
+.article-cover {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    height: auto;
+
+    overflow: hidden;
+
+    background: #eeeeee;
+}
+
+
+.article-cover img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition: transform .4s ease;
+}
+
+
+.article-card:hover
+.article-cover img {
+    transform: scale(1.05);
+}
+
+
+/* =========================================================
+   READ ARTICLE COVER
+========================================================= */
+
+.read-cover {
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    height: auto;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html[data-theme="dark"] .article-cover-picker {
+    background: #202020;
+    border-color: #444444;
+    color: #eeeeee;
+}
+
+
+html[data-theme="dark"] .article-cover-picker:hover {
+    background: #2d1717;
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+
+html[data-theme="dark"] .article-cover-help {
+    color: #888888;
+}
+
+/* =========================================
+   ARTICLE MORE / CATEGORY FILTER
+========================================= */
+
+.more-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+.more-filter-btn > i:first-child {
+    font-size: 18px;
+}
+
+
+.more-arrow {
+    font-size: 18px !important;
+
+    transition:
+        transform .25s ease;
+}
+
+
+.more-arrow.rotate {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================
+   CATEGORY PANEL
+========================================= */
+
+.article-category-panel {
+
+    width: 100%;
+
+    padding: 22px;
+
+    margin-top: 14px;
+
+    background: white;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.06);
+
+}
+
+
+.category-panel-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+
+}
+
+
+.category-panel-label {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    color: #9e9e9e;
+
+}
+
+
+.category-panel-header h3 {
+
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #212121;
+
+}
+
+
+.category-clear-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #757575;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    padding: 7px 10px;
+
+    border-radius: 8px;
+
+}
+
+
+.category-clear-btn:hover {
+
+    background: #f5f5f5;
+
+}
+
+
+.category-clear-btn i {
+
+    font-size: 17px;
+
+}
+
+
+/* =========================================
+   CATEGORY GRID
+========================================= */
+
+.article-category-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 12px;
+
+}
+
+
+.article-category-card {
+
+    min-height: 76px;
+
+    padding: 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    border: 1px solid #eeeeee;
+
+    background: #fafafa;
+
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+    color: #424242;
+
+}
+
+
+.article-category-card:hover {
+
+    transform: translateY(-2px);
+
+    background: white;
+
+    border-color: #d6d6d6;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.07);
+
+}
+
+
+.article-category-card.active {
+
+    background: #fcecec;
+
+    border-color: #ef5350;
+
+    color: #c62828;
+
+    box-shadow:
+        0 6px 20px rgba(198,40,40,.10);
+
+}
+
+
+.category-icon {
+
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eeeeee;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+
+}
+
+
+.category-icon i {
+
+    font-size: 20px;
+
+}
+
+
+.article-category-card.active .category-icon {
+
+    background: #ef5350;
+
+    color: white;
+
+}
+
+
+.article-category-card > span:last-child {
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-align: center;
+
+}
+
+
+/* =========================================
+   MORE BUTTON ACTIVE
+========================================= */
+
+.more-filter-btn.active {
+
+    background: #ef5350;
+
+    color: white;
+
+    border-color: #ef5350;
+
+}
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+html[data-theme="dark"] .article-category-panel {
+
+    background: #1e1e1e;
+
+    border-color: #333;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.25);
+
+}
+
+
+html[data-theme="dark"] .category-panel-header h3 {
+
+    color: #f5f5f5;
+
+}
+
+
+html[data-theme="dark"] .category-panel-label {
+
+    color: #9e9e9e;
+
+}
+
+
+html[data-theme="dark"] .category-clear-btn {
+
+    color: #bdbdbd;
+
+}
+
+
+html[data-theme="dark"] .category-clear-btn:hover {
+
+    background: #292929;
+
+}
+
+
+html[data-theme="dark"] .article-category-card {
+
+    background: #252525;
+
+    border-color: #383838;
+
+    color: #eeeeee;
+
+}
+
+
+html[data-theme="dark"] .article-category-card:hover {
+
+    background: #2c2c2c;
+
+    border-color: #4a4a4a;
+
+}
+
+
+html[data-theme="dark"] .article-category-card.active {
+
+    background: rgba(239,83,80,.12);
+
+    border-color: #ef5350;
+
+    color: #ff8a80;
+
+}
+
+
+html[data-theme="dark"] .category-icon {
+
+    background: #333;
+
+}
+
+
+html[data-theme="dark"] .article-category-card.active .category-icon {
+
+    background: #ef5350;
+
+    color: white;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .article-category-grid {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .article-category-panel {
+
+        padding: 16px;
+
+        border-radius: 15px;
+
+    }
+
+
+    .category-panel-header {
+
+        align-items: flex-start;
+
+        gap: 10px;
+
+    }
+
+
+    .article-category-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 9px;
+
+    }
+
+
+    .article-category-card {
+
+        min-height: 70px;
+
+    }
+
+}
+
+/* =========================================================
+   ARTICLE MODAL - FIX FIELD OVERLAPPING
+========================================================= */
+
+.article-modal input,
+.article-modal textarea,
+.article-modal select {
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+
+/* Every form group gets real spacing */
+
+.article-modal .form-group,
+.article-modal .form-field,
+.article-modal .field-group {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+
+/* Labels must stay above inputs */
+
+.article-modal label {
+    position: relative;
+    z-index: 3;
+    display: block;
+    margin-bottom: 7px;
+}
+
+
+/* Title */
+
+.article-modal input[type="text"],
+.article-modal input[type="url"],
+.article-modal input[type="number"],
+.article-modal select {
+    min-height: 44px;
+}
+
+
+/* Textarea */
+
+.article-modal textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+
+/* =========================================================
+   STATUS / TYPE / CATEGORY
+========================================================= */
+
+.article-modal .status-group,
+.article-modal .type-group,
+.article-modal .category-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+
+/* If these controls are side by side */
+
+.article-modal .status-group,
+.article-modal .type-group {
+    min-width: 0;
+}
+
+
+/* Prevent absolute positioned elements from covering fields */
+
+.article-modal .status-group *,
+.article-modal .type-group *,
+.article-modal .category-group * {
+    position: relative;
+}
+
+
+/* =========================================================
+   COVER / IMAGE
+========================================================= */
+
+.article-modal .cover-field,
+.article-modal .cover-group,
+.article-modal .image-field {
+    margin-top: 20px;
+    margin-bottom: 22px;
+}
+
+
+.article-modal .cover-field input,
+.article-modal .cover-group input,
+.article-modal .image-field input {
+    width: 100%;
+}
+
+
+/* =========================================================
+   SHORT DESCRIPTION
+========================================================= */
+
+.article-modal .short-description,
+.article-modal .description-field {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   MODAL FOOTER
+========================================================= */
+
+.article-modal .modal-footer {
+    position: relative;
+    z-index: 10;
+    margin-top: 24px;
+    padding-top: 18px;
+}
+
+/* =========================================================
+   ARTICLES - DARK MODE FORM CONTROLS
+========================================================= */
+
+html[data-theme="dark"] .article-modal input,
+html[data-theme="dark"] .article-modal textarea,
+html[data-theme="dark"] .article-modal select {
+
+    background: #252525;
+
+    color: #f5f5f5;
+
+    border-color: #444;
+
+}
+
+
+html[data-theme="dark"] .article-modal input::placeholder,
+html[data-theme="dark"] .article-modal textarea::placeholder {
+
+    color: #9e9e9e;
+
+}
+
+
+/* Labels */
+
+html[data-theme="dark"] .article-modal label {
+
+    color: #eeeeee;
+
+}
+
+
+/* =========================================================
+   PUBLISHED / DRAFT
+========================================================= */
+
+html[data-theme="dark"] .article-modal
+[class*="publish"],
+html[data-theme="dark"] .article-modal
+[class*="draft"] {
+
+    color: #f5f5f5;
+
+}
+
+
+/* Buttons / radio-like controls */
+
+html[data-theme="dark"] .article-modal
+button[class*="publish"],
+html[data-theme="dark"] .article-modal
+button[class*="draft"] {
+
+    background: #2b2b2b;
+
+    color: #eeeeee;
+
+    border: 1px solid #4a4a4a;
+
+}
+
+
+html[data-theme="dark"] .article-modal
+button[class*="publish"]:hover,
+html[data-theme="dark"] .article-modal
+button[class*="draft"]:hover {
+
+    background: #353535;
+
+}
+
+
+/* Active */
+
+html[data-theme="dark"] .article-modal
+button[class*="publish"].active,
+html[data-theme="dark"] .article-modal
+button[class*="draft"].active {
+
+    background: #ef5350;
+
+    color: white;
+
+    border-color: #ef5350;
+
+}
+
+/* =========================================================
+   DARK MODE - RADIO STATUS
+========================================================= */
+
+html[data-theme="dark"] .article-modal input[type="radio"] {
+
+    accent-color: #ef5350;
+
+}
+
+
+html[data-theme="dark"] .article-modal
+input[type="radio"] + label {
+
+    color: #eeeeee;
+
+}
+
+/* =========================================================
+   DARK MODE - SELECT
+========================================================= */
+
+html[data-theme="dark"] .article-modal select {
+
+    background-color: #252525 !important;
+
+    color: #f5f5f5 !important;
+
+    border: 1px solid #4a4a4a !important;
+
+}
+
+
+html[data-theme="dark"] .article-modal select option {
+
+    background: #252525;
+
+    color: #f5f5f5;
+
+}
+
+/* =========================================================
+   MATERIALIZE SELECT DROPDOWN - ARTICLE MODAL
+   FIX CATEGORY + STATUS TEXT VISIBILITY
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   CLOSED SELECT
+--------------------------------------------------------- */
+
+.article-modal .select-wrapper input.select-dropdown {
+
+    color: #333333 !important;
+
+    -webkit-text-fill-color: #333333 !important;
+
+    opacity: 1 !important;
+
+    font-weight: 600 !important;
+
+}
+
+
+/* ---------------------------------------------------------
+   OPEN DROPDOWN
+--------------------------------------------------------- */
+
+.article-modal .select-wrapper .dropdown-content {
+
+    background: #ffffff !important;
+
+    opacity: 1 !important;
+
+    color: #212121 !important;
+
+}
+
+
+/* Every option */
+
+.article-modal .select-wrapper .dropdown-content li {
+
+    background: #ffffff !important;
+
+    color: #212121 !important;
+
+    opacity: 1 !important;
+
+}
+
+
+/* The actual text inside option */
+
+.article-modal .select-wrapper .dropdown-content li > span {
+
+    display: block !important;
+
+    color: #212121 !important;
+
+    -webkit-text-fill-color: #212121 !important;
+
+    opacity: 1 !important;
+
+    font-weight: 600 !important;
+
+}
+
+
+/* Hover */
+
+.article-modal .select-wrapper .dropdown-content li:hover,
+
+.article-modal .select-wrapper .dropdown-content li.active {
+
+    background: #eeeeee !important;
+
+}
+
+
+.article-modal .select-wrapper .dropdown-content li:hover > span,
+
+.article-modal .select-wrapper .dropdown-content li.active > span {
+
+    color: #212121 !important;
+
+    -webkit-text-fill-color: #212121 !important;
+
+}
+
+
+/* =========================================================
+   DARK MODE
+   Modal itself is intentionally kept LIGHT
+========================================================= */
+
+html[data-theme="dark"] .article-modal
+.select-wrapper input.select-dropdown {
+
+    background: #ffffff !important;
+
+    color: #212121 !important;
+
+    -webkit-text-fill-color: #212121 !important;
+
+    opacity: 1 !important;
+
+    font-weight: 600 !important;
+
+}
+
+
+/* Open list */
+
+html[data-theme="dark"] .article-modal
+.select-wrapper .dropdown-content {
+
+    background: #ffffff !important;
+
+    color: #212121 !important;
+
+    opacity: 1 !important;
+
+}
+
+
+/* List items */
+
+html[data-theme="dark"] .article-modal
+.select-wrapper .dropdown-content li {
+
+    background: #ffffff !important;
+
+    color: #212121 !important;
+
+    opacity: 1 !important;
+
+}
+
+
+/* TEXT — this is the important part */
+
+html[data-theme="dark"] .article-modal
+.select-wrapper .dropdown-content li > span {
+
+    color: #212121 !important;
+
+    -webkit-text-fill-color: #212121 !important;
+
+    opacity: 1 !important;
+
+    font-weight: 600 !important;
+
+}
+
+
+/* Hover */
+
+html[data-theme="dark"] .article-modal
+.select-wrapper .dropdown-content li:hover,
+
+html[data-theme="dark"] .article-modal
+.select-wrapper .dropdown-content li.active {
+
+    background: #eeeeee !important;
+
+}
+
+
+html[data-theme="dark"] .article-modal
+.select-wrapper .dropdown-content li:hover > span,
+
+html[data-theme="dark"] .article-modal
+.select-wrapper .dropdown-content li.active > span {
+
+    color: #212121 !important;
+
+    -webkit-text-fill-color: #212121 !important;
+
+}
+
+
+/* =========================================================
+   NATIVE OPTION FALLBACK
+========================================================= */
+
+.article-modal select option {
+
+    background-color: #ffffff !important;
+
+    color: #212121 !important;
+
+    opacity: 1 !important;
+
+    font-weight: 600 !important;
+
+}
+
+
+html[data-theme="dark"] .article-modal select option {
+
+    background-color: #ffffff !important;
+
+    color: #212121 !important;
+
+    -webkit-text-fill-color: #212121 !important;
+
+    opacity: 1 !important;
+
+}
+
+html[data-theme="dark"] .article-modal .select-wrapper {
+
+    color-scheme: light !important;
+
+}
+

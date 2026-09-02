@@ -308,25 +308,28 @@
 
          <div class="gallery-view-options">
          
-             <button
-        type="button"
-        class="gallery-view-btn"
-        :class="{ 'active': viewMode === 'grid' }"
-        @click="setViewMode('grid')"
-        aria-label="Grid view"
-    >
-        <i class="material-icons">grid_view</i>
-             </button>
-         
-         
+             <!-- GRID VIEW -->
              <button
                  type="button"
                  class="gallery-view-btn"
-                 :class="{ 'active': viewMode === 'list' }"
-                 @click="setViewMode('list')"
-                 aria-label="List view"
+                 :class="{ 'active': viewMode === 'grid' }"
+                 @click="setViewMode('grid')"
+                 aria-label="Grid view"
+                 title="Grid view"
              >
-                 <i class="material-icons">view_list</i>
+                 <i class="material-icons">grid_view</i>
+             </button>
+         
+             <!-- MASONRY VIEW -->
+             <button
+                 type="button"
+                 class="gallery-view-btn"
+                 :class="{ 'active': viewMode === 'masonry' }"
+                 @click="setViewMode('masonry')"
+                 aria-label="Masonry view"
+                 title="Masonry gallery"
+             >
+                 <i class="material-icons">view_quilt</i>
              </button>
          
          </div>
@@ -334,7 +337,7 @@
     </div>
          
     <!--============ IMAGE GRID =============-->
-    <div class="images-grid" :class="{ 'images-list': viewMode === 'list' }">
+ <div class="images-grid":class="{'images-masonry': viewMode === 'masonry'}">
 
     <template x-for="image in filteredImages" :key="image.id">
 

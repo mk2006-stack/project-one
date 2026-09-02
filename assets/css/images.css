@@ -1182,80 +1182,126 @@ html[data-theme="dark"] .image-upload-submit {
 }
 
 /* =========================================================
-   IMAGES — LIST VIEW
+   IMAGES — MASONRY / QUilt VIEW
 ========================================================= */
 
-.images-grid.images-list {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 14px !important;
+.images-grid.images-masonry {
+    display: block !important;
+    column-count: 3;
+    column-gap: 24px;
+    width: 100%;
 }
 
 
-/* Each image becomes a horizontal row */
+/* =========================
+   MASONRY CARD
+========================= */
 
-.images-grid.images-list .image-card {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-
+.images-grid.images-masonry .image-card {
+    display: inline-block !important;
     width: 100% !important;
-    min-height: 110px;
 
-    border-radius: 14px;
+    margin: 0 0 24px 0;
+
+    vertical-align: top;
+
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+
+    transform: none;
 }
 
 
-/* Smaller preview in list mode */
+/* =========================
+   IMAGE PREVIEW
+========================= */
 
-.images-grid.images-list .image-preview {
-    width: 150px !important;
-    min-width: 150px !important;
-    height: 100px !important;
+.images-grid.images-masonry .image-preview {
+    height: auto !important;
+    min-height: 0 !important;
 
-    border-radius: 12px 0 0 12px !important;
+    position: relative;
+    overflow: hidden;
+
+    background: #eeeeee;
 }
 
 
-/* Information moves beside image */
+.images-grid.images-masonry .image-preview img {
+    width: 100%;
+    height: auto !important;
 
-.images-grid.images-list .image-info {
-    flex: 1 !important;
+    min-height: 0 !important;
 
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
+    display: block;
 
-    padding: 20px !important;
+    object-fit: contain;
+
+    transition: transform .35s ease;
 }
 
 
-/* Image name */
+/* =========================
+   HOVER
+========================= */
 
-.images-grid.images-list .image-info strong {
-    font-size: 15px;
+.images-grid.images-masonry .image-card:hover {
+    transform: translateY(-5px);
 }
 
 
-/* Category */
-
-.images-grid.images-list .image-info span {
-    margin-top: 5px;
+.images-grid.images-masonry .image-card:hover
+.image-preview img {
+    transform: scale(1.035);
 }
 
 
-/* Mobile */
+/* =========================
+   INFO
+========================= */
+
+.images-grid.images-masonry .image-info {
+    min-height: 68px;
+
+    padding: 14px 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1000px) {
+
+    .images-grid.images-masonry {
+        column-count: 2;
+        column-gap: 20px;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
 
-    .images-grid.images-list .image-card {
-        flex-direction: column !important;
-        align-items: stretch !important;
+    .images-grid.images-masonry {
+        column-count: 1;
+        column-gap: 0;
     }
 
-    .images-grid.images-list .image-preview {
-        width: 100% !important;
-        height: 180px !important;
+    .images-grid.images-masonry .image-card {
+        margin-bottom: 18px;
     }
 
 }
+
+
+
