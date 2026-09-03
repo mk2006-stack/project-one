@@ -284,6 +284,216 @@ document.addEventListener("alpine:init", () => {
 
         },
 
+        // =========================
+        // REORDER / VIEW
+        // =========================
+        
+        setViewMode(mode) {
+        
+            if (
+                mode === "grid" ||
+                mode === "list"
+            ) {
+        
+                this.viewMode = mode;
+        
+            }
+        
+        },
+        
+        
+        toggleReorderMode() {
+        
+            this.reorderMode =
+                !this.reorderMode;
+        
+            if (!this.reorderMode) {
+        
+                this.saveToStorage();
+        
+                M.toast({
+                    html: "Article order saved",
+                    classes: "green"
+                });
+        
+            } else {
+        
+                M.toast({
+                    html: "You can now drag and drop articles"
+                });
+        
+            }
+        
+        },
+        
+        
+        dragStartArticle(article, event) {
+        
+            if (!this.reorderMode) {
+        
+                event.preventDefault();
+        
+                return;
+        
+            }
+        
+            this.draggedArticleId =
+                article.id;
+        
+            event.dataTransfer.effectAllowed =
+                "move";
+        
+            event.dataTransfer.setData(
+                "text/plain",
+                String(article.id)
+            );
+        
+            event.currentTarget.classList.add(
+                "is-dragging"
+            );
+        
+        },
+        
+        
+        dragEndArticle(event) {
+        
+            event.currentTarget.classList.remove(
+                "is-dragging"
+            );
+        
+            document
+                .querySelectorAll(
+                    ".is-drag-over"
+                )
+                .forEach(element => {
+        
+                    element.classList.remove(
+                        "is-drag-over"
+                    );
+        
+                });
+        
+            this.draggedArticleId = null;
+        
+        },
+        
+        
+        dragOverArticle(event) {
+        
+            if (!this.reorderMode) {
+        
+                return;
+        
+            }
+        
+            event.preventDefault();
+        
+            event.dataTransfer.dropEffect =
+                "move";
+        
+            event.currentTarget.classList.add(
+                "is-drag-over"
+            );
+        
+        },
+        
+        
+        dragLeaveArticle(event) {
+        
+            event.currentTarget.classList.remove(
+                "is-drag-over"
+            );
+        
+        },
+        
+        
+        dropArticle(targetArticle, event) {
+        
+            if (!this.reorderMode) {
+        
+                return;
+        
+            }
+        
+            event.preventDefault();
+        
+            event.stopPropagation();
+        
+            event.currentTarget.classList.remove(
+                "is-drag-over"
+            );
+        
+        
+            const draggedId =
+                this.draggedArticleId ||
+                event.dataTransfer.getData(
+                    "text/plain"
+                );
+        
+        
+            if (!draggedId) {
+        
+                return;
+        
+            }
+        
+        
+            if (
+                String(draggedId) ===
+                String(targetArticle.id)
+            ) {
+        
+                return;
+        
+            }
+        
+        
+            const fromIndex =
+                this.articles.findIndex(
+                    article =>
+                        String(article.id) ===
+                        String(draggedId)
+                );
+        
+        
+            const toIndex =
+                this.articles.findIndex(
+                    article =>
+                        String(article.id) ===
+                        String(targetArticle.id)
+                );
+        
+        
+            if (
+                fromIndex === -1 ||
+                toIndex === -1
+            ) {
+        
+                return;
+        
+            }
+        
+        
+            const movedArticle =
+                this.articles.splice(
+                    fromIndex,
+                    1
+                )[0];
+        
+        
+            this.articles.splice(
+                toIndex,
+                0,
+                movedArticle
+            );
+        
+        
+            this.saveToStorage();
+        
+        
+            this.draggedArticleId = null;
+        
+        },
 
         // =========================
         // COUNTS

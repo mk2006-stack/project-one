@@ -19,6 +19,10 @@ document.addEventListener("alpine:init", () => {
 
         sortOrder: "newest",
 
+        reorderMode: false,
+
+        draggedFileId: null,
+
         viewMode: "list",
 
         showCategoryMenu: false,
@@ -445,29 +449,31 @@ if (
 
 
             /* SORT */
-
-            result.sort((a, b) => {
-
-                const first =
-                    new Date(a.updatedAt);
-
-                const second =
-                    new Date(b.updatedAt);
-
-
-                if (
-                    this.sortOrder ===
-                    "newest"
-                ) {
-
-                    return second - first;
-
-                }
-
-
-                return first - second;
-
-            });
+            
+            if (this.reorderMode || this.sortOrder === "manual") {
+            
+                result.sort((a, b) =>
+                    (a.manualOrder ?? a.id) -
+                    (b.manualOrder ?? b.id)
+                );
+            
+            } else {
+            
+                result.sort((a, b) => {
+            
+                    const first =
+                        new Date(a.updatedAt);
+            
+                    const second =
+                        new Date(b.updatedAt);
+            
+                    return this.sortOrder === "newest"
+                        ? second - first
+                        : first - second;
+            
+                });
+            
+            }
 
 
             return result;
@@ -979,6 +985,295 @@ if (
 
         },
 
+        /* =====================================
+   FILE REORDER
+===================================== */
+
+toggleReorderMode() {
+
+    this.reorderMode =
+        !this.reorderMode;
+
+
+    if (!this.reorderMode) {
+
+        this.persistFileOrder();
+
+        this.sortOrder = "manual";
+
+        M.toast({
+
+            html:
+                "File order saved",
+
+            classes:
+                "green"
+
+        });
+
+    } else {
+
+        M.toast({
+
+            html:
+                "You can now drag and drop files"
+
+        });
+
+    }
+
+},
+
+
+dragStartFile(file, event) {
+
+    if (!this.reorderMode) {
+
+        event.preventDefault();
+
+        return;
+
+    }
+
+
+    this.draggedFileId =
+        file.id;
+
+
+    event.dataTransfer.effectAllowed =
+        "move";
+
+
+    event.dataTransfer.setData(
+        "text/plain",
+        String(file.id)
+    );
+
+
+    event.currentTarget.classList.add(
+        "is-dragging"
+    );
+
+},
+
+
+dragEndFile(event) {
+
+    event.currentTarget.classList.remove(
+        "is-dragging"
+    );
+
+
+    document
+        .querySelectorAll(
+            ".is-drag-over"
+        )
+        .forEach(element => {
+
+            element.classList.remove(
+                "is-drag-over"
+            );
+
+        });
+
+
+    this.draggedFileId =
+        null;
+
+},
+
+
+dragOverFile(event) {
+
+    if (!this.reorderMode) {
+
+        return;
+
+    }
+
+
+    event.preventDefault();
+
+
+    event.dataTransfer.dropEffect =
+        "move";
+
+
+    event.currentTarget.classList.add(
+        "is-drag-over"
+    );
+
+},
+
+
+dragLeaveFile(event) {
+
+    event.currentTarget.classList.remove(
+        "is-drag-over"
+    );
+
+},
+
+
+dropFile(targetFile, event) {
+
+    if (!this.reorderMode) {
+
+        return;
+
+    }
+
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+
+    event.currentTarget.classList.remove(
+        "is-drag-over"
+    );
+
+
+    const draggedId =
+        this.draggedFileId ||
+        event.dataTransfer.getData(
+            "text/plain"
+        );
+
+
+    if (!draggedId) {
+
+        return;
+
+    }
+
+
+    if (
+        String(draggedId) ===
+        String(targetFile.id)
+    ) {
+
+        return;
+
+    }
+
+
+    const fromIndex =
+        this.files.findIndex(
+            file =>
+                String(file.id) ===
+                String(draggedId)
+        );
+
+
+    const toIndex =
+        this.files.findIndex(
+            file =>
+                String(file.id) ===
+                String(targetFile.id)
+        );
+
+
+    if (
+        fromIndex === -1 ||
+        toIndex === -1
+    ) {
+
+        return;
+
+    }
+
+
+    const movedFile =
+        this.files.splice(
+            fromIndex,
+            1
+        )[0];
+
+
+    this.files.splice(
+        toIndex,
+        0,
+        movedFile
+    );
+
+
+    this.files.forEach(
+        (file, index) => {
+
+            file.manualOrder =
+                index;
+
+        }
+    );
+
+
+
+    this.draggedFileId =
+        null;
+
+},
+
+
+persistFileOrder() {
+
+    if (!this.db) {
+
+        return Promise.resolve();
+
+    }
+
+
+    return Promise.all(
+
+        this.files.map(
+            file =>
+                this.putFileToDB(
+                    file
+                )
+        )
+
+    );
+
+},
+
+
+putFileToDB(file) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const transaction =
+                this.db.transaction(
+                    this.storeName,
+                    "readwrite"
+                );
+
+
+            const store =
+                transaction.objectStore(
+                    this.storeName
+                );
+
+
+            const request =
+                store.put(file);
+
+
+            request.onsuccess =
+                () => resolve();
+
+
+            request.onerror =
+                () =>
+                    reject(
+                        request.error
+                    );
+
+        }
+    );
+
+},
 
         /* =====================================
            FILE ICON

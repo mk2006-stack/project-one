@@ -630,6 +630,24 @@
 
     </button>
 
+    <!-- REORDER -->
+    <button
+    type="button"
+    class="files-reorder-btn"
+    :class="{ active: reorderMode }"
+    @click="toggleReorderMode()"
+    title="Reorder files"
+>
+    <i class="material-icons">swap_vert</i>
+
+    <span
+        x-text="
+            reorderMode
+                ? 'Done'
+                : 'Edit'
+        "
+    ></span>
+    </button>
 
     <!-- UPLOAD -->
     <button
@@ -777,7 +795,37 @@
                     :key="file.id"
                 >
 
-                    <article class="file-row">
+                    <article
+                        class="file-row"
+                        :class="{ 'reorder-mode': reorderMode }"
+                        :draggable="reorderMode"
+                    
+                        @dragstart="
+                            dragStartFile(
+                                file,
+                                $event
+                            )
+                        "
+                    
+                        @dragover="
+                            dragOverFile($event)
+                        "
+                    
+                        @dragleave="
+                            dragLeaveFile($event)
+                        "
+                    
+                        @drop="
+                            dropFile(
+                                file,
+                                $event
+                            )
+                        "
+                    
+                        @dragend="
+                            dragEndFile($event)
+                    "
+                    >
 
 
                         <!-- NAME -->
@@ -935,7 +983,37 @@
                     :key="file.id"
                 >
 
-                    <article class="file-card">
+                    <article
+                        class="file-card"
+                        :class="{ 'reorder-mode': reorderMode }"
+                        :draggable="reorderMode"
+                    
+                        @dragstart="
+                            dragStartFile(
+                                file,
+                                $event
+                            )
+                        "
+                    
+                        @dragover="
+                            dragOverFile($event)
+                        "
+                    
+                        @dragleave="
+                            dragLeaveFile($event)
+                        "
+                    
+                        @drop="
+                            dropFile(
+                                file,
+                                $event
+                            )
+                        "
+                    
+                        @dragend="
+                            dragEndFile($event)
+                    "
+                    >
 
 
                         <!-- CARD HEADER -->

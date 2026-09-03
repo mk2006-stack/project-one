@@ -8,6 +8,9 @@ document.addEventListener("alpine:init", () => {
         showMoreCategories: false,
         sortOrder: "newest",
 
+        reorderMode: false,
+        draggedImageId: null,
+
 
         viewMode: "grid",
 
@@ -452,16 +455,27 @@ async init() {
 
 
             // SORT
-
-            result.sort((a, b) => {
-
-                return this.sortOrder === "newest"
-
-                    ? b.id - a.id
-
-                    : a.id - b.id;
-
-            });
+            
+            if (this.reorderMode || this.sortOrder === "manual") {
+            
+                result.sort((a, b) =>
+                    (a.manualOrder ?? a.id) -
+                    (b.manualOrder ?? b.id)
+                );
+            
+            } else {
+            
+                result.sort((a, b) => {
+            
+                    return this.sortOrder === "newest"
+            
+                        ? b.id - a.id
+            
+                        : a.id - b.id;
+            
+                });
+            
+            }
 
 
             return result;
@@ -493,6 +507,221 @@ async init() {
 
         },
 
+// =========================
+// IMAGE REORDER
+// =========================
+
+async toggleReorderMode() {
+
+    this.reorderMode =
+        !this.reorderMode;
+
+
+    if (!this.reorderMode) {
+
+        await this.persistImageOrder();
+
+        this.sortOrder = "manual";
+
+        M.toast({
+
+            html:
+                "Image order saved",
+
+            classes:
+                "green"
+
+        });
+
+    } else {
+
+        M.toast({
+
+            html:
+                "You can now drag and drop images"
+
+        });
+
+    }
+
+},
+
+
+dragStartImage(image, event) {
+
+    if (!this.reorderMode) {
+        event.preventDefault();
+        return;
+    }
+
+    this.draggedImageId = image.id;
+
+    event.dataTransfer.effectAllowed = "move";
+
+    event.dataTransfer.setData(
+        "text/plain",
+        String(image.id)
+    );
+
+    event.currentTarget.classList.add(
+        "is-dragging"
+    );
+
+},
+
+
+dragEndImage(event) {
+
+    event.currentTarget.classList.remove(
+        "is-dragging"
+    );
+
+
+    document
+        .querySelectorAll(
+            ".is-drag-over"
+        )
+        .forEach(element => {
+
+            element.classList.remove(
+                "is-drag-over"
+            );
+
+        });
+
+
+    this.draggedImageId =
+        null;
+
+},
+
+
+dragOverImage(event) {
+
+    if (!this.reorderMode) {
+
+        return;
+
+    }
+
+
+    event.preventDefault();
+
+
+    event.dataTransfer.dropEffect =
+        "move";
+
+
+    event.currentTarget.classList.add(
+        "is-drag-over"
+    );
+
+},
+
+
+dragLeaveImage(event) {
+
+    event.currentTarget.classList.remove(
+        "is-drag-over"
+    );
+
+},
+
+
+async dropImage(targetImage, event) {
+
+    if (!this.reorderMode) {
+        return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    event.currentTarget.classList.remove(
+        "is-drag-over"
+    );
+
+    const draggedId =
+        this.draggedImageId ||
+        event.dataTransfer.getData(
+            "text/plain"
+        );
+
+    if (!draggedId) {
+        return;
+    }
+
+    if (
+        String(draggedId) ===
+        String(targetImage.id)
+    ) {
+        return;
+    }
+
+    const fromIndex =
+        this.images.findIndex(
+            image =>
+                String(image.id) ===
+                String(draggedId)
+        );
+
+    const toIndex =
+        this.images.findIndex(
+            image =>
+                String(image.id) ===
+                String(targetImage.id)
+        );
+
+    if (
+        fromIndex === -1 ||
+        toIndex === -1
+    ) {
+        return;
+    }
+
+    const movedImage =
+        this.images.splice(
+            fromIndex,
+            1
+        )[0];
+
+    this.images.splice(
+        toIndex,
+        0,
+        movedImage
+    );
+
+    /*
+     * ترتیب دستی جدید
+     */
+    this.images.forEach(
+        (image, index) => {
+            image.manualOrder = index;
+        }
+    );
+
+    /*
+     * ذخیره
+     */
+
+    this.draggedImageId = null;
+
+},
+
+
+async persistImageOrder() {
+
+    for (
+        const image of this.images
+    ) {
+
+        await this.saveImage(
+            image
+        );
+
+    }
+
+},
 
         // =========================
         // PREVIEW

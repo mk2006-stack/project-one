@@ -2659,3 +2659,55 @@ html[data-theme="dark"] .files-list .file-date {
     font-weight: 650 !important;
 }
 
+/* ================================
+   FILE REORDER
+================================ */
+
+.files-reorder-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 44px;
+    padding: 0 14px;
+
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+
+    background: #fff;
+    color: #555;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.files-reorder-btn.active {
+    background: #212121;
+    color: #fff;
+    border-color: #212121;
+}
+
+.file-row.reorder-mode,
+.file-card.reorder-mode {
+    cursor: grab;
+    user-select: none;
+}
+
+.file-row.reorder-mode:active,
+.file-card.reorder-mode:active {
+    cursor: grabbing;
+}
+
+.file-row.is-dragging,
+.file-card.is-dragging {
+    opacity: .45;
+    transform: scale(.99);
+}
+
+.file-row.is-drag-over,
+.file-card.is-drag-over {
+    outline: 2px dashed #212121;
+    outline-offset: 4px;
+}

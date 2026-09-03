@@ -274,6 +274,35 @@
               <span x-text="sortOrder === 'newest' ? 'Newest' : 'Oldest'"></span>
                </button>
 
+            <!-- REORDER -->
+            
+            <button
+                type="button"
+                class="images-reorder-btn"
+            
+                :class="{
+                    'active': reorderMode
+                }"
+            
+                @click="toggleReorderMode()"
+            
+                title="Reorder images"
+            >
+            
+                <i class="material-icons">
+                    swap_vert
+                </i>
+            
+                <span
+                    x-text="
+                        reorderMode
+                            ? 'Done'
+                            : 'Edit'
+                    "
+                ></span>
+            
+            </button>
+
             <!-- UPload -->
           <button
              type="button"
@@ -337,11 +366,48 @@
     </div>
          
     <!--============ IMAGE GRID =============-->
- <div class="images-grid":class="{'images-masonry': viewMode === 'masonry'}">
+ <div
+    class="images-grid"
+    :class="{ 'images-masonry': viewMode === 'masonry' }"
+>
 
     <template x-for="image in filteredImages" :key="image.id">
 
-        <article class="image-card">
+        <article
+            class="image-card"
+        
+            :class="{
+                'reorder-mode': reorderMode
+            }"
+        
+            :draggable="reorderMode"
+        
+            @dragstart="
+                dragStartImage(
+                    image,
+                    $event
+                )
+            "
+        
+            @dragover="
+                dragOverImage($event)
+            "
+        
+            @dragleave="
+                dragLeaveImage($event)
+            "
+        
+            @drop="
+                dropImage(
+                    image,
+                    $event
+                )
+            "
+        
+            @dragend="
+                dragEndImage($event)
+            "
+        >
 
             <!-- IMAGE -->
             <div class="image-preview">
@@ -349,6 +415,8 @@
                 <img
                     :src="image.url"
                     :alt="image.name"
+                    draggable="false"
+                    @dragstart.prevent
                 >
 
                 <div class="image-overlay">

@@ -2120,7 +2120,7 @@ html.devora-compact-navigation
     .sidenav {
 
     width:
-        220px !important;
+        360px !important;
 
 }
 
@@ -3271,15 +3271,16 @@ html[data-accent] .feedback-avatar {
 ========================================================= */
 
 .sidenav {
-    width: 300px !important;
-    max-width: 85vw !important;
+    width: 360px !important;
+    max-width: 90vw !important;
 }
 
 
 /* Profile header */
 
 .sidenav .user-view {
-    min-height: 205px !important;
+    min-height: 180px !important;
+    height: 180px !important;
 
     padding:
         32px 20px 20px 20px !important;
@@ -4452,4 +4453,54 @@ html[data-accent="teal"] .hero-section {
         #26a69a,
         #00897b
     ) !important;
+}
+
+/* =========================================================
+   RESPONSIVE SIDENAV
+   ========================================================= */
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .sidenav {
+        width: 360px !important;
+        max-width: 85vw !important;
+    }
+
+    html.devora-compact-navigation .sidenav {
+        width: 360px !important;
+    }
+
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .sidenav {
+        width: 250px !important;
+        max-width: 82vw !important;
+    }
+
+    html.devora-compact-navigation .sidenav {
+        width: 295px !important;
+        max-width: 82vw !important;
+    }
+
+}
+
+
+/* Small phones */
+@media (max-width: 380px) {
+
+    .sidenav {
+        width: 130px !important;
+        max-width: 80vw !important;
+    }
+
+    html.devora-compact-navigation .sidenav {
+        width: 130px !important;
+        max-width: 80vw !important;
+    }
+
 }

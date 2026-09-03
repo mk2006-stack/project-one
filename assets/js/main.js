@@ -125,6 +125,98 @@
 
     }
 
+    function applyProfileToSidenav() {
+
+    let settings = null;
+
+    try {
+
+        settings = JSON.parse(
+            localStorage.getItem(
+                SETTINGS_KEY
+            ) || "{}"
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Devora: unable to load profile.",
+            error
+        );
+
+        return;
+    }
+
+
+    const profile =
+        settings.profile || {};
+
+
+    const name =
+        profile.name ||
+        "Devora User";
+
+
+    const email =
+        profile.email ||
+        "user@devora.com";
+
+
+    const avatar =
+        profile.avatar ||
+        "assets/images/Avatar.jpg";
+
+
+    document
+        .querySelectorAll(
+            ".sidenav .user-view"
+        )
+        .forEach(userView => {
+
+            const nameElement =
+                userView.querySelector(
+                    ".name"
+                );
+
+
+            const emailElement =
+                userView.querySelector(
+                    ".email"
+                );
+
+
+            const avatarElement =
+                userView.querySelector(
+                    ".circle"
+                );
+
+
+            if (nameElement) {
+
+                nameElement.textContent =
+                    name;
+
+            }
+
+
+            if (emailElement) {
+
+                emailElement.textContent =
+                    email;
+
+            }
+
+
+            if (avatarElement) {
+
+                avatarElement.src =
+                    avatar;
+
+            }
+
+        });
+
+}
 
     /* =====================================================
        MOBILE SIDENAV
@@ -455,6 +547,8 @@
         applyImageSettings(settings);
 
         applyArticleSettings(settings);
+
+        applyProfileToSidenav();
 
     }
 
