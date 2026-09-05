@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/materialize/css/materialize.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/util.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="assets/css/utility.css"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+    >
+
+    <title>Devora — Activity</title>
+
+</head>
+
+
+<body
+    x-data="activityData()"
+    x-init="init()"
+>
+
+
+    <!-- =====================================================
+         SAME MOBILE SIDENAV
+    ====================================================== -->
+
+    <ul class="sidenav" id="mobile-demo">
+
+        <li>
+
+            <div class="user-view">
+
+                <div class="background">
+
+                    <img
+                        src="assets/images/Background.jpeg"
+                        class="w-full"
+                    >
+
+                </div>
+
+                <a>
+                    <img
+                        class="circle"
+                        src="assets/images/Avatar.jpg"
+                    >
+                </a>
+
+                <a>
+                    <span class="white-text name">
+                        mohammad
+                    </span>
+                </a>
+
+                <a>
+                    <span class="white-text email">
+                        mohammad@gmail.com
+                    </span>
+                </a>
+
+            </div>
+
+        </li>
+
+
+        <li>
+
+            <a href="status.html">
+
+                <i class="material-icons right sidenav_link_icon">
+                    assessment
+                </i>
+
+                Status
+
+            </a>
+
+        </li>
+
+
+        <li>
+
+            <a href="activity.html">
+
+                <i class="material-icons right sidenav_link_icon">
+                    history
+                </i>
+
+                Activity
+
+            </a>
+
+        </li>
+
+
+        <li>
+            <div class="divider"></div>
+        </li>
+
+
+        <li>
+            <a class="subheader">
+                pages
+            </a>
+        </li>
+
+
+        <li>
+            <a href="index.html">
+
+                <i class="material-icons right sidenav_link_icon">
+                    home
+                </i>
+
+                Home
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="user.html">
+
+                <i class="material-icons right sidenav_link_icon">
+                    people
+                </i>
+
+                User Management
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="images.html">
+
+                <i class="material-icons right sidenav_link_icon">
+                    image
+                </i>
+
+                Images
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="articles.html">
+
+                <i class="material-icons right sidenav_link_icon">
+                    article
+                </i>
+
+                Articles
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="files.html">
+
+                <i class="material-icons right sidenav_link_icon">
+                    folder
+                </i>
+
+                Files
+
+            </a>
+        </li>
+
+
+        <li>
+            <a href="settings.html">
+
+                <i class="material-icons right sidenav_link_icon">
+                    settings
+                </i>
+
+                Settings
+
+            </a>
+        </li>
+
+    </ul>
+
+
+    <!-- =====================================================
+         PAGE
+    ====================================================== -->
+
+    <main class="utility-page utility-activity-page">
+
+
+        <!-- HERO -->
+
+        <section class="hero-section utility-hero">
+
+            <div class="hero-content">
+
+                <span class="hero-badge">
+
+                    <i class="material-icons">
+                        history
+                    </i>
+
+                    ACTIVITY
+
+                </span>
+
+
+                <h1>
+                    Recent Activity
+                </h1>
+
+
+                <p>
+                    Keep track of what's happening across
+                    your Devora workspace.
+                </p>
+
+            </div>
+
+
+            <div class="utility-hero-visual">
+
+                <div class="utility-hero-icon">
+
+                    <i class="material-icons">
+                        timeline
+                    </i>
+
+                </div>
+
+
+                <span>
+                    LIVE TIMELINE
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ACTIVITY SUMMARY
+        ================================================== -->
+
+        <section class="utility-section">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        ACTIVITY
+                    </span>
+
+                    <h2>
+                        Workspace Summary
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="activity-summary-grid">
+
+
+                <div class="activity-summary-card">
+
+                    <div class="activity-summary-icon">
+                        <i class="material-icons">
+                            bolt
+                        </i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            EVENTS
+                        </span>
+
+                        <strong
+                            x-text="activities.length"
+                        >
+                            0
+                        </strong>
+
+                        <p>
+                            Recent system events
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity-summary-card">
+
+                    <div class="activity-summary-icon">
+                        <i class="material-icons">
+                            schedule
+                        </i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            LATEST
+                        </span>
+
+                        <strong>
+                            Now
+                        </strong>
+
+                        <p>
+                            Most recent activity
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity-summary-card">
+
+                    <div class="activity-summary-icon">
+                        <i class="material-icons">
+                            security
+                        </i>
+                    </div>
+
+                    <div>
+
+                        <span>
+                            SYSTEM
+                        </span>
+
+                        <strong>
+                            Active
+                        </strong>
+
+                        <p>
+                            Monitoring is enabled
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TIMELINE
+        ================================================== -->
+
+        <section class="utility-section activity-timeline-section">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span>
+                        TIMELINE
+                    </span>
+
+                    <h2>
+                        Recent Events
+                    </h2>
+
+                </div>
+
+
+                <button
+                    class="activity-refresh"
+                    type="button"
+                    @click="refresh()"
+                >
+
+                    <i class="material-icons">
+                        refresh
+                    </i>
+
+                    Refresh
+
+                </button>
+
+            </div>
+
+
+            <div class="activity-timeline">
+
+
+                <template
+                    x-for="(activity, index) in activities"
+                    :key="activity.id"
+                >
+
+                    <article class="activity-item">
+
+
+                        <div class="activity-line">
+
+                            <div
+                                class="activity-dot"
+                                :class="'activity-' + activity.type"
+                            >
+
+                                <i
+                                    class="material-icons"
+                                    x-text="activity.icon"
+                                ></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity-content">
+
+
+                            <div class="activity-card">
+
+
+                                <div class="activity-card-top">
+
+                                    <div>
+
+                                        <span
+                                            class="activity-category"
+                                            x-text="activity.category"
+                                        ></span>
+
+                                        <h3
+                                            x-text="activity.title"
+                                        ></h3>
+
+                                    </div>
+
+
+                                    <time
+                                        x-text="activity.time"
+                                    ></time>
+
+                                </div>
+
+
+                                <p
+                                    x-text="activity.description"
+                                ></p>
+
+
+                                <div
+                                    class="activity-meta"
+                                    x-show="activity.meta"
+                                >
+
+                                    <i class="material-icons">
+                                        info
+                                    </i>
+
+                                    <span
+                                        x-text="activity.meta"
+                                    ></span>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </template>
+
+
+                <div
+                    class="activity-empty"
+                    x-show="activities.length === 0"
+                    x-cloak
+                >
+
+                    <i class="material-icons">
+                        history_toggle_off
+                    </i>
+
+                    <h3>
+                        No activity yet
+                    </h3>
+
+                    <p>
+                        Activity will appear here as
+                        events occur.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="assets/materialize/js/materialize.min.js"></script>
+
+    <script src="assets/js/alpine.js"></script>
+
+    <script src="assets/js/axios.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
+    <script src="assets/js/utility.js"></script>
+
+</body>
+</html>

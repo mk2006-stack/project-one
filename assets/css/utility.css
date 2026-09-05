@@ -1,0 +1,1692 @@
+/* =========================================================
+   DEVORA
+   STATUS + ACTIVITY
+========================================================= */
+
+
+/* =========================================================
+   PAGE CONTAINER
+========================================================= */
+
+.utility-page {
+
+    width: 100%;
+
+    max-width: 1450px;
+
+    margin: 0 auto;
+
+    padding: 48px 32px 90px;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.utility-hero {
+
+    min-height: 330px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 55px 65px;
+
+}
+
+
+/*
+   Decorative glow
+*/
+
+.utility-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+
+    height: 420px;
+
+    right: -130px;
+
+    bottom: -190px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.10);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.utility-hero-visual {
+
+    position: relative;
+
+    z-index: 2;
+
+    min-width: 250px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+}
+
+
+.utility-hero-icon {
+
+    width: 150px;
+
+    height: 150px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 40px;
+
+    background: rgba(255,255,255,.13);
+
+    border: 1px solid rgba(255,255,255,.22);
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.utility-hero-icon i {
+
+    font-size: 78px;
+
+    color: #fff;
+
+}
+
+
+.utility-hero-visual > span {
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #fff;
+
+    opacity: .85;
+
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.utility-section {
+
+    margin-top: 65px;
+
+}
+
+
+.utility-section .section-title {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    margin-bottom: 28px;
+
+}
+
+
+/* =========================================================
+   STATUS OVERVIEW
+========================================================= */
+
+.status-overview-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 28px;
+
+}
+
+
+.utility-stat-card {
+
+    min-height: 190px;
+
+    padding: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    border-radius: 24px;
+
+    background: var(--devora-surface, #fff);
+
+    border: 1px solid
+        var(--devora-border, #eee);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.07);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+.utility-stat-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.11);
+
+}
+
+
+.utility-stat-icon {
+
+    width: 72px;
+
+    height: 72px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background:
+        var(--devora-accent-light);
+
+}
+
+
+.utility-stat-icon i {
+
+    font-size: 34px;
+
+    color:
+        var(--devora-accent);
+
+}
+
+
+.utility-stat-content {
+
+    min-width: 0;
+
+}
+
+
+.utility-stat-content > span {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+.utility-stat-content strong {
+
+    display: block;
+
+    font-size: 38px;
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    color:
+        var(--devora-text, #212121);
+
+}
+
+
+.utility-stat-content p {
+
+    margin: 7px 0 0;
+
+    font-size: 13px;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+/* =========================================================
+   HEALTH
+========================================================= */
+
+.health-card {
+
+    padding: 34px;
+
+    border-radius: 26px;
+
+    background:
+        var(--devora-surface, #fff);
+
+    border:
+        1px solid
+        var(--devora-border, #eee);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.07);
+
+}
+
+
+.health-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 28px;
+
+    border-bottom:
+        1px solid
+        var(--devora-border, #eee);
+
+}
+
+
+.health-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+.health-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        var(--devora-accent-light);
+
+}
+
+
+.health-icon i {
+
+    color:
+        var(--devora-accent);
+
+    font-size: 30px;
+
+}
+
+
+.health-title h3 {
+
+    margin: 0;
+
+    font-size: 19px;
+
+    font-weight: 750;
+
+}
+
+
+.health-title p {
+
+    margin: 5px 0 0;
+
+    font-size: 13px;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+.health-badge {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 14px;
+
+    border-radius: 50px;
+
+    background: var(--devora-accent-light);
+
+    color: var(--devora-accent);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+.health-badge span {
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background:
+        var(--devora-accent);
+
+}
+
+
+.health-items {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 0;
+
+}
+
+
+.health-item {
+
+    min-height: 90px;
+
+    padding: 25px 25px 5px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    border-right:
+        1px solid
+        var(--devora-border, #eee);
+
+}
+
+
+.health-item:last-child {
+
+    border-right: 0;
+
+}
+
+
+.health-item > div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+}
+
+
+.health-item i {
+
+    font-size: 20px;
+
+    color:
+        var(--devora-accent);
+
+}
+
+
+.health-item span {
+
+    font-size: 13px;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+.health-item strong {
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.utility-actions-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 22px;
+
+}
+
+
+.utility-action-card {
+
+    min-height: 125px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    background:
+        var(--devora-surface, #fff);
+
+    border:
+        1px solid
+        var(--devora-border, #eee);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
+
+    color:
+        var(--devora-text, #212121);
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease;
+
+}
+
+
+.utility-action-card:hover {
+
+    transform: translateY(-4px);
+
+    border-color:
+        var(--devora-accent);
+
+}
+
+
+.utility-action-card > i:first-child {
+
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        var(--devora-accent-light);
+
+    color:
+        var(--devora-accent);
+
+    font-size: 27px;
+
+}
+
+
+.utility-action-card div {
+
+    flex: 1;
+
+}
+
+
+.utility-action-card strong {
+
+    display: block;
+
+    font-size: 16px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.utility-action-card div span {
+
+    display: block;
+
+    font-size: 12px;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+.utility-action-card .arrow {
+
+    color:
+        var(--devora-accent);
+
+    font-size: 21px;
+
+}
+
+
+/* =========================================================
+   ACTIVITY SUMMARY
+========================================================= */
+
+.activity-summary-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 28px;
+
+}
+
+
+.activity-summary-card {
+
+    min-height: 165px;
+
+    padding: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    border-radius: 23px;
+
+    background:
+        var(--devora-surface, #fff);
+
+    border:
+        1px solid
+        var(--devora-border, #eee);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.07);
+
+}
+
+
+.activity-summary-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background:
+        var(--devora-accent-light);
+
+}
+
+
+.activity-summary-icon i {
+
+    font-size: 29px;
+
+    color:
+        var(--devora-accent);
+
+}
+
+
+.activity-summary-card span {
+
+    display: block;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    font-weight: 800;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+.activity-summary-card strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 28px;
+
+}
+
+
+.activity-summary-card p {
+
+    margin: 5px 0 0;
+
+    font-size: 12px;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+/* =========================================================
+   ACTIVITY HEADER BUTTON
+========================================================= */
+
+.activity-refresh {
+
+    height: 42px;
+
+    padding: 0 16px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    border: 1px solid
+        var(--devora-border, #eee);
+
+    border-radius: 12px;
+
+    background:
+        var(--devora-surface, #fff);
+
+    color:
+        var(--devora-text, #212121);
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    transition: .2s ease;
+
+}
+
+
+.activity-refresh:hover {
+
+    border-color:
+        var(--devora-accent);
+
+    color:
+        var(--devora-accent);
+
+}
+
+
+.activity-refresh i {
+
+    font-size: 19px;
+
+}
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.activity-timeline {
+
+    position: relative;
+
+}
+
+
+.activity-item {
+
+    display: grid;
+
+    grid-template-columns: 75px 1fr;
+
+    position: relative;
+
+}
+
+
+.activity-line {
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+.activity-line::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 60px;
+
+    bottom: -30px;
+
+    width: 2px;
+
+    background:
+        var(--devora-border, #eee);
+
+}
+
+
+.activity-item:last-child
+.activity-line::after {
+
+    display: none;
+
+}
+
+
+.activity-dot {
+
+    width: 52px;
+
+    height: 52px;
+
+    margin-top: 10px;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background:
+        var(--devora-accent-light);
+
+    color:
+        var(--devora-accent);
+
+}
+
+
+.activity-dot i {
+
+    font-size: 24px;
+
+}
+
+
+/* =========================================================
+   ACTIVITY CARD
+========================================================= */
+
+.activity-content {
+
+    padding-bottom: 30px;
+
+}
+
+
+.activity-card {
+
+    padding: 27px 30px;
+
+    border-radius: 21px;
+
+    background:
+        var(--devora-surface, #fff);
+
+    border:
+        1px solid
+        var(--devora-border, #eee);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
+
+}
+
+
+.activity-card-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+}
+
+
+.activity-category {
+
+    display: inline-block;
+
+    margin-bottom: 5px;
+
+    color:
+        var(--devora-accent);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.activity-card h3 {
+
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 750;
+
+}
+
+
+.activity-card time {
+
+    flex-shrink: 0;
+
+    font-size: 11px;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+.activity-card > p {
+
+    margin: 12px 0 0;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+.activity-meta {
+
+    margin-top: 17px;
+
+    padding-top: 13px;
+
+    border-top:
+        1px solid
+        var(--devora-border, #eee);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 11px;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+.activity-meta i {
+
+    font-size: 17px;
+
+    color:
+        var(--devora-accent);
+
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.activity-empty {
+
+    min-height: 250px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    text-align: center;
+
+    border-radius: 22px;
+
+    border:
+        1px dashed
+        var(--devora-border, #ddd);
+
+}
+
+
+.activity-empty i {
+
+    font-size: 45px;
+
+    color:
+        var(--devora-accent);
+
+}
+
+
+.activity-empty h3 {
+
+    margin: 15px 0 5px;
+
+}
+
+
+.activity-empty p {
+
+    margin: 0;
+
+    color:
+        var(--devora-text-secondary, #757575);
+
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+html[data-theme="dark"]
+.utility-stat-card,
+
+html[data-theme="dark"]
+.health-card,
+
+html[data-theme="dark"]
+.utility-action-card,
+
+html[data-theme="dark"]
+.activity-summary-card,
+
+html[data-theme="dark"]
+.activity-card,
+
+html[data-theme="dark"]
+.activity-refresh {
+
+    background: #1e1e1e !important;
+
+    border-color: #333 !important;
+
+    color: #f5f5f5 !important;
+
+}
+
+
+html[data-theme="dark"]
+.utility-stat-content strong,
+
+html[data-theme="dark"]
+.activity-summary-card strong,
+
+html[data-theme="dark"]
+.activity-card h3,
+
+html[data-theme="dark"]
+.health-title h3,
+
+html[data-theme="dark"]
+.utility-action-card strong {
+
+    color: #f5f5f5 !important;
+
+}
+
+
+html[data-theme="dark"]
+.utility-stat-content p,
+
+html[data-theme="dark"]
+.activity-summary-card p,
+
+html[data-theme="dark"]
+.activity-card > p,
+
+html[data-theme="dark"]
+.activity-card time,
+
+html[data-theme="dark"]
+.activity-meta,
+
+html[data-theme="dark"]
+.health-title p,
+
+html[data-theme="dark"]
+.health-item span,
+
+html[data-theme="dark"]
+.utility-action-card div span {
+
+    color: #bdbdbd !important;
+
+}
+
+
+html[data-theme="dark"]
+.health-header,
+
+html[data-theme="dark"]
+.activity-meta {
+
+    border-color: #333 !important;
+
+}
+
+
+html[data-theme="dark"]
+.health-item {
+
+    border-color: #333 !important;
+
+}
+
+
+html[data-theme="dark"]
+.activity-line::after {
+
+    background: #333 !important;
+
+}
+
+
+html[data-theme="dark"]
+.activity-refresh {
+
+    color: #eee !important;
+
+}
+
+
+/* =========================================================
+   STATUS DESKTOP HIDE
+   IMPORTANT:
+   Status ONLY exists on mobile + tablet.
+========================================================= */
+
+@media (min-width: 993px) {
+
+    .utility-status-page {
+
+        display: none !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+   601 - 992
+========================================================= */
+
+@media
+(min-width: 601px)
+and
+(max-width: 992px) {
+
+    .utility-page {
+
+        padding:
+            35px 25px 70px;
+
+    }
+
+
+    .utility-hero {
+
+        min-height: 300px;
+
+        padding: 45px;
+
+    }
+
+
+    .utility-hero-visual {
+
+        min-width: 190px;
+
+    }
+
+
+    .utility-hero-icon {
+
+        width: 120px;
+
+        height: 120px;
+
+    }
+
+
+    .utility-hero-icon i {
+
+        font-size: 60px;
+
+    }
+
+
+    .status-overview-grid,
+
+    .activity-summary-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .utility-stat-card {
+
+        min-height: 170px;
+
+    }
+
+
+    .health-items {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .health-item {
+
+        border-right: 0;
+
+        border-bottom:
+            1px solid
+            var(--devora-border, #eee);
+
+    }
+
+
+    .health-item:last-child {
+
+        border-bottom: 0;
+
+    }
+
+
+    .utility-actions-grid {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .utility-page {
+
+        padding:
+            25px 15px 55px;
+
+    }
+
+
+    .utility-hero {
+
+        min-height: 330px;
+
+        padding: 30px 25px;
+
+        align-items: flex-start;
+
+        border-radius: 20px;
+
+    }
+
+
+    .utility-hero .hero-content {
+
+        max-width: 100%;
+
+    }
+
+
+    .utility-hero .hero-content h1 {
+
+        font-size: 28px;
+
+    }
+
+
+    .utility-hero .hero-content p {
+
+        font-size: 14px;
+
+    }
+
+
+    .utility-hero-visual {
+
+        position: absolute;
+
+        right: 22px;
+
+        bottom: 22px;
+
+        min-width: auto;
+
+        opacity: .55;
+
+    }
+
+
+    .utility-hero-icon {
+
+        width: 80px;
+
+        height: 80px;
+
+        border-radius: 22px;
+
+    }
+
+
+    .utility-hero-icon i {
+
+        font-size: 42px;
+
+    }
+
+
+    .utility-hero-visual > span {
+
+        display: none;
+
+    }
+
+
+    .utility-section {
+
+        margin-top: 40px;
+
+    }
+
+
+    .utility-section .section-title {
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .status-overview-grid,
+
+    .activity-summary-grid,
+
+    .utility-actions-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .utility-stat-card {
+
+        min-height: 145px;
+
+        padding: 23px;
+
+        border-radius: 19px;
+
+    }
+
+
+    .utility-stat-icon {
+
+        width: 58px;
+
+        height: 58px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .utility-stat-icon i {
+
+        font-size: 28px;
+
+    }
+
+
+    .utility-stat-content strong {
+
+        font-size: 31px;
+
+    }
+
+
+    .health-card {
+
+        padding: 23px;
+
+        border-radius: 20px;
+
+    }
+
+
+    .health-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .health-items {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .health-item {
+
+        padding: 20px 0;
+
+        border-right: 0;
+
+        border-bottom:
+            1px solid
+            var(--devora-border, #eee);
+
+    }
+
+
+    .health-item:last-child {
+
+        border-bottom: 0;
+
+    }
+
+
+    .utility-action-card {
+
+        min-height: 100px;
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .activity-summary-card {
+
+        min-height: 130px;
+
+        padding: 22px;
+
+        border-radius: 19px;
+
+    }
+
+
+    .activity-summary-icon {
+
+        width: 55px;
+
+        height: 55px;
+
+    }
+
+
+    .activity-summary-card strong {
+
+        font-size: 24px;
+
+    }
+
+
+    .activity-timeline-section
+    .section-title {
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+
+    }
+
+
+    .activity-item {
+
+        grid-template-columns: 48px 1fr;
+
+    }
+
+
+    .activity-dot {
+
+        width: 42px;
+
+        height: 42px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .activity-dot i {
+
+        font-size: 20px;
+
+    }
+
+
+    .activity-line::after {
+
+        top: 52px;
+
+    }
+
+
+    .activity-card {
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+    }
+
+
+    .activity-card-top {
+
+        flex-direction: column;
+
+        gap: 7px;
+
+    }
+
+
+    .activity-card h3 {
+
+        font-size: 16px;
+
+    }
+
+
+    .activity-card > p {
+
+        font-size: 12px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .utility-page {
+
+        padding-left: 12px;
+
+        padding-right: 12px;
+
+    }
+
+
+    .utility-hero {
+
+        padding:
+            25px 20px;
+
+    }
+
+
+    .utility-hero .hero-content h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .utility-stat-card {
+
+        gap: 16px;
+
+    }
+
+
+    .utility-stat-content strong {
+
+        font-size: 28px;
+
+    }
+
+}

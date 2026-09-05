@@ -125,13 +125,13 @@
 
     }
 
-    function applyProfileToSidenav() {
+function applyProfileToSidenav() {
 
-    let settings = null;
+    let savedSettings = {};
 
     try {
 
-        settings = JSON.parse(
+        savedSettings = JSON.parse(
             localStorage.getItem(
                 SETTINGS_KEY
             ) || "{}"
@@ -145,21 +145,22 @@
         );
 
         return;
+
     }
 
 
     const profile =
-        settings.profile || {};
+        savedSettings.profile || {};
 
 
     const name =
         profile.name ||
-        "Devora User";
+        "mohammad";
 
 
     const email =
         profile.email ||
-        "user@devora.com";
+        "mohammad@gmail.com";
 
 
     const avatar =

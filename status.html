@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="assets/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/util.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/utility.css">
+
+    <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+    >
+
+    <title>Devora — Status</title>
+</head>
+
+<body x-data="statusData()" x-init="init()">
+
+    <!-- =====================================================
+         SAME MOBILE SIDENAV
+         DO NOT ADD ANOTHER NAVBAR
+    ====================================================== -->
+
+    <ul class="sidenav" id="mobile-demo">
+
+        <li>
+            <div class="user-view">
+
+                <div class="background">
+                    <img
+                        src="assets/images/Background.jpeg"
+                        class="w-full"
+                    >
+                </div>
+
+                <a>
+                    <img
+                        class="circle"
+                        src="assets/images/Avatar.jpg"
+                    >
+                </a>
+
+                <a>
+                    <span class="white-text name">
+                        mohammad
+                    </span>
+                </a>
+
+                <a>
+                    <span class="white-text email">
+                        mohammad@gmail.com
+                    </span>
+                </a>
+
+            </div>
+        </li>
+
+        <li>
+            <a href="status.html">
+                <i class="material-icons right sidenav_link_icon">
+                    assessment
+                </i>
+                Status
+            </a>
+        </li>
+
+        <li>
+            <a href="activity.html">
+                <i class="material-icons right sidenav_link_icon">
+                    history
+                </i>
+                Activity
+            </a>
+        </li>
+
+        <li>
+            <div class="divider"></div>
+        </li>
+
+        <li>
+            <a class="subheader">pages</a>
+        </li>
+
+        <li>
+            <a href="index.html">
+                <i class="material-icons right sidenav_link_icon">
+                    home
+                </i>
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="user.html">
+                <i class="material-icons right sidenav_link_icon">
+                    people
+                </i>
+                User Management
+            </a>
+        </li>
+
+        <li>
+            <a href="images.html">
+                <i class="material-icons right sidenav_link_icon">
+                    image
+                </i>
+                Images
+            </a>
+        </li>
+
+        <li>
+            <a href="articles.html">
+                <i class="material-icons right sidenav_link_icon">
+                    article
+                </i>
+                Articles
+            </a>
+        </li>
+
+        <li>
+            <a href="files.html">
+                <i class="material-icons right sidenav_link_icon">
+                    folder
+                </i>
+                Files
+            </a>
+        </li>
+
+        <li>
+            <a href="settings.html">
+                <i class="material-icons right sidenav_link_icon">
+                    settings
+                </i>
+                Settings
+            </a>
+        </li>
+
+    </ul>
+
+
+    <!-- =====================================================
+         PAGE
+    ====================================================== -->
+
+    <main class="utility-page utility-status-page">
+
+        <!-- HERO -->
+
+        <section class="hero-section utility-hero">
+
+            <div class="hero-content">
+
+                <span class="hero-badge">
+                    <i class="material-icons">
+                        assessment
+                    </i>
+
+                    SYSTEM STATUS
+                </span>
+
+                <h1>
+                    System Overview
+                </h1>
+
+                <p>
+                    Monitor your Devora resources,
+                    storage and system activity from one place.
+                </p>
+
+            </div>
+
+            <div class="utility-hero-visual">
+
+                <div class="utility-hero-icon">
+                    <i class="material-icons">
+                        monitoring
+                    </i>
+                </div>
+
+                <span>LIVE STATUS</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATUS OVERVIEW
+        ================================================== -->
+
+        <section class="utility-section">
+
+            <div class="section-title">
+
+                <div>
+                    <span>OVERVIEW</span>
+
+                    <h2>
+                        Resource Status
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="status-overview-grid">
+
+                <!-- USERS -->
+
+                <article class="utility-stat-card">
+
+                    <div class="utility-stat-icon">
+                        <i class="material-icons">
+                            people
+                        </i>
+                    </div>
+
+                    <div class="utility-stat-content">
+
+                        <span>
+                            USERS
+                        </span>
+
+                        <strong
+                            x-show="!loadingUsers"
+                            x-text="userCount"
+                        >
+                            0
+                        </strong>
+
+                        <strong
+                            x-show="loadingUsers"
+                            x-cloak
+                        >
+                            ...
+                        </strong>
+
+                        <p>
+                            Total registered users
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- IMAGES -->
+
+                <article class="utility-stat-card">
+
+                    <div class="utility-stat-icon">
+                        <i class="material-icons">
+                            image
+                        </i>
+                    </div>
+
+                    <div class="utility-stat-content">
+
+                        <span>
+                            IMAGES
+                        </span>
+
+                        <strong
+                            x-show="!loadingImages"
+                            x-text="imageCount"
+                        >
+                            0
+                        </strong>
+
+                        <strong
+                            x-show="loadingImages"
+                            x-cloak
+                        >
+                            ...
+                        </strong>
+
+                        <p>
+                            Images stored locally
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ARTICLES -->
+
+                <article class="utility-stat-card">
+
+                    <div class="utility-stat-icon">
+                        <i class="material-icons">
+                            article
+                        </i>
+                    </div>
+
+                    <div class="utility-stat-content">
+
+                        <span>
+                            ARTICLES
+                        </span>
+
+                        <strong
+                            x-show="!loadingArticles"
+                            x-text="articleCount"
+                        >
+                            0
+                        </strong>
+
+                        <strong
+                            x-show="loadingArticles"
+                            x-cloak
+                        >
+                            ...
+                        </strong>
+
+                        <p>
+                            Total articles
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SYSTEM HEALTH
+        ================================================== -->
+
+        <section class="utility-section utility-health-section">
+
+            <div class="section-title">
+
+                <div>
+                    <span>SYSTEM</span>
+
+                    <h2>
+                        System Health
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="health-card">
+
+                <div class="health-header">
+
+                    <div class="health-title">
+
+                        <div class="health-icon">
+                            <i class="material-icons">
+                                verified
+                            </i>
+                        </div>
+
+                        <div>
+                            <h3>
+                                Devora System
+                            </h3>
+
+                            <p>
+                                Current application status
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="health-badge">
+                        <span></span>
+                        Operational
+                    </div>
+
+                </div>
+
+
+                <div class="health-items">
+
+                    <div class="health-item">
+
+                        <div>
+                            <i class="material-icons">
+                                cloud_done
+                            </i>
+
+                            <span>
+                                API Connection
+                            </span>
+                        </div>
+
+                        <strong>
+                            Connected
+                        </strong>
+
+                    </div>
+
+
+                    <div class="health-item">
+
+                        <div>
+                            <i class="material-icons">
+                                storage
+                            </i>
+
+                            <span>
+                                Local Storage
+                            </span>
+                        </div>
+
+                        <strong>
+                            Available
+                        </strong>
+
+                    </div>
+
+
+                    <div class="health-item">
+
+                        <div>
+                            <i class="material-icons">
+                                photo_library
+                            </i>
+
+                            <span>
+                                Image Database
+                            </span>
+                        </div>
+
+                        <strong>
+                            Ready
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
+
+        <section class="utility-section">
+
+            <div class="section-title">
+
+                <div>
+                    <span>ACTIONS</span>
+
+                    <h2>
+                        Quick Access
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="utility-actions-grid">
+
+                <a
+                    href="user.html"
+                    class="utility-action-card"
+                >
+
+                    <i class="material-icons">
+                        people
+                    </i>
+
+                    <div>
+                        <strong>
+                            Manage Users
+                        </strong>
+
+                        <span>
+                            Open user management
+                        </span>
+                    </div>
+
+                    <i class="material-icons arrow">
+                        arrow_forward
+                    </i>
+
+                </a>
+
+
+                <a
+                    href="images.html"
+                    class="utility-action-card"
+                >
+
+                    <i class="material-icons">
+                        image
+                    </i>
+
+                    <div>
+                        <strong>
+                            Image Library
+                        </strong>
+
+                        <span>
+                            Browse stored images
+                        </span>
+                    </div>
+
+                    <i class="material-icons arrow">
+                        arrow_forward
+                    </i>
+
+                </a>
+
+
+                <a
+                    href="articles.html"
+                    class="utility-action-card"
+                >
+
+                    <i class="material-icons">
+                        article
+                    </i>
+
+                    <div>
+                        <strong>
+                            Articles
+                        </strong>
+
+                        <span>
+                            Manage your articles
+                        </span>
+                    </div>
+
+                    <i class="material-icons arrow">
+                        arrow_forward
+                    </i>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         SCRIPTS
+    ====================================================== -->
+
+    <script src="assets/materialize/js/materialize.min.js"></script>
+    <script src="assets/js/alpine.js"></script>
+    <script src="assets/js/axios.js"></script>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/utility.js"></script>
+
+</body>
+</html>

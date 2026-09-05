@@ -3266,24 +3266,29 @@ html[data-accent] .feedback-avatar {
 
 
 /* =========================================================
-   MOBILE SIDENAV
-   FIX WIDTH + PROFILE BACKGROUND
+   SIDENAV
+   RESPONSIVE PROFILE + BACKGROUND
 ========================================================= */
+
+/* =========================
+   DEFAULT / TABLET / DESKTOP
+========================= */
 
 .sidenav {
     width: 360px !important;
-    max-width: 90vw !important;
+    max-width: 360px !important;
 }
 
 
-/* Profile header */
+/* =========================
+   PROFILE HEADER
+========================= */
 
 .sidenav .user-view {
-    min-height: 180px !important;
     height: 180px !important;
+    min-height: 180px !important;
 
-    padding:
-        32px 20px 20px 20px !important;
+    padding: 18px 20px 12px 20px !important;
 
     position: relative !important;
 
@@ -3291,18 +3296,21 @@ html[data-accent] .feedback-avatar {
 }
 
 
-/* Background MUST cover entire profile block */
+/* =========================
+   PROFILE BACKGROUND
+========================= */
 
 .sidenav .user-view .background {
     position: absolute !important;
 
     top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
     left: 0 !important;
+    right: 0 !important;
 
     width: 100% !important;
-    height: 100% !important;
+    height: 150px !important;
+
+    overflow: hidden !important;
 
     z-index: 0 !important;
 }
@@ -3316,20 +3324,27 @@ html[data-accent] .feedback-avatar {
 
     object-fit: cover !important;
 
+    object-position: center center !important;
+
     display: block !important;
 }
 
 
-/* Dark overlay so profile text stays readable */
+/* =========================
+   DARK OVERLAY
+========================= */
 
 .sidenav .user-view::after {
     content: "";
 
     position: absolute;
 
-    inset: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 
-    background: rgba(0,0,0,.18);
+    background: rgba(0, 0, 0, .18);
 
     z-index: 1;
 
@@ -3337,62 +3352,96 @@ html[data-accent] .feedback-avatar {
 }
 
 
-/* Profile content above image */
+/* =========================
+   PROFILE CONTENT
+========================= */
 
-.sidenav .user-view > a,
-.sidenav .user-view > img {
+.sidenav .user-view > a {
     position: relative !important;
 
     z-index: 2 !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
 }
 
 
-/* Avatar */
+/* =========================
+   AVATAR
+========================= */
 
 .sidenav .user-view .circle {
-    width: 64px !important;
-    height: 64px !important;
+    width: 68px !important;
+    height: 68px !important;
 
     object-fit: cover !important;
 
     display: block !important;
 
-    margin-bottom: 12px !important;
+    margin: 0 0 8px 0 !important;
 }
 
 
-/* NAME */
+/* =========================
+   NAME + EMAIL
+========================= */
 
 .sidenav .user-view .name,
 .sidenav .user-view .email {
+
     display: block !important;
+
+    width: 100% !important;
+
+    max-width: 100% !important;
 
     color: #ffffff !important;
 
     text-shadow:
-        0 1px 3px rgba(0,0,0,.7) !important;
+        0 1px 3px rgba(0, 0, 0, .7) !important;
+
+    overflow: hidden !important;
+
+    text-overflow: ellipsis !important;
+
+    white-space: nowrap !important;
 }
 
 
-/* Name spacing */
+/* Name */
 
 .sidenav .user-view .name {
-    margin-top: 4px !important;
-    margin-bottom: 5px !important;
+    margin: 2px 0 3px 0 !important;
+
+    font-size: 15px !important;
+
+    line-height: 20px !important;
 }
 
 
 /* Email */
 
 .sidenav .user-view .email {
-    margin-top: 0 !important;
+    margin: 0 !important;
+
+    font-size: 13px !important;
+
+    line-height: 19px !important;
 }
 
 
-/* Sidenav links */
+/* =========================
+   SIDENAV LINKS
+========================= */
 
 .sidenav li > a {
     min-height: 48px !important;
+
     line-height: 48px !important;
 }
 
@@ -3402,6 +3451,155 @@ html[data-accent] .feedback-avatar {
 .sidenav .divider {
     margin: 8px 0 !important;
 }
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 601px) {
+
+    .sidenav {
+        width: 360px !important;
+        max-width: 360px !important;
+    }
+
+    html.devora-compact-navigation .sidenav {
+        width: 360px !important;
+        max-width: 360px !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .sidenav {
+        width: 250px !important;
+        max-width: 250px !important;
+    }
+
+    html.devora-compact-navigation .sidenav {
+        width: 250px !important;
+        max-width: 250px !important;
+    }
+
+
+    .sidenav .user-view {
+
+        height: 170px !important;
+        min-height: 170px !important;
+
+        padding:
+            14px 12px 10px 12px !important;
+    }
+
+
+    .sidenav .user-view .background {
+
+        height: 145px !important;
+    }
+
+
+    .sidenav .user-view .circle {
+
+        width: 60px !important;
+        height: 60px !important;
+
+        margin-bottom: 7px !important;
+    }
+
+
+    .sidenav .user-view .name {
+
+        font-size: 14px !important;
+
+        line-height: 19px !important;
+
+        margin-top: 2px !important;
+
+        margin-bottom: 2px !important;
+    }
+
+
+    .sidenav .user-view .email {
+
+        font-size: 12px !important;
+
+        line-height: 18px !important;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .sidenav {
+        width: 140px !important;
+        max-width: 140px !important;
+    }
+
+    html.devora-compact-navigation .sidenav {
+        width: 140px !important;
+        max-width: 140px !important;
+    }
+
+
+    .sidenav .user-view {
+
+        height: 165px !important;
+        min-height: 165px !important;
+
+        padding:
+            12px 8px 8px 8px !important;
+    }
+
+
+    .sidenav .user-view .background {
+
+        height: 138px !important;
+    }
+
+
+    .sidenav .user-view .circle {
+
+        width: 56px !important;
+        height: 56px !important;
+
+        margin-bottom: 6px !important;
+    }
+
+
+    .sidenav .user-view .name {
+
+        font-size: 12px !important;
+
+        line-height: 17px !important;
+
+        margin-top: 1px !important;
+
+        margin-bottom: 1px !important;
+    }
+
+
+    .sidenav .user-view .email {
+
+        font-size: 10px !important;
+
+        line-height: 15px !important;
+    }
+
+}
+
+
 
 
 /* =========================================================
@@ -4456,51 +4654,236 @@ html[data-accent="teal"] .hero-section {
 }
 
 /* =========================================================
-   RESPONSIVE SIDENAV
-   ========================================================= */
+   DEVORA SIDENAV - RESPONSIVE WIDTH
+========================================================= */
 
 /* Tablet */
-@media (min-width: 601px) and (max-width: 1024px) {
+@media (min-width: 601px) {
 
     .sidenav {
         width: 360px !important;
-        max-width: 85vw !important;
+        max-width: 360px !important;
     }
 
     html.devora-compact-navigation .sidenav {
         width: 360px !important;
+        max-width: 360px !important;
     }
 
 }
 
 
-/* Mobile */
-@media (max-width: 600px) {
+/* Normal mobile */
+@media (min-width: 451px) and (max-width: 600px) {
 
     .sidenav {
         width: 250px !important;
-        max-width: 82vw !important;
+        max-width: 250px !important;
     }
 
     html.devora-compact-navigation .sidenav {
-        width: 295px !important;
-        max-width: 82vw !important;
+        width: 250px !important;
+        max-width: 250px !important;
     }
 
 }
 
 
-/* Small phones */
-@media (max-width: 380px) {
+/* Small mobile */
+@media (min-width: 401px) and (max-width: 450px) {
 
     .sidenav {
-        width: 130px !important;
-        max-width: 80vw !important;
+        width: 200px !important;
+        max-width: 200px !important;
     }
 
     html.devora-compact-navigation .sidenav {
-        width: 130px !important;
-        max-width: 80vw !important;
+        width: 200px !important;
+        max-width: 200px !important;
     }
 
+}
+
+
+/* Very small phones */
+@media (max-width: 400px) {
+
+    .sidenav {
+        width: 180px !important;
+        max-width: 180px !important;
+    }
+
+    html.devora-compact-navigation .sidenav {
+        width: 180px !important;
+        max-width: 18px !important;
+    }
+
+}
+
+/* =========================================================
+   MOBILE PROFILE HEADER
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .sidenav .user-view {
+        min-height: 150px !important;
+        height: 150px !important;
+
+        padding: 18px 12px 12px 12px !important;
+
+        overflow: hidden !important;
+    }
+
+    .sidenav .user-view .background {
+    height: 150px !important;
+}
+
+
+    .sidenav .user-view .circle {
+        width: 48px !important;
+        height: 48px !important;
+
+        margin-bottom: 7px !important;
+    }
+
+
+    .sidenav .user-view .name,
+    .sidenav .user-view .email {
+        display: block !important;
+
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        overflow: hidden !important;
+
+        text-overflow: ellipsis !important;
+
+        white-space: nowrap !important;
+
+        font-size: 13px !important;
+
+        line-height: 20px !important;
+    }
+
+
+    .sidenav .user-view .name {
+        margin-top: 2px !important;
+        margin-bottom: 2px !important;
+    }
+
+
+    .sidenav .user-view .email {
+        margin-top: 0 !important;
+    }
+
+}
+
+/* =========================================================
+   HOME ACTIVITY
+   Desktop only
+========================================================= */
+
+.home-activity-section {
+    display: none;
+}
+
+@media (min-width: 993px) {
+
+    .home-activity-section {
+        display: block;
+    }
+
+    .home-activity-card {
+        display: grid;
+        gap: 10px;
+        padding: 10px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .home-activity-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        min-height: 68px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        transition: transform .2s ease, background .2s ease;
+    }
+
+    .home-activity-item:hover {
+        background: var(--devora-accent-light);
+        transform: translateX(-3px);
+    }
+
+    .home-activity-icon {
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+
+        display: grid;
+        place-items: center;
+
+        border-radius: 13px;
+
+        background: var(--devora-accent-light);
+        color: var(--devora-accent);
+    }
+
+    .home-activity-icon i {
+        font-size: 22px;
+    }
+
+    .home-activity-content {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .home-activity-content strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .home-activity-content span {
+        display: block;
+        font-size: 12px;
+        opacity: .62;
+    }
+
+    .home-activity-item time {
+        flex: 0 0 auto;
+        font-size: 11px;
+        opacity: .5;
+    }
+
+    .activity-view-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--devora-accent);
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .activity-view-all i {
+        font-size: 17px;
+    }
+}
+
+
+/* Dark Mode */
+
+html[data-theme="dark"] .home-activity-card {
+    background: #1d1d1d;
+    border-color: rgba(255, 255, 255, .08);
+}
+
+html[data-theme="dark"] .home-activity-item:hover {
+    background: rgba(255, 255, 255, .05);
 }
