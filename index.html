@@ -245,75 +245,110 @@
          </div>
       </section> 
 
-      <!-- Activity - Desktop Only -->
+
+<!-- =====================================================
+     RECENT ACTIVITY
+====================================================== -->
+
 <section class="home-section home-activity-section">
+
     <div class="section-title">
+
         <div>
-            <span>ACTIVITY</span>
-            <h2>Recent Activity</h2>
+
+            <span>
+                ACTIVITY
+            </span>
+
+            <h2>
+                Recent Activity
+            </h2>
+
         </div>
 
-        <a href="activity.html" class="activity-view-all">
-            View all
-            <i class="material-icons">arrow_forward</i>
+
+        <a
+            href="activity.html"
+            class="home-activity-view-all"
+        >
+
+            View All
+
+            <i class="material-icons">
+                arrow_forward
+            </i>
+
         </a>
-    </div>
-
-    <div class="home-activity-card">
-
-        <div class="home-activity-item">
-            <div class="home-activity-icon">
-                <i class="material-icons">login</i>
-            </div>
-
-            <div class="home-activity-content">
-                <strong>Dashboard opened</strong>
-                <span>Home page was opened</span>
-            </div>
-
-            <time>Now</time>
-        </div>
-
-        <div class="home-activity-item">
-            <div class="home-activity-icon">
-                <i class="material-icons">people</i>
-            </div>
-
-            <div class="home-activity-content">
-                <strong>User Management</strong>
-                <span>User management page was visited</span>
-            </div>
-
-            <time>Recently</time>
-        </div>
-
-        <div class="home-activity-item">
-            <div class="home-activity-icon">
-                <i class="material-icons">image</i>
-            </div>
-
-            <div class="home-activity-content">
-                <strong>Images</strong>
-                <span>Images page was visited</span>
-            </div>
-
-            <time>Recently</time>
-        </div>
-
-        <div class="home-activity-item">
-            <div class="home-activity-icon">
-                <i class="material-icons">article</i>
-            </div>
-
-            <div class="home-activity-content">
-                <strong>Articles</strong>
-                <span>Articles page was visited</span>
-            </div>
-
-            <time>Recently</time>
-        </div>
 
     </div>
+
+
+    <div class="home-activity-list">
+
+        <template
+            x-for="activity in homeActivities.slice(0, 4)"
+            :key="activity.id"
+        >
+
+            <a
+                href="activity.html"
+                class="home-activity-item"
+            >
+
+                <div class="home-activity-icon">
+
+                    <i
+                        class="material-icons"
+                        x-text="activity.icon"
+                    ></i>
+
+                </div>
+
+
+                <div class="home-activity-content">
+
+                    <strong
+                        x-text="activity.title"
+                    ></strong>
+
+                    <span
+                        x-text="activity.description"
+                    ></span>
+
+                </div>
+
+
+                <time
+                    x-text="activity.time"
+                ></time>
+
+
+                <i class="material-icons">
+                    chevron_right
+                </i>
+
+            </a>
+
+        </template>
+
+
+        <div
+            class="home-activity-empty"
+            x-show="homeActivities.length === 0"
+        >
+
+            <i class="material-icons">
+                history
+            </i>
+
+            <span>
+                No recent activity
+            </span>
+
+        </div>
+
+    </div>
+
 </section>
 
 <!-- System Management -->

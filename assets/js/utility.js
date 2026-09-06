@@ -384,179 +384,252 @@ document.addEventListener("alpine:init", function () {
     ====================================================== */
 
 
-    Alpine.data("activityData", function () {
+ Alpine.data("activityData", function () {
 
-        return {
+    return {
 
-            activities: [],
+        activities: [],
 
+        loading: false,
 
-            init() {
-
-                this.refresh();
-
-            },
+        filter: "all",
 
 
-            refresh() {
+        init() {
 
-                /*
-                 * These are intentionally generated from
-                 * the current state of the project.
-                 *
-                 * Later, when you add real activity logging,
-                 * this same array can be replaced by the
-                 * actual event store.
-                 */
+            this.loadActivities();
 
-                const now =
-                    new Date();
+        },
 
 
-                const time =
-                    (minutesAgo) => {
+        /* =================================================
+           LOAD
+        ================================================= */
 
-                        const date =
-                            new Date(
-                                now.getTime()
-                                -
-                                minutesAgo * 60000
-                            );
+        loadActivities() {
+
+            this.loading = true;
 
 
-                        return date.toLocaleTimeString(
-                            [],
-                            {
-                                hour: "2-digit",
-                                minute: "2-digit"
-                            }
-                        );
+            try {
 
-                    };
-
-
-                this.activities = [
-
-                    {
-                        id: 1,
-
-                        type: "system",
-
-                        icon: "verified",
-
-                        category: "SYSTEM",
-
-                        title:
-                            "Devora system is operational",
-
-                        description:
-                            "The application is running normally and all main workspace modules are available.",
-
-                        meta:
-                            "System health check",
-
-                        time:
-                            time(1)
-                    },
+                const saved =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "devora_activity_log"
+                        ) || "[]"
+                    );
 
 
-                    {
-                        id: 2,
-
-                        type: "users",
-
-                        icon: "people",
-
-                        category: "USERS",
-
-                        title:
-                            "User management synchronized",
-
-                        description:
-                            "The current user list was loaded and the local user cache was updated.",
-
-                        meta:
-                            "User Management",
-
-                        time:
-                            time(4)
-                    },
+                this.activities =
+                    Array.isArray(saved)
+                        ? saved
+                        : [];
 
 
-                    {
-                        id: 3,
+            } catch (error) {
 
-                        type: "images",
+                console.error(
+                    "Activity load error:",
+                    error
+                );
 
-                        icon: "image",
+                this.activities = [];
 
-                        category: "IMAGES",
+            } finally {
 
-                        title:
-                            "Image library checked",
-
-                        description:
-                            "Devora checked the local image database and synchronized the current image count.",
-
-                        meta:
-                            "DevoraImagesDB",
-
-                        time:
-                            time(7)
-                    },
-
-
-                    {
-                        id: 4,
-
-                        type: "articles",
-
-                        icon: "article",
-
-                        category: "ARTICLES",
-
-                        title:
-                            "Article resources available",
-
-                        description:
-                            "The article workspace is ready and available for management.",
-
-                        meta:
-                            "Articles",
-
-                        time:
-                            time(11)
-                    },
-
-
-                    {
-                        id: 5,
-
-                        type: "navigation",
-
-                        icon: "dashboard",
-
-                        category: "WORKSPACE",
-
-                        title:
-                            "Workspace opened",
-
-                        description:
-                            "Devora workspace modules are ready to use.",
-
-                        meta:
-                            "Dashboard",
-
-                        time:
-                            time(16)
-                    }
-
-                ];
+                this.loading = false;
 
             }
 
+        },
+
+
+        /* =================================================
+           FILTER
+        ================================================= */
+
+        get filteredActivities() {
+
+            if (this.filter === "all") {
+
+                return this.activities;
+
+            }
+
+
+            return this.activities.filter(
+                activity =>
+                    activity.category === this.filter
+            );
+
+        },
+
+
+        /* =================================================
+           FILTER COUNT
+        ================================================= */
+
+        get totalActivities() {
+
+            return this.activities.length;
+
+        },
+
+
+        /* =================================================
+           CLEAR
+        ================================================= */
+
+        clearActivities() {
+
+            localStorage.removeItem(
+                "devora_activity_log"
+            );
+
+
+            this.activities = [];
+
+        },
+
+
+        /* =================================================
+           REFRESH
+        ================================================= */
+
+        refresh() {
+
+            this.loadActivities();
+
+        }
+
+    };
+
+});
+/* =========================================================
+   DEVORA GLOBAL ACTIVITY LOGGER
+========================================================= */
+
+window.DevoraActivity = {
+
+    STORAGE_KEY:
+        "devora_activity_log",
+
+
+    add({
+
+        category = "system",
+
+        type = "system",
+
+        icon = "bolt",
+
+        title = "System activity",
+
+        description = "",
+
+        meta = ""
+
+    }) {
+
+
+        let activities = [];
+
+
+        try {
+
+            activities =
+                JSON.parse(
+                    localStorage.getItem(
+                        this.STORAGE_KEY
+                    ) || "[]"
+                );
+
+        } catch (error) {
+
+            activities = [];
+
+        }
+
+
+        const activity = {
+
+            id:
+                Date.now() +
+                Math.random(),
+
+
+            category,
+
+            type,
+
+            icon,
+
+            title,
+
+            description,
+
+            meta,
+
+
+            timestamp:
+                new Date().toISOString(),
+
+
+            time:
+                new Date().toLocaleTimeString(
+                    [],
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                )
+
         };
 
-    });
+
+        activities.unshift(
+            activity
+        );
+
+
+        /*
+         * Keep the last 50 events
+         */
+
+        activities =
+            activities.slice(0, 50);
+
+
+        localStorage.setItem(
+
+            this.STORAGE_KEY,
+
+            JSON.stringify(
+                activities
+            )
+
+        );
+
+
+        /*
+         * Tell Home / Activity to refresh
+         */
+
+        window.dispatchEvent(
+            new CustomEvent(
+                "devora:activity",
+                {
+                    detail: activity
+                }
+            )
+        );
+
+
+        return activity;
+
+    }
+
+};
 
 });

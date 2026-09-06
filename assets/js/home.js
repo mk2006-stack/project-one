@@ -12,6 +12,8 @@ document.addEventListener('alpine:init', () => {
         imageCount: 0,
         articleCount: 0,
 
+        homeActivities: [],
+
         comments: [],
         commentCount: 0,
 
@@ -30,18 +32,28 @@ document.addEventListener('alpine:init', () => {
         // INIT
         // =========================
 
-        init() {
-
-            this.loadWelcomeName();
-
-            this.getUsers();
-            this.getImageCount();
-            this.getArticleCount();
-            this.getComments();
-
-        },
-
-
+         init() {
+         
+             this.loadWelcomeName();
+         
+             this.getUsers();
+         
+             this.getImageCount();
+         
+             this.getArticleCount();
+         
+             this.getComments();
+         
+             this.loadHomeActivities();
+         
+             window.addEventListener(
+                 "devora:activity",
+                 () => {
+                     this.loadHomeActivities();
+                 }
+             );
+         
+         },
         // =========================
         // WELCOME
         // =========================
@@ -431,8 +443,45 @@ startCommentSlider() {
 
             }
 
+        },
+
+        // =========================
+        // HOME ACTIVITY
+        // =========================
+
+        loadHomeActivities() {
+
+            try {
+
+                const saved =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "devora_activity_log"
+                        ) || "[]"
+                    );
+
+
+                this.homeActivities =
+                    Array.isArray(saved)
+                        ? saved
+                        : [];
+
+
+            } catch (error) {
+
+                console.error(
+                    "HOME ACTIVITY ERROR:",
+                    error
+                );
+
+                this.homeActivities = [];
+
+            }
+
         }
 
-    }));
 
+    }
+    
+)); 
 });

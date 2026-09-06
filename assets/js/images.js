@@ -962,6 +962,28 @@ openUpload() {
 
                 await this.saveImage(image);
 
+                if (window.DevoraActivity) {
+
+                    DevoraActivity.add({
+                
+                        category: "images",
+                
+                        type: "images",
+                
+                        icon: "cloud_upload",
+                
+                        title: "Image uploaded",
+                
+                        description:
+                            `"${image.name}" was added to the image library.`,
+                
+                        meta:
+                            "Image Library"
+                
+                    });
+                
+                }
+
 
                 // ساخت URL برای نمایش
 
@@ -1141,9 +1163,29 @@ async saveImageEdit() {
 
                 if (!image?.demo) {
 
-                    await this.deleteFromDatabase(
-                        id
-                    );
+                    await this.deleteFromDatabase(id);
+
+                    if (window.DevoraActivity) {
+
+    DevoraActivity.add({
+
+        category: "images",
+
+        type: "images",
+
+        icon: "delete",
+
+        title: "Image deleted",
+
+        description:
+            `An image was removed from the image library.`,
+
+        meta:
+            "Image Library"
+
+    });
+
+}
 
                 }
 

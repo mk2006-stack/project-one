@@ -1217,22 +1217,6 @@ html[data-theme="dark"]
 }
 
 
-/* =========================================================
-   STATUS DESKTOP HIDE
-   IMPORTANT:
-   Status ONLY exists on mobile + tablet.
-========================================================= */
-
-@media (min-width: 993px) {
-
-    .utility-status-page {
-
-        display: none !important;
-
-    }
-
-}
-
 
 /* =========================================================
    TABLET
@@ -1686,6 +1670,363 @@ and
     .utility-stat-content strong {
 
         font-size: 28px;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   DESKTOP
+   993px+
+========================================================= */
+
+@media (min-width: 993px) {
+
+    .utility-page {
+
+        max-width: 1550px;
+
+        padding:
+            55px 45px 100px;
+
+    }
+
+
+    .utility-hero {
+
+        min-height: 390px;
+
+        padding:
+            65px 75px;
+
+    }
+
+
+    .utility-hero .hero-content {
+
+        max-width: 700px;
+
+    }
+
+
+    .utility-hero .hero-content h1 {
+
+        font-size: 52px;
+
+    }
+
+
+    .utility-hero .hero-content p {
+
+        max-width: 620px;
+
+        font-size: 16px;
+
+        line-height: 1.9;
+
+    }
+
+
+    .utility-hero-icon {
+
+        width: 180px;
+
+        height: 180px;
+
+        border-radius: 45px;
+
+    }
+
+
+    .utility-hero-icon i {
+
+        font-size: 90px;
+
+    }
+
+
+    /*
+       Status desktop
+       بزرگ‌تر و کامل‌تر
+    */
+
+    .utility-status-page
+    .status-overview-grid {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 35px;
+
+    }
+
+
+    .utility-status-page
+    .utility-stat-card {
+
+        min-height: 230px;
+
+        padding: 38px;
+
+    }
+
+
+    .utility-status-page
+    .utility-stat-content strong {
+
+        font-size: 48px;
+
+    }
+
+
+    .utility-status-page
+    .utility-section {
+
+        margin-top: 80px;
+
+    }
+
+
+    .utility-status-page
+    .health-card {
+
+        padding: 42px;
+
+    }
+
+
+    .utility-status-page
+    .utility-actions-grid {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 30px;
+
+    }
+
+
+    .utility-status-page
+    .utility-action-card {
+
+        min-height: 155px;
+
+        padding: 32px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+   601px - 992px
+========================================================= */
+
+@media
+(min-width: 601px)
+and
+(max-width: 992px) {
+
+    .utility-page {
+
+        padding:
+            40px 25px 80px;
+
+    }
+
+
+    .utility-hero {
+
+        min-height: 340px;
+
+        padding:
+            45px;
+
+    }
+
+
+    .status-overview-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .activity-summary-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .utility-actions-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .health-items {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .health-item {
+
+        border-right: 0;
+
+        border-bottom:
+            1px solid
+            var(--devora-border, #eee);
+
+    }
+
+
+    .health-item:last-child {
+
+        border-bottom: 0;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   600px and below
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .utility-page {
+
+        padding:
+            25px 15px 60px;
+
+    }
+
+
+    .utility-hero {
+
+        min-height: 330px;
+
+        padding:
+            30px 25px;
+
+    }
+
+
+    .status-overview-grid,
+
+    .activity-summary-grid,
+
+    .utility-actions-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .utility-stat-card {
+
+        min-height: 145px;
+
+    }
+
+
+    .activity-item {
+
+        grid-template-columns:
+            48px 1fr;
+
+    }
+
+}
+
+/* =========================================================
+   UTILITY NAVBAR
+========================================================= */
+
+.utility-navbar {
+
+    position: relative;
+
+    z-index: 900;
+
+}
+
+
+.utility-navbar .nav-wrapper {
+
+    padding:
+        0 28px;
+
+}
+
+
+.utility-navbar ul li.active {
+
+    background:
+        rgba(255,255,255,.16);
+
+}
+
+
+.utility-navbar ul li a {
+
+    transition:
+        background .2s ease;
+
+}
+
+
+.utility-navbar ul li a:hover {
+
+    background:
+        rgba(255,255,255,.10);
+
+}
+
+
+.utility-nav-title {
+
+    font-weight: 700;
+
+    margin-left: 55px;
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .utility-navbar .nav-wrapper {
+
+        padding:
+            0 10px;
+
+    }
+
+
+    .utility-nav-title {
+
+        margin-left: 52px;
+
+    }
+
+
+    .utility-navbar {
+
+        min-height: 56px;
 
     }
 

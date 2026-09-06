@@ -767,6 +767,28 @@ if (
                     fileObject
                 );
 
+                if (window.DevoraActivity) {
+
+    DevoraActivity.add({
+
+        category: "files",
+
+        type: "files",
+
+        icon: "upload_file",
+
+        title: "File uploaded",
+
+        description:
+            "A new file was added to the file library.",
+
+        meta:
+            "Files"
+
+    });
+
+}
+
 
                 await this.refreshFiles();
 

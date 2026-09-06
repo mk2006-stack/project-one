@@ -732,6 +732,28 @@ document.addEventListener("alpine:init", () => {
 
                     };
 
+                    if (window.DevoraActivity) {
+                    
+                        DevoraActivity.add({
+                    
+                            category: "articles",
+                    
+                            type: "articles",
+                    
+                            icon: "edit",
+                    
+                            title: "Article updated",
+                    
+                            description:
+                                `"${this.form.title}" was updated.`,
+                    
+                            meta:
+                                "Articles"
+                    
+                        });
+                    
+                    }
+
                 }
 
 
@@ -764,6 +786,29 @@ document.addEventListener("alpine:init", () => {
                 this.articles.unshift(
                     newArticle
                 );
+
+
+                if (window.DevoraActivity) {
+
+    DevoraActivity.add({
+
+        category: "articles",
+
+        type: "articles",
+
+        icon: "add_circle",
+
+        title: "Article created",
+
+        description:
+            `"${newArticle.title}" was created.`,
+
+        meta:
+            "Articles"
+
+    });
+
+}
 
 
                 M.toast({
@@ -811,6 +856,29 @@ document.addEventListener("alpine:init", () => {
 
 
             this.saveToStorage();
+
+
+            if (window.DevoraActivity) {
+
+    DevoraActivity.add({
+
+        category: "articles",
+
+        type: "articles",
+
+        icon: "delete",
+
+        title: "Article deleted",
+
+        description:
+            `"${article.title}" was deleted.`,
+
+        meta:
+            "Articles"
+
+    });
+
+}
 
 
             M.toast({

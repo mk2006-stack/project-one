@@ -945,6 +945,28 @@ const newUser = {
 
     this.saveUsersToStorage();
 
+    if (window.DevoraActivity) {
+
+    DevoraActivity.add({
+
+        category: "users",
+
+        type: "users",
+
+        icon: "person_add",
+
+        title: "User created",
+
+        description:
+            `"${newUser.name}" was added to the user management.`,
+
+        meta:
+            "User Management"
+
+    });
+
+}
+
     this.pageCount =
         Math.ceil(
             this.users.length /
@@ -1070,6 +1092,28 @@ const newUser = {
 
             this.saveCustomUsers();
             this.saveUsersCache();
+
+            if (window.DevoraActivity) {
+
+    DevoraActivity.add({
+
+        category: "users",
+
+        type: "users",
+
+        icon: "person_remove",
+
+        title: "User deleted",
+
+        description:
+            `"${user.name}" was removed from user management.`,
+
+        meta:
+            "User Management"
+
+    });
+
+}
 
 
             if (

@@ -44,6 +44,94 @@
     x-init="init()"
 >
 
+<!-- =====================================================
+     DEVORA NAVBAR
+====================================================== -->
+
+<nav class="z-depth-0 top_navbar red darken-1 utility-navbar">
+
+    <div class="nav-wrapper">
+
+        <!-- Mobile title -->
+
+        <a
+            href="#!"
+            class="hide-on-med-and-up utility-nav-title"
+        >
+            <span
+                x-show="isActivityPage === true"
+                x-cloak
+            >
+                Activity
+            </span>
+        </a>
+
+
+        <!-- Hamburger -->
+
+        <a
+            href="#"
+            data-target="mobile-demo"
+            class="sidenav-trigger"
+        >
+
+            <i class="material-icons">
+                menu
+            </i>
+
+        </a>
+
+
+        <!-- Desktop Navigation -->
+
+        <ul class="hide-on-med-and-down">
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+
+            <li>
+                <a href="user.html">
+                    User Management
+                </a>
+            </li>
+
+
+            <li>
+                <a href="images.html">
+                    Images
+                </a>
+            </li>
+
+
+            <li>
+                <a href="articles.html">
+                    Articles
+                </a>
+            </li>
+
+
+            <li>
+                <a href="files.html">
+                    Files
+                </a>
+            </li>
+
+
+            <li>
+                <a href="settings.html">
+                    Settings
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
 
     <!-- =====================================================
          SAME MOBILE SIDENAV
@@ -537,15 +625,17 @@
     </main>
 
 
-    <script src="assets/materialize/js/materialize.min.js"></script>
+<script src="assets/materialize/js/materialize.min.js"></script>
 
-    <script src="assets/js/alpine.js"></script>
+<script src="assets/js/axios.js"></script>
 
-    <script src="assets/js/axios.js"></script>
+<script src="assets/js/alpine.js"></script>
 
-    <script src="assets/js/main.js"></script>
+<script src="assets/js/utility.js"></script>
 
-    <script src="assets/js/utility.js"></script>
+<script src="assets/js/home.js"></script>
+
+<script src="assets/js/main.js"></script>
 
 </body>
 </html>
